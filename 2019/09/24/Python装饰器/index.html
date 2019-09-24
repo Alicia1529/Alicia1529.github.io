@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>Python装饰器 | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+
+<!-- <script zIndex="-2" src="js/canvas-nest.js"></script> -->
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Python装饰器</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">September 24, 2019&nbsp;&nbsp;21:10:40</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Python/">Python</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>转载请注明来源：<a href="http://blog.csdn.net/TangHuanan/article/details/45094497" target="_blank" rel="noopener">http://blog.csdn.net/TangHuanan/article/details/45094497</a></p>
+<p>假设我们有如下的基本函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def do_something():</span><br><span class="line">    for i in range(1000000):</span><br><span class="line">        pass</span><br><span class="line">    print &quot;play game&quot;</span><br><span class="line"></span><br><span class="line">do_something()</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">play game</span><br></pre></td></tr></table></figure>
+
+<p>需求1： 统计函数的执行时间</p>
+<h3 id="1-不是装饰器的装饰器"><a href="#1-不是装饰器的装饰器" class="headerlink" title="1. 不是装饰器的装饰器"></a>1. 不是装饰器的装饰器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">def decorator(fun):</span><br><span class="line">    start = time.time()</span><br><span class="line">    fun()</span><br><span class="line">    runtime = time.time()-start</span><br><span class="line">    print runtime</span><br><span class="line"></span><br><span class="line">def do_something():</span><br><span class="line">    for i in range(1000000):</span><br><span class="line">        pass</span><br><span class="line">    print &quot;play game&quot;</span><br><span class="line"></span><br><span class="line">decorator(do_something)</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">play game</span><br><span class="line">0.0299999713898</span><br></pre></td></tr></table></figure>
+
+<p>这种实现看上去还可以，但是每次调用的是decorator，还要把函数作为一个参数传入。这样需要修改调用的地方，使用起来就不方便了。</p>
+<h3 id="2-最简单的装饰器"><a href="#2-最简单的装饰器" class="headerlink" title="2. 最简单的装饰器"></a>2. 最简单的装饰器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">def decorator(fun):</span><br><span class="line">    def wrapper():</span><br><span class="line">        start = time.time()</span><br><span class="line">        fun()</span><br><span class="line">        runtime = time.time()-start</span><br><span class="line">        print runtime</span><br><span class="line">    return wrapper</span><br><span class="line">@decorator</span><br><span class="line">def do_something():</span><br><span class="line">    for i in range(1000000):</span><br><span class="line">        pass</span><br><span class="line">    print &quot;play game&quot;</span><br><span class="line"></span><br><span class="line">do_something()</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">play game</span><br><span class="line">0.0329999923706</span><br></pre></td></tr></table></figure>
+
+<p>装饰器是在函数定义时前面加@，然后跟装饰器的实现函数。可以看出，现在只要直接调用do_something就可以了。调用的地方不要作任何修改。</p>
+<h3 id="3-目标函数带固定参数的装饰器"><a href="#3-目标函数带固定参数的装饰器" class="headerlink" title="3. 目标函数带固定参数的装饰器"></a>3. 目标函数带固定参数的装饰器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">def decorator(fun):</span><br><span class="line">    def wrapper(name):</span><br><span class="line">        start = time.time()</span><br><span class="line">        fun(name)</span><br><span class="line">        runtime = time.time()-start</span><br><span class="line">        print runtime</span><br><span class="line">    return wrapper</span><br><span class="line">@decorator</span><br><span class="line">def do_something(name):</span><br><span class="line">    for i in range(1000000):</span><br><span class="line">        pass</span><br><span class="line">    print &quot;play game &quot; + name</span><br><span class="line"></span><br><span class="line">do_something(&quot;san guo sha&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">play game san guo sha</span><br><span class="line">0.039999961853</span><br></pre></td></tr></table></figure>
+
+<p>实现很简单， 就是给wrapper函数参加相同的参数</p>
+<h3 id="4-目标函数带不固定参数的装饰器"><a href="#4-目标函数带不固定参数的装饰器" class="headerlink" title="4. 目标函数带不固定参数的装饰器"></a>4. 目标函数带不固定参数的装饰器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">def decorator(fun):</span><br><span class="line">    def wrapper(*args, **kwargs):</span><br><span class="line">        start = time.time()</span><br><span class="line">        fun(*args, **kwargs)</span><br><span class="line">        runtime = time.time()-start</span><br><span class="line">        print runtime</span><br><span class="line">    return wrapper</span><br><span class="line">@decorator</span><br><span class="line">def do_something(name):</span><br><span class="line">    for i in range(1000000):</span><br><span class="line">        pass</span><br><span class="line">    print &quot;play game &quot; + name</span><br><span class="line"></span><br><span class="line">@decorator</span><br><span class="line">def do_something2(user, name):</span><br><span class="line">    for i in range(1000000):</span><br><span class="line">        pass</span><br><span class="line">    print user+&quot; play game &quot; + name</span><br><span class="line"></span><br><span class="line">do_something(&quot;san guo sha&quot;)</span><br><span class="line">do_something2(&quot;wang xiao er&quot;,&quot;san guo sha&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">play game san guo sha</span><br><span class="line">0.029000043869</span><br><span class="line">wang xiao er play game san guo sha</span><br><span class="line">0.0310001373291</span><br></pre></td></tr></table></figure>
+
+<p>需求2： 目标函数每次调用重复执行指定的次数</p>
+<h3 id="5-让装饰器带参数"><a href="#5-让装饰器带参数" class="headerlink" title="5. 让装饰器带参数"></a>5. 让装饰器带参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">def decorator(max):</span><br><span class="line">    def _decorator(fun):</span><br><span class="line">        def wrapper(*args, **kwargs):</span><br><span class="line">            start = time.time()</span><br><span class="line">            for i in xrange(max):</span><br><span class="line">                fun(*args, **kwargs)</span><br><span class="line">            runtime = time.time()-start</span><br><span class="line">            print runtime</span><br><span class="line">        return wrapper</span><br><span class="line">    return _decorator</span><br><span class="line">@decorator(2)</span><br><span class="line">def do_something(name):</span><br><span class="line">    for i in range(1000000):</span><br><span class="line">        pass</span><br><span class="line">    print &quot;play game &quot; + name</span><br><span class="line"></span><br><span class="line">do_something(&quot;san guo sha&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">play game san guo sha</span><br><span class="line">play game san guo sha</span><br><span class="line">0.0600001811981</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-原理"><a href="#6-原理" class="headerlink" title="6. 原理"></a>6. 原理</h3><p>看了这么多实例， 装饰器的基本类型也基本上都有了。是不是清楚了呢？<br>如果还是不清楚，那就继续看下面的内容。</p>
+<h4 id="1-不带参数的装饰器"><a href="#1-不带参数的装饰器" class="headerlink" title="1 不带参数的装饰器"></a>1 不带参数的装饰器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@a_decorator</span><br><span class="line">def f(...):</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">#经过a_decorator后， 函数f就相当于以f为参数调用a_decorator返回结果。</span><br><span class="line">f = a_decorator(f)</span><br></pre></td></tr></table></figure>
+
+<p>来分析这个式子， 可以看出至少要满足以下几个条件 </p>
+<ol>
+<li>装饰器函数运行在函数定义的时候 </li>
+<li>装饰器需要返回一个可执行的对象 </li>
+<li>装饰器返回的可执行对象要兼容函数f的参数</li>
+</ol>
+<h4 id="2-验证分析"><a href="#2-验证分析" class="headerlink" title="2 验证分析"></a>2 验证分析</h4><p>1 装饰器运行时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">def decorator(fun):</span><br><span class="line">    print &quot;decorator&quot;</span><br><span class="line">    def wrapper():</span><br><span class="line">        print &quot;wrapper&quot;</span><br><span class="line">        start = time.time()</span><br><span class="line">        fun()</span><br><span class="line">        runtime = time.time()-start</span><br><span class="line">        print runtime</span><br><span class="line">    return wrapper</span><br><span class="line">@decorator</span><br><span class="line">def do_something():</span><br><span class="line">    for i in range(1000000):</span><br><span class="line">        pass</span><br><span class="line">    print &quot;play game&quot;</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">decorator</span><br></pre></td></tr></table></figure>
+
+<p>可以看出， 这里的do_something并没有调用， 但是却打印了decorator， 可wrapper没有打印出来。也就是说decorator是在do_something调用的时候执行的。</p>
+<p>2 返回可执行的对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">def decorator(fun):</span><br><span class="line">    print &quot;decorator&quot;</span><br><span class="line">    def wrapper():</span><br><span class="line">        print &quot;wrapper&quot;</span><br><span class="line">        start = time.time()</span><br><span class="line">        fun()</span><br><span class="line">        runtime = time.time()-start</span><br><span class="line">        print runtime</span><br><span class="line">    return None</span><br><span class="line">@decorator</span><br><span class="line">def do_something():</span><br><span class="line">    for i in range(1000000):</span><br><span class="line">        pass</span><br><span class="line">    print &quot;play game&quot;</span><br><span class="line"></span><br><span class="line">do_something()</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">decoratorTraceback (most recent call last):</span><br><span class="line">  File &quot;deco.py&quot;, line 17, in &lt;module&gt;</span><br><span class="line">    do_something()</span><br><span class="line">TypeError: &apos;NoneType&apos; object is not callable</span><br></pre></td></tr></table></figure>
+
+<p>3 兼容函数f的参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">def decorator(fun):</span><br><span class="line">    print &quot;decorator&quot;</span><br><span class="line">    def wrapper():</span><br><span class="line">        print &quot;wrapper&quot;</span><br><span class="line">        start = time.time()</span><br><span class="line">        fun()</span><br><span class="line">        runtime = time.time()-start</span><br><span class="line">        print runtime</span><br><span class="line">    return wrapper</span><br><span class="line">@decorator</span><br><span class="line">def do_something(name):</span><br><span class="line">    for i in range(1000000):</span><br><span class="line">        pass</span><br><span class="line">    print &quot;play game&quot;</span><br><span class="line"></span><br><span class="line">do_something(&quot;san guo sha&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">decoratorTraceback (most recent call last):</span><br><span class="line">  File &quot;deco.py&quot;, line 17, in &lt;module&gt;</span><br><span class="line">    do_something(&quot;san guo sha&quot;)</span><br><span class="line">TypeError: wrapper() takes no arguments (1 given)</span><br></pre></td></tr></table></figure>
+
+<p>看到这里， 至少对不带参数的装饰器应该全弄清楚了， 也就是说能到看山还是山了。</p>
+<h3 id="3-带参数的装饰器"><a href="#3-带参数的装饰器" class="headerlink" title="3 带参数的装饰器"></a>3 带参数的装饰器</h3><p>这里就给一个式子， 剩下的问题可以自己去想</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@decomaker(argA, argB, ...)</span><br><span class="line">def func(arg1, arg2, ...):</span><br><span class="line">    pass</span><br><span class="line">#这个式子相当于</span><br><span class="line">func = decomaker(argA, argB, ...)(func)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-被装饰过的函数的函数名"><a href="#4-被装饰过的函数的函数名" class="headerlink" title="4 被装饰过的函数的函数名"></a>4 被装饰过的函数的函数名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">def decorator(fun):</span><br><span class="line">    def wrapper():</span><br><span class="line">        start = time.time()</span><br><span class="line">        fun()</span><br><span class="line">        runtime = time.time()-start</span><br><span class="line">        print runtime</span><br><span class="line">    return wrapper</span><br><span class="line">@decorator</span><br><span class="line">def do_something():</span><br><span class="line">    print &quot;play game&quot;</span><br><span class="line"></span><br><span class="line">print do_something.__name__</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wrapper</span><br></pre></td></tr></table></figure>
+
+<p>可以看出， do_something的函数名变成了wrapper，这不是我们想要的。原因估计各位也都清楚了。那要怎么去解决呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">def decorator(fun):</span><br><span class="line">    def wrapper():</span><br><span class="line">        start = time.time()</span><br><span class="line">        fun()</span><br><span class="line">        runtime = time.time()-start</span><br><span class="line">        print runtime</span><br><span class="line">    wrapper.__name__ = fun.__name__</span><br><span class="line">    return wrapper</span><br><span class="line">@decorator</span><br><span class="line">def do_something():</span><br><span class="line">    print &quot;play game&quot;</span><br><span class="line"></span><br><span class="line">print do_something.__name__</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">do_something</span><br></pre></td></tr></table></figure>
+
+<p>但是这个看起来是不是很不专业， python的unctools.wraps提供了解决方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">import functools </span><br><span class="line">def decorator(fun):</span><br><span class="line">    @functools.wraps(fun)</span><br><span class="line">    def wrapper():</span><br><span class="line">        start = time.time()</span><br><span class="line">        fun()</span><br><span class="line">        runtime = time.time()-start</span><br><span class="line">        print runtime</span><br><span class="line">    return wrapper</span><br><span class="line">@decorator</span><br><span class="line">def do_something():</span><br><span class="line">    print &quot;play game&quot;</span><br><span class="line"></span><br><span class="line">print do_something.__name__</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">do_something</span><br></pre></td></tr></table></figure>
+
+<p>到此为止， 你是不是觉得已经完全明白了呢？<br>但事实是， 这其实还不够</p>
+<h3 id="7-装饰器类"><a href="#7-装饰器类" class="headerlink" title="7. 装饰器类"></a>7. 装饰器类</h3><p>需求3： 让函数只能运行指定的次数<br>前面我们讲的都是函数式的装饰器， 那么类能不能成为装饰器呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">import functools </span><br><span class="line"></span><br><span class="line">class decorator(object):</span><br><span class="line">    def __init__(self, max):</span><br><span class="line">        self.max = max</span><br><span class="line">        self.count = 0</span><br><span class="line">    def __call__(self, fun):</span><br><span class="line">        self.fun = fun</span><br><span class="line">        return self.call_fun</span><br><span class="line"></span><br><span class="line">    def call_fun(self, *args, **kwargs):</span><br><span class="line">        self.count += 1</span><br><span class="line">        if ( self.count == self.max):</span><br><span class="line">            print &quot;%s run more than %d times&quot;%(self.fun.__name__, self.max)</span><br><span class="line">        elif (self.count&lt;self.max):</span><br><span class="line">            self.fun(*args, **kwargs)</span><br><span class="line">        else:</span><br><span class="line">            pass</span><br><span class="line"></span><br><span class="line">@decorator(10)</span><br><span class="line">def do_something():</span><br><span class="line">    print &quot;play game&quot;</span><br><span class="line">@decorator(15)</span><br><span class="line">def do_something1():</span><br><span class="line">    print &quot;play game 1&quot;</span><br><span class="line">for i in xrange(20):</span><br><span class="line">    do_something()</span><br><span class="line">    do_something1()</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">play game</span><br><span class="line">play game 1</span><br><span class="line">play game</span><br><span class="line">play game 1</span><br><span class="line">play game</span><br><span class="line">play game 1</span><br><span class="line">play game</span><br><span class="line">play game 1</span><br><span class="line">play game</span><br><span class="line">play game 1</span><br><span class="line">play game</span><br><span class="line">play game 1</span><br><span class="line">play game</span><br><span class="line">play game 1</span><br><span class="line">play game</span><br><span class="line">play game 1</span><br><span class="line">play game</span><br><span class="line">play game 1</span><br><span class="line">do_something run more than 10 times</span><br><span class="line">play game 1</span><br><span class="line">play game 1</span><br><span class="line">play game 1</span><br><span class="line">play game 1</span><br><span class="line">play game 1</span><br><span class="line">do_something1 run more than 15 times</span><br></pre></td></tr></table></figure>
+
+<p>是不是感觉有点怪， 但它确实是可行的。<br>在Python中， 其实函数也是对象。 反过来， 对象其实也可以像函数一样调用, 只要在类的方法中实现<strong>call</strong>方法。回想一下创建对象的过程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class A:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line">a = A()</span><br></pre></td></tr></table></figure>
+
+<p>这其实和函数调用没什么区别， 那么把这个式子代入到之前两个装饰器的式子中，结果如下：<br>带参数的装饰器<br><code>fun = A.__init__(args)(fun)</code><br>不带参数的装饰器<br><code>fun = A.__init__(fun)()</code></p>
+<p>现在装饰器的内容基本差不多了。 还有一些问题， 可以自己去尝试研究。</p>
+<p>自己的才是自己的<br>还有几个问题如下： </p>
+<ol>
+<li>类装饰器（装饰器装饰的对象是类） </li>
+</ol>
+<ol start="2">
+<li><p>类函数装饰器（装饰器装饰的对象是类的函数） </p>
+</li>
+<li><p>多个装饰器一起使用（函数嵌套）</p>
+</li>
+</ol>
+<p>————————————————<br>版权声明：本文为CSDN博主「TangHuanan」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/TangHuanan/article/details/45094497" target="_blank" rel="noopener">https://blog.csdn.net/TangHuanan/article/details/45094497</a></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://yoursite.com/2019/09/24/Python装饰器/">http://yoursite.com/2019/09/24/Python装饰器/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Python/"># Python</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2019/09/24/Java学习/">Java学习问题</a>
+            
+            
+            <a class="next" rel="next" href="/2019/09/24/Python迭代器和生成器/">Python的迭代器和生成器</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+</body>
+</html>
