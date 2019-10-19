@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>2019Fall学期实习面试问题.md | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+
+<!-- <script zIndex="-2" src="js/canvas-nest.js"></script> -->
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">2019Fall学期实习面试问题.md</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">September 26, 2019&nbsp;&nbsp;12:14:56</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Interview-Questions/">Interview Questions</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="和鲸科技-Node-js后端笔试"><a href="#和鲸科技-Node-js后端笔试" class="headerlink" title="和鲸科技 Node.js后端笔试"></a>和鲸科技 Node.js后端笔试</h3><h4 id="什么情况下抛出的异常会发生错误栈信息丢失的情况-能否提供一种解决该问题的方案-看不懂…这竟然是实习笔试题…"><a href="#什么情况下抛出的异常会发生错误栈信息丢失的情况-能否提供一种解决该问题的方案-看不懂…这竟然是实习笔试题…" class="headerlink" title="什么情况下抛出的异常会发生错误栈信息丢失的情况? 能否提供一种解决该问题的方案?(看不懂…这竟然是实习笔试题…)"></a>什么情况下抛出的异常会发生错误栈信息丢失的情况? 能否提供一种解决该问题的方案?(看不懂…这竟然是实习笔试题…)</h4><p>source: <a href="http://ju.outofmemory.cn/entry/126196" target="_blank" rel="noopener">http://ju.outofmemory.cn/entry/126196</a></p>
+<h4 id="你认为-RESTful-解决了什么问题，有什么不足"><a href="#你认为-RESTful-解决了什么问题，有什么不足" class="headerlink" title="你认为 RESTful 解决了什么问题，有什么不足?"></a>你认为 RESTful 解决了什么问题，有什么不足?</h4><blockquote>
+REST是Representational State Transfer的缩写，是Roy Thomas Fielding在他2000年的博士论文中提出的。其提出的设计概念和准则为：
+
+<ol>
+<li><p>网络上的所有事物都可以抽象为资源</p>
+</li>
+<li><p>每个资源都应该有唯一的标识（identifier），对资源的操作不会改变标识</p>
+</li>
+<li><p>所有的操作都是无状态的</p>
+</li>
+<li><p>使用标准方法（GET、POST、PUT、PATCH、DELETE）操作资源</p>
+</li>
+</ol>
+<p>首先，REST强调HTTP应当以资源为中心，并且规范了资源URI的风格；规范了HTTP请求动作（PUT，POST等）的使用，具有对应的语义；遵循REST规范的Web应用将会获得下面好处：URL具有很强可读性的，具有自描述性；资源描述与视图的松耦合；可提供OpenAPI，便于第三方系统集成，提高互操作性；如果提供无状态的服务接口，可提高应用的水平扩展性；</p>
+<p>总结下来：规范、易读，但是这两个优点也带来一些不尽如人意的”反效果”:</p>
+<p>因为RESTful规范较为明确且有一定的”强制性”,这种限制反而导致设计uri变得复杂了，尤其是复杂的关系，操作，资源集合，硬性套用rest原则设计非常困难。</p>
+<p>对于RESTful的争论无处不在，都在讨论正确性和规范性，即使和同事之间也会有类似的争执，当我们在争论Restful风格到底如何设计才是正宗时，发现心中的困惑不仅没有降低，反而增加了。RESTful思想及其所倡导的规范很正确，但是使用者的行为太刻意了反而导致这个东西变了味道，争来争去就是为了证明自己的理解和使用最”正宗”。</p>
+<p>对于 RESTful 的四种 HTTP/HTTPS 的方法，我看到不同的工程师有着不同的理解，而这点，是缺少足够明确的约束的。</p>
+<p>第一个例子，GET、POST、PUT、DELETE 分别表示对资源的获取、创建、修改和删除。但是实际操作中，我看到一些不一致的东西。比如修改，我见过有使用 PUT 的，使用 POST 的，也有使用 PATCH 的，很难讲孰对孰错，欠缺的是规约。</p>
+<p>第二个例子，使用 GET 来做查询，清晰简便，但是也有着自己的局限性，其中一个就是参数的携带。明文参数的方法并不适合传递吧比较多的参数，而且如果参数值不是普通字符串或者数值，而是数组等集合，它缺少清晰而友好的传递方式。于是我看到有一些工程师会使用 POST 来解决这样的问题，这无疑从某种程度上破坏了 RESTful 的一些规约。</p>
+<p>第三个例子——版本的指定：我以前所了解到的，版本是可以再请求头部的 Accept 头中指定的，但是我看到了一些把版本号放到 URL 中的解决方案。考虑到 REST 本来也只是一种方式和风格，不能说这样的做法就是错误的，但我觉得还是缺少一个在 REST 之上更为细致的协议或者规约。</p>
+<p>第四个例子，参数的指定方式，放到问号前面的 URI 里面去还是放到问号后面的参数键值对里面去，我看到了不一致的处理方式。</p>
+</blockquote>
+
+<h4 id="请提供一种在客户端禁用了-cookie-环境下实现-session-逻辑的方法"><a href="#请提供一种在客户端禁用了-cookie-环境下实现-session-逻辑的方法" class="headerlink" title="请提供一种在客户端禁用了 cookie 环境下实现 session 逻辑的方法"></a>请提供一种在客户端禁用了 cookie 环境下实现 session 逻辑的方法</h4><ul>
+<li>URL 重写方式</li>
+</ul>
+<p>比如 url 是 <a href="http://xxx.com/?sessionid=xxxxxx" target="_blank" rel="noopener">http://xxx.com/?sessionid=xxxxxx</a> 这种的，每次 get 参数都带上这个 id<br>就可以达到相同效果。</p>
+<ul>
+<li>hidden input</li>
+</ul>
+<p>这种更好理解 就是在 form 里面加入 sessionid。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://alicia1529.github.io/2019/09/26/2019Fall学期实习面试问题/">https://alicia1529.github.io/2019/09/26/2019Fall学期实习面试问题/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/interview/"># interview</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2019/10/15/Git操作/">Git操作</a>
+            
+            
+            <a class="next" rel="next" href="/2019/09/24/Cookie&Session/">Cookie&Session.md</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+<!-- <script type="text/javascript" color="0,0,0" opacity='0.7' zIndex="-2" count="100" src="https://github.com/hustcc/canvas-nest.js/blob/master/dist/canvas-nest.js"></script> -->
+</body>
+</html>
