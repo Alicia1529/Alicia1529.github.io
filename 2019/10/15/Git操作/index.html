@@ -144,7 +144,12 @@
         </header>
 
         <div class="post-content">
-            <p>Git cheat sheet: <a href="https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf" target="_blank" rel="noopener">https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf</a></p>
+            <p>git pull 强制覆盖本地代码：</p>
+<ol>
+<li>git fetch –all # 从远程下载最新的，而不尝试合并或rebase任何东西。</li>
+<li>git reset –hard origin/<branch_name> # 将主分支重置为您刚刚获取的内容。 –hard选项更改工作树中的所有文件以匹配origin/master中的文件</branch_name></li>
+</ol>
+<p>Git cheat sheet: <a href="https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf" target="_blank" rel="noopener">https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf</a></p>
 <p><a href="https://blog.csdn.net/qq_32452623/article/details/79449534" target="_blank" rel="noopener">git cherry-pick <commit id></commit></a></p>
 <p><a href="https://www.cnblogs.com/ludashi/p/8116434.html" target="_blank" rel="noopener">Git知识总览(四) git分支管理之rebase 以及 cherry-pick相关操作</a></p>
 <p><a href="https://www.cnblogs.com/ludashi/p/8213550.html" target="_blank" rel="noopener">Git知识总览(五) Git中的merge、rebase、cherry-pick以及交互式rebase</a></p>
