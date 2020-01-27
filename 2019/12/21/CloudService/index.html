@@ -7,7 +7,7 @@
 
 
 
-<title>MXNet相关文章和资源 | Aliciaaa</title>
+<title>Cloud Service | Aliciaaa</title>
 
 
 
@@ -108,11 +108,75 @@
             <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+
+<!-- <script zIndex="-2" src="js/canvas-nest.js"></script> -->
+    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">MXNet相关文章和资源</h1>
+            <h1 class="post-title">Cloud Service</h1>
             
                 <div class="post-meta">
                     
@@ -121,14 +185,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">October 20, 2019&nbsp;&nbsp;0:15:23</a>
+                        Date: <a href="#">December 21, 2019&nbsp;&nbsp;13:54:28</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Machine-Learning-System/">Machine Learning System</a>
+                                <a href="/categories/Web/">Web</a>
                             
                             
                         </span>
@@ -144,12 +208,48 @@
         </header>
 
         <div class="post-content">
-            <p><a href="https://yq.aliyun.com/articles/513763" target="_blank" rel="noopener">DMLC：最大开源分布式机器学习项目</a></p>
-<p><a href="https://github.com/dmlc?spm=a2c4e.10696291.0.0.272219a4FgMh72" target="_blank" rel="noopener">Distributed (Deep) Machine Learning Community</a>,<a href="https://dmlc.github.io" target="_blank" rel="noopener">News</a></p>
-<p>Distributed Machine Learning Common Codebase:<a href="https://github.com/dmlc/dmlc-core/tree/9088d2ee02cdfe393fd0569af4aefebe94f8b105" target="_blank" rel="noopener">dmlc/dmlc-core</a></p>
-<p><a href="https://medium.com/@pythonlessons0/deep-neural-networks-step-by-step-with-numpy-library-565836a867db" target="_blank" rel="noopener">Deep Neural Networks step by step with numpy library</a></p>
-<p><a href="https://blog.csdn.net/m48o8gewuc/article/details/78140716" target="_blank" rel="noopener">MXNet–DMLC-Core代码解读与宏</a></p>
-<p><a href="https://numpy.mxnet.io/guide/deepnumpy/deepnumpy-vs-numpy.html" target="_blank" rel="noopener">DeepNumPy versus NumPy¶</a></p>
+            <h3 id="Tencent-Cloud"><a href="#Tencent-Cloud" class="headerlink" title="Tencent Cloud"></a>Tencent Cloud</h3><ul>
+<li>Use account and password to login</li>
+</ul>
+<ol>
+<li><p>Connect to the server <code>ssh &lt;username&gt;@&lt;hostname or IP address&gt;</code></p>
+</li>
+<li><p>Enter password</p>
+</li>
+</ol>
+<ul>
+<li>Use key to login</li>
+</ul>
+<ol>
+<li><p>Download the key file <code>chmod 400 &lt;下载的与云服务器关联的私钥的绝对路径&gt;</code></p>
+</li>
+<li><p>Remote login <code>ssh -i &lt;下载的与云服务器关联的私钥的绝对路径&gt; &lt;username&gt;@&lt;hostname or IP address&gt;</code><br>eg. <code>ssh -i &quot;Mac/Downloads/shawn_qcloud_stable&quot; ubuntu@192.168.11.123</code></p>
+</li>
+<li><p>Change authrization: <code>chmod 400 &lt;file&gt;</code> to enable copy operation</p>
+</li>
+<li><p>Notes: <a href="https://zhuanlan.zhihu.com/p/58733320" target="_blank" rel="noopener">SSH远程登录的步骤与技巧</a></p>
+</li>
+</ol>
+<h3 id="Environment-setup"><a href="#Environment-setup" class="headerlink" title="Environment setup"></a>Environment setup</h3><ol>
+<li><p>update <code>sudo apt-get update</code></p>
+</li>
+<li><p>install mysql <code>sudo apt-get install mysql-server</code></p>
+</li>
+<li><p>configure mysql and resolve error <a href="https://stackoverflow.com/questions/42153059/mysqld-safe-directory-var-run-mysqld-for-unix-socket-file-dont-exists" target="_blank" rel="noopener"></a><br>solve error <code>mysqld_safe Directory &#39;/var/run/mysqld&#39; for UNIX socket file don&#39;t exists</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /var/run/mysqld</span><br><span class="line">chown mysql:mysql /var/run/mysqld</span><br><span class="line">mysqld_safe --skip-grant-tables</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>change to root user <code>sudo su</code>, change to ubuntu user <code>sudo ubuntu</code></p>
+</li>
+<li><p>install Java <code>sudo apt-get install openjdk-8-jdk</code></p>
+</li>
+<li><p>download tomcat to local-&gt; upload -&gt; unzip: <code>tar xvf apache-tomcat-8.5.50.tar</code></p>
+</li>
+<li><p>configure:<br> <a href="https://blog.csdn.net/Zack_zhuo/article/details/65449215" target="_blank" rel="noopener">https://blog.csdn.net/Zack_zhuo/article/details/65449215</a></p>
+<p> 配置mysql到公网 <a href="https://blog.csdn.net/Rex_Joush/article/details/79828325" target="_blank" rel="noopener">https://blog.csdn.net/Rex_Joush/article/details/79828325</a></p>
+</li>
+<li><p>deploy maven project: <a href="https://www.xujun.org/note-70768.html" target="_blank" rel="noopener">https://www.xujun.org/note-70768.html</a></p>
+</li>
+</ol>
 
         </div>
 
@@ -164,7 +264,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://www.alicialuo.com/2019/10/20/MLSystem/">https://www.alicialuo.com/2019/10/20/MLSystem/</a></span>
+                        <span><a href="https://www.alicialuo.com/2019/12/21/CloudService/">https://www.alicialuo.com/2019/12/21/CloudService/</a></span>
                     </p>
                 
                 
@@ -178,9 +278,11 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/MLSys/"># MLSys</a>
+                        <a href="/tags/Web/"># Web</a>
                     
-                        <a href="/tags/MXNet/"># MXNet</a>
+                        <a href="/tags/Cloud/"># Cloud</a>
+                    
+                        <a href="/tags/Server/"># Server</a>
                     
                         
                 </span>
@@ -193,10 +295,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2019/12/21/CloudService/">Cloud Service</a>
+                <a class="prev" rel="prev" href="/2020/01/17/Leetcode-Array/">Leetcode Array类问题</a>
             
             
-            <a class="next" rel="next" href="/2019/10/19/Python并行计算基本概念/">Python并行计算基本概念.md</a>
+            <a class="next" rel="next" href="/2019/10/20/MLSystem/">MXNet相关文章和资源</a>
             
         </section>
 
