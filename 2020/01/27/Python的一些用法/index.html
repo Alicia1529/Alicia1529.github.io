@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>Python的一些用法 | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+
+<!-- <script zIndex="-2" src="js/canvas-nest.js"></script> -->
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Python的一些用法</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">January 27, 2020&nbsp;&nbsp;18:30:43</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Python/">Python</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="Format"><a href="#Format" class="headerlink" title="Format"></a>Format</h3><ol>
+<li><p>百分号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> 1 &gt;&gt;&gt; print(&apos;%f&apos; % 1.11)  # 默认保留6位小数</span><br><span class="line"> 2 1.110000</span><br><span class="line"> 3 &gt;&gt;&gt; print(&apos;%.1f&apos; % 1.11)  # 取1位小数</span><br><span class="line"> 4 1.1</span><br><span class="line"> 5 &gt;&gt;&gt; print(&apos;%e&apos; % 1.11)  # 默认6位小数，用科学计数法</span><br><span class="line"> 6 1.110000e+00</span><br><span class="line"> 7 &gt;&gt;&gt; print(&apos;%.3e&apos; % 1.11)  # 取3位小数，用科学计数法</span><br><span class="line"> 8 1.110e+00</span><br><span class="line"> 9 &gt;&gt;&gt; print(&apos;%g&apos; % 1111.1111)  # 默认6位有效数字</span><br><span class="line">10 1111.11</span><br><span class="line">11 &gt;&gt;&gt; print(&apos;%.7g&apos; % 1111.1111)  # 取7位有效数字</span><br><span class="line">12 1111.111</span><br><span class="line">13 &gt;&gt;&gt; print(&apos;%.2g&apos; % 1111.1111)  # 取2位有效数字，自动转换为科学计数法</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>format符号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#通过位置</span><br><span class="line">print &apos;&#123;0&#125;,&#123;1&#125;&apos;.format(&apos;chuhao&apos;,20)</span><br><span class="line"> </span><br><span class="line">print &apos;&#123;&#125;,&#123;&#125;&apos;.format(&apos;chuhao&apos;,20)</span><br><span class="line"> </span><br><span class="line">print &apos;&#123;1&#125;,&#123;0&#125;,&#123;1&#125;&apos;.format(&apos;chuhao&apos;,20)&lt;br&gt;</span><br><span class="line"> </span><br><span class="line">#通过关键字参数</span><br><span class="line">print &apos;&#123;name&#125;,&#123;age&#125;&apos;.format(age=18,name=&apos;chuhao&apos;)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><p>用法: <a href="https://www.runoob.com/python3/python3-set.html" target="_blank" rel="noopener">https://www.runoob.com/python3/python3-set.html</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = set()</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">set()</span><br><span class="line">&gt;&gt;&gt; a.add(&quot;1&quot;)</span><br><span class="line">&gt;&gt;&gt; a.add(&quot;12345&quot;)</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">&#123;&apos;1&apos;, &apos;12345&apos;&#125;</span><br><span class="line">&gt;&gt;&gt; a.update(&quot;123456&quot;)</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">&#123;&apos;5&apos;, &apos;2&apos;, &apos;12345&apos;, &apos;3&apos;, &apos;1&apos;, &apos;6&apos;, &apos;4&apos;&#125;</span><br><span class="line">&gt;&gt;&gt; a.update(&quot;123456&quot;,&quot;asdf&quot;)</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">&#123;&apos;s&apos;, &apos;5&apos;, &apos;2&apos;, &apos;a&apos;, &apos;12345&apos;, &apos;d&apos;, &apos;3&apos;, &apos;1&apos;, &apos;6&apos;, &apos;4&apos;, &apos;f&apos;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="reverse-and-sort"><a href="#reverse-and-sort" class="headerlink" title="reverse and sort"></a>reverse and sort</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = [4,5,7,8,1,2,4]</span><br><span class="line">&gt;&gt;&gt; sorted(a)</span><br><span class="line">[1, 2, 4, 4, 5, 7, 8]</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">[4, 5, 7, 8, 1, 2, 4]</span><br><span class="line">&gt;&gt;&gt; b = sorted(a)</span><br><span class="line">&gt;&gt;&gt; b</span><br><span class="line">[1, 2, 4, 4, 5, 7, 8]</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">[4, 5, 7, 8, 1, 2, 4]</span><br><span class="line">&gt;&gt;&gt; a.sort()</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">[1, 2, 4, 4, 5, 7, 8]</span><br><span class="line">&gt;&gt;&gt; b = [4,5,1,23,5]</span><br><span class="line">&gt;&gt;&gt; b.reverse()</span><br><span class="line">&gt;&gt;&gt; b</span><br><span class="line">[5, 23, 1, 5, 4]</span><br><span class="line">&gt;&gt;&gt; reversed(b)</span><br><span class="line">&lt;list_reverseiterator object at 0x108431eb8&gt;</span><br><span class="line">&gt;&gt;&gt; list(reversed(b))</span><br><span class="line">[4, 5, 1, 23, 5]</span><br></pre></td></tr></table></figure>
+
+<h3 id="chr-and-ord"><a href="#chr-and-ord" class="headerlink" title="chr and ord"></a>chr and ord</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; ord(&quot;a&quot;)</span><br><span class="line">97</span><br><span class="line">&gt;&gt;&gt; ord(&quot;A&quot;)</span><br><span class="line">65</span><br><span class="line">&gt;&gt;&gt; chr(97)</span><br><span class="line">&apos;a&apos;</span><br><span class="line">&gt;&gt;&gt; chr(65)</span><br><span class="line">&apos;A&apos;</span><br></pre></td></tr></table></figure>
+
+<h3 id="enumerate-and-zip"><a href="#enumerate-and-zip" class="headerlink" title="enumerate and zip"></a>enumerate and zip</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">// enumerate</span><br><span class="line">a = [&apos;one&apos;,&apos;two&apos;,&apos;three&apos;,&apos;four&apos;,&apos;five&apos;]</span><br><span class="line">for a_index, a_value in enumerate(a):</span><br><span class="line">    print(&apos;&#123;&#125;:&#123;&#125;&apos;.format(a_index,a_value))</span><br><span class="line">0:one</span><br><span class="line">1:two</span><br><span class="line">2:three</span><br><span class="line">3:four</span><br><span class="line">4:five</span><br><span class="line"></span><br><span class="line">// 在enumerate()函数中，也可以给第2个参数“start”的值，指定当前索引的****初始值，如下例所示：</span><br><span class="line">b = [&apos;Monday&apos;,&apos;Tuesday&apos;,&apos;Wednesday&apos;,&apos;Thursday&apos;,&apos;Friday&apos;,&apos;Saturday&apos;,&apos;Sunday&apos;]</span><br><span class="line">for b_index, b_value in enumerate(b,start=1):</span><br><span class="line">    print(&apos;星期&#123;&#125;:&#123;&#125;&apos;.format(b_index,b_value))</span><br><span class="line">星期1:Monday</span><br><span class="line">星期2:Tuesday</span><br><span class="line">星期3:Wednesday</span><br><span class="line">星期4:Thursday</span><br><span class="line">星期5:Friday</span><br><span class="line">星期6:Saturday</span><br><span class="line">星期7:Sunday</span><br><span class="line"></span><br><span class="line">// zip</span><br><span class="line">names = [&apos;张三&apos;,&apos;李四&apos;,&apos;王五&apos;]</span><br><span class="line">sexs = [&apos;boy&apos;,&apos;girl&apos;,&apos;boy&apos;]</span><br><span class="line">scores = [86, 92, 75]</span><br><span class="line"></span><br><span class="line">for name, sex, score in zip(names,sexs,scores):</span><br><span class="line">    print(&apos;&#123;&#125;: &#123;&#125;, &#123;&#125;&apos;.format(name, sex, score))</span><br><span class="line">张三: boy, 86</span><br><span class="line">李四: girl, 92</span><br><span class="line">王五: boy, 75</span><br><span class="line"></span><br><span class="line">//如果各个可迭代对象的元素个数不一致，则返回的对象长度与最短的可迭代对象相同。例如，对上面的例子，列表scores减少一个元素，修改如下：</span><br><span class="line">names = [&apos;张三&apos;,&apos;李四&apos;,&apos;王五&apos;]</span><br><span class="line">sexs = [&apos;boy&apos;,&apos;girl&apos;,&apos;boy&apos;]</span><br><span class="line">scores = [86, 92]</span><br><span class="line"></span><br><span class="line">for name, sex, score in zip(names,sexs,scores):</span><br><span class="line">    print(&apos;&#123;&#125;: &#123;&#125;, &#123;&#125;&apos;.format(name, sex, score))</span><br><span class="line">张三: boy, 86</span><br><span class="line">李四: girl, 92</span><br></pre></td></tr></table></figure>
+
+<h3 id="collections"><a href="#collections" class="headerlink" title="collections"></a>collections</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import collections</span><br><span class="line">&gt;&gt;&gt; count = collections.Counter(&quot;leetcode&quot;)</span><br><span class="line">&gt;&gt;&gt; count</span><br><span class="line">Counter(&#123;&apos;e&apos;: 3, &apos;l&apos;: 1, &apos;t&apos;: 1, &apos;c&apos;: 1, &apos;o&apos;: 1, &apos;d&apos;: 1&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="built-in-attributes"><a href="#built-in-attributes" class="headerlink" title="built-in attributes"></a>built-in attributes</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">isdigit()</span><br><span class="line">isnumeric()</span><br><span class="line">isalpnum()</span><br><span class="line">&quot;xxxx&quot;.find(xxxx)</span><br><span class="line">&quot;xxxx&quot;.index(xxx)</span><br></pre></td></tr></table></figure>
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://www.alicialuo.com/2020/01/27/Python的一些用法/">https://www.alicialuo.com/2020/01/27/Python的一些用法/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/leetcode/"># leetcode</a>
+                    
+                        <a href="/tags/Python/"># Python</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/01/28/Leetcode-String/">Leetcode String类问题</a>
+            
+            
+            <a class="next" rel="next" href="/2020/01/17/Leetcode-Array/">Leetcode Array类问题</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+<!-- <script type="text/javascript" color="0,0,0" opacity='0.7' zIndex="-2" count="100" src="https://github.com/hustcc/canvas-nest.js/blob/master/dist/canvas-nest.js"></script> -->
+</body>
+</html>

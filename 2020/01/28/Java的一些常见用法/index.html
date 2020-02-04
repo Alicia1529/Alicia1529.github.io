@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>Java的一些用法 | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+
+<!-- <script zIndex="-2" src="js/canvas-nest.js"></script> -->
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Java的一些用法</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">January 28, 2020&nbsp;&nbsp;15:18:31</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Java/">Java</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="Java-Integer"><a href="#Java-Integer" class="headerlink" title="Java Integer"></a>Java Integer</h3><ol>
+<li>最值问题</li>
+</ol>
+<p>java int 类整数的最大值是 (2 的 31 次方 - 1) = 2147483648 - 1 = 2147483647</p>
+<ul>
+<li><code>Integer.MAX_VALUE</code> 表示int类型最大值，即 <code>int max_value = Integer.MAX_VALUE</code></li>
+</ul>
+<p><code>@Native public static final int MAX_VALUE = 0x7fffffff;</code></p>
+<ul>
+<li><code>Integer.MIN_VALUE</code> 表示int类型最小值，即 <code>int min_value = Integer.MIN_VALUE</code></li>
+</ul>
+<p><code>@Native public static final int MIN_VALUE = 0x80000000;</code></p>
+<ul>
+<li><p><code>Integer.MAX_VALUE + 1 = Integer.MIN_VALUE = -2147483648</code></p>
+</li>
+<li><p>再大的数就要用 long （最大值 2 的 63 次方 - 1 ）或者 BigDecimal 表示</p>
+</li>
+</ul>
+<ol start="2">
+<li>Integer 和 String 互相转换<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 方法一:Integer类的静态方法toString()</span><br><span class="line">Integer a = 2;</span><br><span class="line">String str = Integer.toString(a)</span><br><span class="line"> </span><br><span class="line">// 方法二:Integer类的成员方法toString()</span><br><span class="line">Integer a = 2;</span><br><span class="line">String str = a.toString();</span><br><span class="line"> </span><br><span class="line">// 方法三:String类的静态方法valueOf()</span><br><span class="line">Integer a = 2;</span><br><span class="line">String str = String.valueOf(a);</span><br><span class="line"></span><br><span class="line">// source code</span><br><span class="line">public static String valueOf(Object obj) &#123;</span><br><span class="line">        return (obj == null) ? &quot;null&quot; : obj.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">// String转Integer</span><br><span class="line">// 当我们要把String转化为Integer时，一定要对String进行非空判断，否则很可能报空指针异常。</span><br><span class="line">String str = &quot;...&quot;;</span><br><span class="line">Integer i = null;</span><br><span class="line">if(str!=null)&#123;</span><br><span class="line">     i = Integer.valueOf(str);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="Java-HashMap"><a href="#Java-HashMap" class="headerlink" title="Java HashMap"></a>Java HashMap</h3><p><a href="https://www.cnblogs.com/LiaHon/p/11142958.html" target="_blank" rel="noopener">HashMap原理(一) 概念和底层架构</a></p>
+<p><a href="https://www.cnblogs.com/LiaHon/p/11149644.html" target="_blank" rel="noopener">HashMap原理(二) 扩容机制及存取原理</a></p>
+<p>(1) HashMap：它根据键的hashCode值存储数据，大多数情况下可以直接定位到它的值，因而具有很快的访问速度，但遍历顺序却是不确定的。 HashMap最多只允许一条记录的键为null，允许多条记录的值为null。HashMap非线程安全，即任一时刻可以有多个线程同时写HashMap，可能会导致数据的不一致。如果需要满足线程安全，可以用 Collections的synchronizedMap方法使HashMap具有线程安全的能力，或者使用ConcurrentHashMap。</p>
+<p>(2) Hashtable：Hashtable是遗留类，很多映射的常用功能与HashMap类似，不同的是它承自Dictionary类，并且是线程安全的，任一时间只有一个线程能写Hashtable，并发性不如ConcurrentHashMap，因为ConcurrentHashMap引入了分段锁。Hashtable不建议在新代码中使用，不需要线程安全的场合可以用HashMap替换，需要线程安全的场合可以用ConcurrentHashMap替换。</p>
+<p>(3) LinkedHashMap：LinkedHashMap是HashMap的一个子类，保存了记录的插入顺序，在用Iterator遍历LinkedHashMap时，先得到的记录肯定是先插入的，也可以在构造时带参数，按照访问次序排序。</p>
+<p>(4) TreeMap：TreeMap实现SortedMap接口，能够把它保存的记录根据键排序，默认是按键值的升序排序，也可以指定排序的比较器，当用Iterator遍历TreeMap时，得到的记录是排过序的。如果使用排序的映射，建议使用TreeMap。在使用TreeMap时，key必须实现Comparable接口或者在构造TreeMap传入自定义的Comparator，否则会在运行时抛出java.lang.ClassCastException类型的异常。</p>
+<p>对于上述四种Map类型的类，要求映射中的key是不可变对象。不可变对象是该对象在创建后它的哈希值不会被改变。如果对象的哈希值发生变化，Map对象很可能就定位不到映射的位置了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;String,Integer&gt; map=new HashMap&lt;String,Integer&gt;();</span><br><span class="line"></span><br><span class="line">1.put(K key, V value) 将键（key）/值（value）映射存放到Map集合中，向HashMap中添加元素</span><br><span class="line">// 需要注意的是，key不允许重复，否则会覆盖已有的key对应的值</span><br><span class="line">map.put(&quot;Tom&quot;,100);</span><br><span class="line"></span><br><span class="line">2.get(Object key) 返回指定键所映射的值，没有该key对应的值则返回 null</span><br><span class="line">int score=map.get(&quot;Tom&quot;);</span><br><span class="line"></span><br><span class="line">3.size()  返回Map集合中数据数量</span><br><span class="line">System.out.println(map.size());</span><br><span class="line"></span><br><span class="line">4.clear() 清空Map集合</span><br><span class="line">map.clear();</span><br><span class="line">System.out.println(map.size()); // 0</span><br><span class="line"></span><br><span class="line">5.isEmpty () 判断Map集合中是否有数据，如果没有则返回true，否则返回false</span><br><span class="line">System.out.println(map.isEmpty());</span><br><span class="line"></span><br><span class="line">6.remove(Object key) 删除Map集合中键为key的数据并返回其所对应value值。</span><br><span class="line">System.out.println(map.remove(&quot;Tom&quot;));</span><br><span class="line"></span><br><span class="line">7.values()  返回Map集合中所有value组成的以Collection数据类型格式数据。</span><br><span class="line">Collection&lt;Integer&gt; con = map.values();</span><br><span class="line"></span><br><span class="line">8.containsKey(Object key)  判断集合中是否包含指定键，包含返回 true，否则返回false</span><br><span class="line">System.out.println(map.containsKey(&quot;Lucy&quot;));</span><br><span class="line"></span><br><span class="line">9.containsValue(Object value)  判断集合中是否包含指定值，包含返回 true，否则返回false</span><br><span class="line">System.out.println(map.containsValue(90));</span><br><span class="line"></span><br><span class="line">10.keySet()  返回Map集合中所有key组成的Set集合</span><br><span class="line">Set&lt;String&gt; set=map.keySet();</span><br><span class="line"></span><br><span class="line">11.entrySet()  将Map集合每个key-value转换为一个Entry对象并返回由所有的Entry对象组成的Set集合</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    HashMap&lt;String,Integer&gt; map=new HashMap&lt;String,Integer&gt;();</span><br><span class="line">    map.put(&quot;Tom&quot;,100);</span><br><span class="line">    map.put(&quot;Jim&quot;, 90);</span><br><span class="line">    Set&lt;String&gt; set=map.keySet();</span><br><span class="line">    for (String key: set) &#123;</span><br><span class="line">        System.out.println(key+&quot; &quot;+map.get(key));</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    Iterator&lt;String&gt; iterator=set.iterator();</span><br><span class="line">    while(iterator.hasNext()) &#123;</span><br><span class="line">        String key=iterator.next();</span><br><span class="line">        System.out.println(key+&quot; &quot;+map.get(key));	</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    HashMap&lt;String,Integer&gt; map=new HashMap&lt;String,Integer&gt;();</span><br><span class="line">    map.put(&quot;Tom&quot;,100);</span><br><span class="line">    map.put(&quot;Jim&quot;, 90);</span><br><span class="line">    Set&lt;Entry&lt;String,Integer&gt;&gt; set=map.entrySet();</span><br><span class="line">    for (Entry&lt;String, Integer&gt; entry : set) &#123;</span><br><span class="line">        System.out.println(entry.getKey()+&quot; &quot;+entry.getValue());</span><br><span class="line">    &#125;</span><br><span class="line">    Iterator&lt;Entry&lt;String,Integer&gt;&gt; iterator=set.iterator();</span><br><span class="line">    while(iterator.hasNext()) &#123;</span><br><span class="line">        Entry&lt;String,Integer&gt; entry=iterator.next();</span><br><span class="line">        System.out.println(entry.getKey()+&quot; &quot;+entry.getValue());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">12. getOrDefault()</span><br><span class="line"></span><br><span class="line">default V getOrDefault(Object key, V defaultValue) &#123;</span><br><span class="line">        V v;</span><br><span class="line">        return (((v = get(key)) != null) || containsKey(key))</span><br><span class="line">            ? v</span><br><span class="line">            : defaultValue;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Java-HashSet"><a href="#Java-HashSet" class="headerlink" title="Java HashSet"></a>Java HashSet</h3><p><a href="https://www.jianshu.com/p/f6f514e3def8" target="_blank" rel="noopener">Java中HashSet那点事</a></p>
+<p>它存储唯一元素并允许空值<br>它由HashMap支持<br>它不保持插入顺序<br>它不是线程安全的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public HashSet() &#123;</span><br><span class="line">    map = new HashMap&lt;&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>add（）: 所述的add（）方法可用于将元素添加到一组。方法声明只有当元素尚未存在于集合中时才会添加元素。如果成功添加了元素，则该方法返回true，否则返回false。</p>
+</li>
+<li><p>contains（）: contains方法的目的是检查给定HashSet中是否存在元素。如果找到该元素，则返回true，否则返回false。</p>
+</li>
+<li><p>remove（）: 如果存在，该方法将从集合中删除指定的元素。如果集合包含指定的元素，则此方法返回true。</p>
+</li>
+<li><p>clear（）: 当我们打算从集合中删除所有项目时，我们使用此方法。底层实现只是清除底层HashMap中的所有元素。</p>
+</li>
+<li><p>size（）</p>
+</li>
+<li><p>isEmpty（）</p>
+</li>
+<li><p>Iterator（）: 该方法返回Set中元素的迭代器。这些元素没有特定的顺序访问，Iterator是fail-fast的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void whenIteratingHashSet_shouldIterateHashSet() &#123;</span><br><span class="line">    Set&lt;String&gt; hashset = new HashSet&lt;&gt;();</span><br><span class="line">    hashset.add(&quot;First&quot;);</span><br><span class="line">    hashset.add(&quot;Second&quot;);</span><br><span class="line">    hashset.add(&quot;Third&quot;);</span><br><span class="line">    Iterator&lt;String&gt; itr = hashset.iterator();</span><br><span class="line">    while(itr.hasNext())&#123;</span><br><span class="line">        System.out.println(itr.next());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>HashSet to primitive type array : <code>int[] array = set.stream().mapToInt(Integer::intValue).toArray();</code></p>
+<h3 id="Java-Scanner"><a href="#Java-Scanner" class="headerlink" title="Java Scanner"></a>Java Scanner</h3><ol>
+<li>使用 next 方法：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner; </span><br><span class="line"> </span><br><span class="line">public class ScannerDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Scanner scan = new Scanner(System.in);</span><br><span class="line">        // 从键盘接收数据</span><br><span class="line"> </span><br><span class="line">        // next方式接收字符串</span><br><span class="line">        System.out.println(&quot;next方式接收：&quot;);</span><br><span class="line">        // 判断是否还有输入</span><br><span class="line">        if (scan.hasNext()) &#123;</span><br><span class="line">            String str1 = scan.next();</span><br><span class="line">            System.out.println(&quot;输入的数据为：&quot; + str1);</span><br><span class="line">        &#125;</span><br><span class="line">        scan.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>$ javac ScannerDemo.java<br>$ java ScannerDemo<br>next方式接收：<br>runoob com<br>输入的数据为：runoob</p>
+<ol start="2">
+<li>使用 nextLine 方法：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"> </span><br><span class="line">public class ScannerDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Scanner scan = new Scanner(System.in);</span><br><span class="line">        // 从键盘接收数据</span><br><span class="line"> </span><br><span class="line">        // nextLine方式接收字符串</span><br><span class="line">        System.out.println(&quot;nextLine方式接收：&quot;);</span><br><span class="line">        // 判断是否还有输入</span><br><span class="line">        if (scan.hasNextLine()) &#123;</span><br><span class="line">            String str2 = scan.nextLine();</span><br><span class="line">            System.out.println(&quot;输入的数据为：&quot; + str2);</span><br><span class="line">        &#125;</span><br><span class="line">        scan.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>$ javac ScannerDemo.java<br>$ java ScannerDemo<br>nextLine方式接收：<br>runoob com<br>输入的数据为：runoob com</p>
+<ol start="3">
+<li><p>next() 与 nextLine() 区别<br>next():<br>1、一定要读取到有效字符后才可以结束输入。<br>2、对输入有效字符之前遇到的空白，next() 方法会自动将其去掉。<br>3、只有输入有效字符后才将其后面输入的空白作为分隔符或者结束符。<br>next() 不能得到带有空格的字符串。<br>nextLine()：<br>1、以Enter为结束符,也就是说 nextLine()方法返回的是输入回车之前的所有字符。<br>2、可以获得空白。</p>
+</li>
+<li><p>如果要输入 int 或 float 类型的数据，在 Scanner 类中也有支持，但是在输入之前最好先使用 hasNextXxx() 方法进行验证，再使用 nextXxx() 来读取：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"> </span><br><span class="line">public class ScannerDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Scanner scan = new Scanner(System.in);</span><br><span class="line">        // 从键盘接收数据</span><br><span class="line">        int i = 0;</span><br><span class="line">        float f = 0.0f;</span><br><span class="line">        System.out.print(&quot;输入整数：&quot;);</span><br><span class="line">        if (scan.hasNextInt()) &#123;</span><br><span class="line">            // 判断输入的是否是整数</span><br><span class="line">            i = scan.nextInt();</span><br><span class="line">            // 接收整数</span><br><span class="line">            System.out.println(&quot;整数数据：&quot; + i);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // 输入错误的信息</span><br><span class="line">            System.out.println(&quot;输入的不是整数！&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.print(&quot;输入小数：&quot;);</span><br><span class="line">        if (scan.hasNextFloat()) &#123;</span><br><span class="line">            // 判断输入的是否是小数</span><br><span class="line">            f = scan.nextFloat();</span><br><span class="line">            // 接收小数</span><br><span class="line">            System.out.println(&quot;小数数据：&quot; + f);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // 输入错误的信息</span><br><span class="line">            System.out.println(&quot;输入的不是小数！&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        scan.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="Java-Character"><a href="#Java-Character" class="headerlink" title="Java Character"></a>Java Character</h3><ol>
+<li><p>java中char类型占2个字节；</p>
+</li>
+<li><p>char类型赋值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">char a=’a’; //任意单个字符，加单引号。</span><br><span class="line">char a=111;//整数。0~65535。十进制、八进制、十六进制均可。输出字符编码表中对应的字符</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串String类中有一个charAt方法来获取字符串中的字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String s = &quot;nihaoHHH换行&quot;;</span><br><span class="line">s.charAt(1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Character类的判断功能:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public static boolean isDigit(char ch)  // 确定指定字符是否为数字。</span><br><span class="line"></span><br><span class="line">public static boolean isLetter(char ch)  // 确定指定字符是否为字母。</span><br><span class="line"></span><br><span class="line">public static boolean isLowerCase(char ch)  // 确定是否是小写字母字符</span><br><span class="line"></span><br><span class="line">public static boolean isUpperCase(char ch)  // 确定是否大写字母字符</span><br><span class="line"></span><br><span class="line">public static boolean is isWhitespace  // 用来判断指定字符是否为空白字符，空白字符包括：空格、tab键、换行</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>两个转换功能:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static int toLowerCase(char ch)</span><br><span class="line">使用取自 UnicodeData 文件的大小写映射信息将字符参数转换为小写。</span><br><span class="line"></span><br><span class="line">public static int toUpperCase(char ch)</span><br><span class="line">使用取自 UnicodeData 文件的大小写映射信息将字符参数转换为大写。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>String 和 char 的转换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String a = &quot;A1B2C3a0&quot;;</span><br><span class="line">char[] c = a.toCharArray(); // 将 String 类型字符串转换为 char 类型数组</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="Java-Number"><a href="#Java-Number" class="headerlink" title="Java Number"></a>Java Number</h3><ol>
+<li><p>parseInt:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static int parseInt(String s)</span><br><span class="line"></span><br><span class="line">static int parseInt(String s, int radix)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>java中char类型转换成int类型的两种方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">方法一：#</span><br><span class="line">char ch = &apos;9&apos;;</span><br><span class="line">if (Character.isDigit(ch))&#123;  // 判断是否是数字</span><br><span class="line">    int num = Integer.parseInt(String.valueOf(ch));</span><br><span class="line">    System.out.println(num);</span><br><span class="line">&#125;   </span><br><span class="line">方法二：#</span><br><span class="line">char ch = &apos;9&apos;;</span><br><span class="line">if (Character.isDigit(ch))&#123;  // 判断是否是数字</span><br><span class="line">    int num = (int)ch - (int)(&apos;0&apos;);</span><br><span class="line">    System.out.println(num);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="String-Builder-and-String-Buffer"><a href="#String-Builder-and-String-Buffer" class="headerlink" title="String Builder and String Buffer"></a>String Builder and String Buffer</h3><p>String 类型和 StringBuffer 类型的主要性能区别其实在于 String 是不可变的对象, 因此在每次对 String 类型进行改变的时候其实都等同于生成了一个新的 String 对象，然后将指针指向新的 String 对象，这样不仅效率低下，而且大量浪费有限的内存空间，所以经常改变内容的字符串最好不要用 String 。因为每次生成对象都会对系统性能产生影响，特别当内存中无引用对象多了以后， JVM 的 GC 就会开始工作，那速度是一定会相当慢的。</p>
+<p>StringBuffer 字符串变量（线程安全）<br>StringBuilder 字符串变量（非线程安全)</p>
+<p>和 String 类不同的是，StringBuffer 和 StringBuilder 类的对象能够被多次的修改，并且不产生新的未使用对象。</p>
+<p>StringBuilder 类在 Java 5 中被提出，它和 StringBuffer 之间的最大不同在于 StringBuilder 的方法不是线程安全的（不能同步访问）。</p>
+<p>由于 StringBuilder 相较于 StringBuffer 有速度优势，所以多数情况下建议使用 StringBuilder 类。然而在应用程序要求线程安全的情况下，则必须使用 StringBuffer 类。</p>
+<p>一、创建Stringbuilder对象<br>StringBuilder strB = new StringBuilder();</p>
+<p>1、append(String str)/append(Char c)：字符串连接<br>System.out.println(“StringBuilder:”+strB.append(“ch”).append(“111”).append(‘c’));<br>//return “StringBuilder:ch111c”</p>
+<p>2、toString()：返回一个与构建起或缓冲器内容相同的字符串<br>System.out.println(“String:”+strB.toString());<br>//return “String:ch111c”</p>
+<p>3、appendcodePoint(int cp)：追加一个代码点，并将其转换为一个或两个代码单元并返回this<br>System.out.println(“StringBuilder.appendCodePoint:”+strB.appendCodePoint(2));<br>//return “StringBuilder.appendCodePoint:ch111c”</p>
+<p>4、setCharAt(int i, char c)：将第 i 个代码单元设置为 c（可以理解为替换）<br>strB.setCharAt(2, ‘d’);<br>System.out.println(“StringBuilder.setCharAt:” + strB);<br>//return “StringBuilder.setCharAt:chd11c”</p>
+<p>5、insert(int offset, String str)/insert(int offset, Char c)：在指定位置之前插入字符(串)<br>System.out.println(“StringBuilder.insertString:”+ strB.insert(2, “LS”));<br>//return “StringBuilder.insertString:chLSd11c”<br>System.out.println(“StringBuilder.insertChar:”+ strB.insert(2, ‘L’));<br>//return “StringBuilder.insertChar:chLLSd11c”</p>
+<p>6、delete(int startIndex,int endIndex)：删除起始位置（含）到结尾位置（不含）之间的字符串<br>System.out.println(“StringBuilder.delete:”+ strB.delete(2, 4));<br>//return “StringBuilder.delete:chSd11c”</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://www.alicialuo.com/2020/01/28/Java的一些常见用法/">https://www.alicialuo.com/2020/01/28/Java的一些常见用法/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Java/"># Java</a>
+                    
+                        <a href="/tags/leetcode/"># leetcode</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/01/29/LiteratureReview/">Capstone阅读的paper</a>
+            
+            
+            <a class="next" rel="next" href="/2020/01/28/Leetcode-String/">Leetcode String类问题</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+<!-- <script type="text/javascript" color="0,0,0" opacity='0.7' zIndex="-2" count="100" src="https://github.com/hustcc/canvas-nest.js/blob/master/dist/canvas-nest.js"></script> -->
+</body>
+</html>
