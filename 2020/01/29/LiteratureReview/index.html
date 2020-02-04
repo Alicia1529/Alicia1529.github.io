@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>Capstone阅读的paper | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+
+<!-- <script zIndex="-2" src="js/canvas-nest.js"></script> -->
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Capstone阅读的paper</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">January 29, 2020&nbsp;&nbsp;21:28:57</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Cloud/">Cloud</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="Scientific-Cloud-Computing-Early-Definition-and-Experience-–-Wang-Tao"><a href="#Scientific-Cloud-Computing-Early-Definition-and-Experience-–-Wang-Tao" class="headerlink" title="Scientific Cloud Computing: Early Definition and Experience – Wang, Tao"></a><em>Scientific Cloud Computing: Early Definition and Experience – Wang, Tao</em></h3><p>Brief intro of the development of cloud computing and current advances.</p>
+<h4 id="3-1-Functionalities"><a href="#3-1-Functionalities" class="headerlink" title="3.1. Functionalities"></a>3.1. Functionalities</h4><p>HaaS: Hardware as a Service - The HaaS could be flexible, scalable and manageable to meet your needs </p>
+<p>SaaS: Software as a Service - Software or application is hosted as a service and pro- vided to customers across the Internet. This mode eliminates the need to install and run the application on the customer’s local computer. </p>
+<p>DaaS: Data as a Service - Data in various formats, from various sources, could be accessed via services to users on the network. Users could, for example, manipulate remote data just like operate on local disk; or access data in a semantic way on the Internet.</p>
+<p>Based on the support of HaaS, SaaS, and DaaS, Cloud computing thereafter delivers Platform as a Service (PaaS) for users. Users thus can on-demand subscribe a computing platform with requirements of hardware configuration, soft- ware installation and data access demands. Figure 3 shows the relationship between above services.</p>
+<h4 id="3-2-Key-features"><a href="#3-2-Key-features" class="headerlink" title="3.2. Key features"></a>3.2. Key features</h4><ol>
+<li>User-centric interfaces</li>
+<li>On-demand service provision</li>
+<li>QoS guaranteed offer</li>
+<li>Autonomous System</li>
+</ol>
+<h3 id="SciCumulus-A-Lightweight-Cloud-Middleware-to-Explore-Many-Task-Computing-Paradigm-in-Scientific-Workflows-Oliveira"><a href="#SciCumulus-A-Lightweight-Cloud-Middleware-to-Explore-Many-Task-Computing-Paradigm-in-Scientific-Workflows-Oliveira" class="headerlink" title="SciCumulus: A Lightweight Cloud Middleware to Explore Many Task Computing Paradigm in Scientific Workflows - Oliveira"></a>SciCumulus: A Lightweight Cloud Middleware to Explore Many Task Computing Paradigm in Scientific Workflows - Oliveira</h3><p>In this paper, we introduce SciCumulus, a cloud middleware to support MTC paradigm in scientific workflows with provenance support. </p>
+<p>SciCumulus provides two different types of parallelism: parameter sweep [8] and data parallelism [18]</p>
+<ol>
+<li>SciCumulus Desktop Layer</li>
+</ol>
+<p>This layer has five main components: Desktop Setup, Uploader, Dispatcher, Downloader and Provenance Capturer.</p>
+<p>The <em>Desktop Setup</em> configures the parallel execution of the workflow.</p>
+<p>The <em>Uploader</em> moves data (files, parameters, and so on) to the cloud while <em>Downloader</em> gathers the final results from cloud instances.</p>
+<p>The <em>Dispatcher</em> launches the execution process of cloud activities on the cloud and communicates directly to the execution broker in the distribution layer. It has also monitoring mechanisms to provide ways for scientists to follow the status of the running cloud activities. Once the distributed execution is finished, the <em>Dispatcher</em> returns control to the local SWfMS.</p>
+<p>The <em>Provenance Capturer</em> collects provenance data from the cloud. It is enacted as the distributed parallel execution finishes. It collects distributed provenance data, stored in the cloud instances and transfers to a local repository. </p>
+<p><img src="/image/SciCumulus-figure1-architecture.jpg" alt></p>
+<ol start="2">
+<li>SciCumulus Distribution Layer</li>
+</ol>
+<p>This layer manages the parallel execution of cloud activities in the distributed environment. All components of this layer are hosted in the cloud.</p>
+<p>The layer has eight components: Execution Broker, Data Fragmenter, Parameter, Sweeper, Encapsulator, Scheduler, Distribution Controller and Data Summarizer.</p>
+<p>The <em>Execution Broker</em> interfaces between the desktop layer and the distribution layer. It starts the parallel execution flow by querying the configuration repository.</p>
+<p>The <em>Parameter Sweeper</em> handles the combinations of parameters received by the client workflow for a specific cloud activity that is being parallelized.</p>
+<p>The <em>Data Fragmenter</em> fragments the original data (stored in the Data Repository), and generates sub-sets of it to be distributed over the execution virtualized instances. </p>
+<p>The <em>Encapsulator</em> generates all cloud activities to be deployed to the virtualized instances.</p>
+<p>Once the entire environment is set, the <em>Scheduler</em> starts working, defining which virtualized instances receive cloud activities to execute. Note that the virtualized instances may be provided by any cloud provider.</p>
+<p>The <em>Distribution Controller</em> transfers cloud activities to the available instances and monitors its execution.</p>
+<p>The <em>Data Summarizer</em> aggregates partial results, generating a final result of the distributed parallel execution.</p>
+<ol start="3">
+<li>SciCumulus Execution Layer</li>
+</ol>
+<p>It has five main components: instance controller, data fragmenter, parameter sweeper, configurator and executor.</p>
+<p>Question: what is parameter sweep</p>
+<h3 id="Reproducible-Scientific-Computing-Environment-with-Overlay-Cloud-Architecture-Yokoyama-Masatani"><a href="#Reproducible-Scientific-Computing-Environment-with-Overlay-Cloud-Architecture-Yokoyama-Masatani" class="headerlink" title="Reproducible Scientific Computing Environment with Overlay Cloud Architecture - Yokoyama, Masatani"></a>Reproducible Scientific Computing Environment with Overlay Cloud Architecture - Yokoyama, Masatani</h3><p>In this paper, we propose overlay cloud architecture for building virtual clouds on cloud platforms. In the proposed architecture, the middleware, Virtual Cloud Provider (VCP), automatically configures computing environments (application programs, operating systems, libraries and binaries) that is required to reproduce computing results by using the Linux container technology.</p>
+<p>Computational results sometimes depend on not only application programs but also the underlying software, e.g. the operating system, libraries and binaries. In other words, we cannot guarantee the reproducibility between two computers with different underlying software, even when we build application programs from the same source code on both computers. Reproducibly configuring computing environments on distributed resources requires expert knowledge and advanced technical skills about computer administrations, and it is not feasible for researchers in application domains.</p>
+<p>Virtual Cloud Provider (VCP), automatically configures computing environments (or virtual clouds) on a cloud or Inter-Cloud platform(s). VCP solves two issues discussed in the previous paragraph as follows: first, VCP saves computing environments (including application programs, operating systems, libraries and binaries) that is required to reproduce computing results by using the Linux container technology. Second, VCP automatically deploys containers of computing environments on clouds and configures overlay network connecting the deployed containers.</p>
+<p><img src="/image/virtual-cloud-provider-CLOUD16-figure5.jpg" alt></p>
+<h3 id="Efficient-Scheduling-of-Scientific-Workflows-using-Hot-Metadata-in-a-Multisite-Cloud-2017-Liu-Morales"><a href="#Efficient-Scheduling-of-Scientific-Workflows-using-Hot-Metadata-in-a-Multisite-Cloud-2017-Liu-Morales" class="headerlink" title="Efficient Scheduling of Scientific Workflows using Hot Metadata in a Multisite Cloud(2017) - Liu, Morales"></a>Efficient Scheduling of Scientific Workflows using Hot Metadata in a Multisite Cloud(2017) - Liu, Morales</h3><p>In this paper, we present a hybrid distributed model and architecture, using hot metadata (frequently accessed metadata) for efficient SWf scheduling in a multisite cloud.</p>
+<p>A SWf is an assembly of scientific data processing activities with data dependencies be- tween them [16]. The application is modeled as a graph, in which vertices represent processing jobs, and edges their dependencies.</p>
+<p>Metadata have a critical impact on the efficiency of SWfMS; they provide a global view of data location and enable task tracking during the execution. </p>
+<p>we assert that some metadata are more frequently accessed than others (e.g. the status of tasks in execution in a multisite SWf is queried more often than a job’s creation date). We denote such metadata by hot metadata and argue that it should be handled in a specific, more quickly accessible way than the rest of the metadata. Metadata are typically queried to get a global view of data location or to keep track of the tasks execution; they should be readily available to the system at any given time.</p>
+<p>In this paper, we take a different ap- proach based on the distribution of hot metadata in order to increase the locality of access by the different computing nodes. Inspired by [37], we adapt two distributed metadata management strategies, i.e. Distributed Hash Table (DHT) and replication method (Rep), for hot metadata management.</p>
+<p>parallel file systems cannot be used out-of-the-box in the cloud and are often considered to be mutually inappropriate. Instead, we borrow ideas from the HPC community and put them in place leveraging the SWf semantics and the cloud services publicly available.</p>
+<p>We apply this concept to the context of SWf management and we define hot metadata as the metadata that is frequently accessed during the execution of a SWf. Conversely, less frequently accessed metadata will be denoted cold metadata. We distinguish two types of hot metadata: task metadata and file metadata.</p>
+<p>Our study indicated that a hybrid approach combining decentral- ized metadata and replication suits better the needs of large-scale multisite SWf execution. </p>
+<h3 id="SCIENTIFIC-WORKFLOW-MANAGEMENT-SYSTEM-FOR-CLOUDS-Rodriguez-Buyya"><a href="#SCIENTIFIC-WORKFLOW-MANAGEMENT-SYSTEM-FOR-CLOUDS-Rodriguez-Buyya" class="headerlink" title="SCIENTIFIC WORKFLOW MANAGEMENT SYSTEM FOR CLOUDS - Rodriguez, Buyya !!!!"></a>SCIENTIFIC WORKFLOW MANAGEMENT SYSTEM FOR CLOUDS - Rodriguez, Buyya !!!!</h3><ol>
+<li>how to deploy SWMS in cloud environment</li>
+<li>the reproducibility using VM images</li>
+<li>architecture: user interface / workflow engine / administration and monitoring tools / cloud information service / cloud provider APIs<br><a href="SWMSforclouds-architecture.png">!</a><br><a href="SWMSforclouds-components.png">!</a></li>
+</ol>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://www.alicialuo.com/2020/01/29/LiteratureReview/">https://www.alicialuo.com/2020/01/29/LiteratureReview/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Cloud/"># Cloud</a>
+                    
+                        <a href="/tags/Capstone/"># Capstone</a>
+                    
+                        <a href="/tags/parallelization/"># parallelization</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/01/31/面试题/">面试题behavioral</a>
+            
+            
+            <a class="next" rel="next" href="/2020/01/28/Leetcode中Java的一些常见用法/">做Leetcode时遇到的Java的一些用法</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+<!-- <script type="text/javascript" color="0,0,0" opacity='0.7' zIndex="-2" count="100" src="https://github.com/hustcc/canvas-nest.js/blob/master/dist/canvas-nest.js"></script> -->
+</body>
+</html>
