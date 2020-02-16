@@ -7,7 +7,7 @@
 
 
 
-<title>Cloud Service | Aliciaaa</title>
+<title>Leetcode Graph 类问题 | Aliciaaa</title>
 
 
 
@@ -176,7 +176,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Cloud Service</h1>
+            <h1 class="post-title">Leetcode Graph 类问题</h1>
             
                 <div class="post-meta">
                     
@@ -185,14 +185,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">December 21, 2019&nbsp;&nbsp;13:54:28</a>
+                        Date: <a href="#">February 16, 2020&nbsp;&nbsp;17:18:08</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Web/">Web</a>
+                                <a href="/categories/Leetcode/">Leetcode</a>
                             
                             
                         </span>
@@ -208,75 +208,7 @@
         </header>
 
         <div class="post-content">
-            <h3 id="Tencent-Cloud"><a href="#Tencent-Cloud" class="headerlink" title="Tencent Cloud"></a>Tencent Cloud</h3><ul>
-<li>Use account and password to login</li>
-</ul>
-<ol>
-<li><p>Connect to the server <code>ssh &lt;username&gt;@&lt;hostname or IP address&gt;</code></p>
-</li>
-<li><p>Enter password</p>
-</li>
-</ol>
-<ul>
-<li>Use key to login</li>
-</ul>
-<ol>
-<li><p>Download the key file <code>chmod 400 &lt;下载的与云服务器关联的私钥的绝对路径&gt;</code></p>
-</li>
-<li><p>Remote login <code>ssh -i &lt;下载的与云服务器关联的私钥的绝对路径&gt; &lt;username&gt;@&lt;hostname or IP address&gt;</code><br>eg. <code>ssh -i &quot;Mac/Downloads/shawn_qcloud_stable&quot; ubuntu@192.168.11.123</code></p>
-</li>
-<li><p>Change authrization: <code>chmod 400 &lt;file&gt;</code> to enable copy operation</p>
-</li>
-<li><p>Notes: <a href="https://zhuanlan.zhihu.com/p/58733320" target="_blank" rel="noopener">SSH远程登录的步骤与技巧</a></p>
-</li>
-</ol>
-<h3 id="Environment-setup"><a href="#Environment-setup" class="headerlink" title="Environment setup"></a>Environment setup</h3><ol>
-<li><p>update <code>sudo apt-get update</code></p>
-</li>
-<li><p>install mysql <code>sudo apt-get install mysql-server</code></p>
-</li>
-<li><p>configure mysql and resolve error <a href="https://stackoverflow.com/questions/42153059/mysqld-safe-directory-var-run-mysqld-for-unix-socket-file-dont-exists" target="_blank" rel="noopener"></a><br>solve error <code>mysqld_safe Directory &#39;/var/run/mysqld&#39; for UNIX socket file don&#39;t exists</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /var/run/mysqld</span><br><span class="line">chown mysql:mysql /var/run/mysqld</span><br><span class="line">mysqld_safe --skip-grant-tables</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>change to root user <code>sudo su</code>, change to ubuntu user <code>sudo ubuntu</code></p>
-</li>
-<li><p>install Java <code>sudo apt-get install openjdk-8-jdk</code></p>
-</li>
-<li><p>download tomcat to local-&gt; upload -&gt; unzip: <code>tar xvf apache-tomcat-8.5.50.tar</code></p>
-</li>
-<li><p>configure:<br> <a href="https://blog.csdn.net/Zack_zhuo/article/details/65449215" target="_blank" rel="noopener">https://blog.csdn.net/Zack_zhuo/article/details/65449215</a></p>
-<p> 配置mysql到公网 <a href="https://blog.csdn.net/Rex_Joush/article/details/79828325" target="_blank" rel="noopener">https://blog.csdn.net/Rex_Joush/article/details/79828325</a></p>
-</li>
-<li><p>deploy maven project: <a href="https://www.xujun.org/note-70768.html" target="_blank" rel="noopener">https://www.xujun.org/note-70768.html</a></p>
-</li>
-</ol>
-<ul>
-<li><p>ubuntu下忘记mysql密码重设 <a href="https://blog.csdn.net/luckytanggu/article/details/80251833" target="_blank" rel="noopener">https://blog.csdn.net/luckytanggu/article/details/80251833</a></p>
-</li>
-<li><p>ubuntu 开放某port防火墙 <a href="https://www.jianshu.com/p/97008b0f878c" target="_blank" rel="noopener">https://www.jianshu.com/p/97008b0f878c</a></p>
-</li>
-<li><p>修改mysql连接权限 <a href="https://www.cnblogs.com/liu-shijun/p/11068452.html" target="_blank" rel="noopener">https://www.cnblogs.com/liu-shijun/p/11068452.html</a></p>
-</li>
-<li><p>MySQL 连接远程数据库（192.168.0.201），端口“3306”，用户名为“root”，密码“123”</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt;mysql -h 192.168.0.201 -P 3306 -u root -p123</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>docker 入门 <a href="https://mp.weixin.qq.com/s?__biz=MzA3ODQ0Mzg2OA==&amp;mid=2649050083&amp;idx=2&amp;sn=86160ce95b04c8b45c6666e2efb4036a&amp;chksm=87534fd0b024c6c6ce01cf5b5ce84bb29901edcdb6045e8763a6339ea02e07e3cf81b4c7d611&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzA3ODQ0Mzg2OA==&amp;mid=2649050083&amp;idx=2&amp;sn=86160ce95b04c8b45c6666e2efb4036a&amp;chksm=87534fd0b024c6c6ce01cf5b5ce84bb29901edcdb6045e8763a6339ea02e07e3cf81b4c7d611&amp;scene=21#wechat_redirect</a></p>
-<p>Nginx 极简教程 <a href="https://github.com/dunwu/nginx-tutorial" target="_blank" rel="noopener">https://github.com/dunwu/nginx-tutorial</a><br>超实用的 Nginx 极简教程 <a href="https://mp.weixin.qq.com/s/tTZVojP9q29qHpEBUOW7Ig" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/tTZVojP9q29qHpEBUOW7Ig</a></p>
-<h3 id="用docker部署springboot项目到服务器"><a href="#用docker部署springboot项目到服务器" class="headerlink" title="用docker部署springboot项目到服务器"></a>用docker部署springboot项目到服务器</h3><ol start="0">
-<li><p>腾讯云使用 DockerHub 加速器: <a href="https://cloud.tencent.com/document/product/457/9113" target="_blank" rel="noopener">https://cloud.tencent.com/document/product/457/9113</a></p>
-</li>
-<li><p>搭建Docker环境: <a href="https://www.zhangshengrong.com/p/JKN8EkMeX6/" target="_blank" rel="noopener">https://www.zhangshengrong.com/p/JKN8EkMeX6/</a></p>
-</li>
-<li><p>我们先把项目进行打包执行,执行:  <code>mvn clean package  -Dmaven.test.skip=true</code></p>
-</li>
-<li><p>创建Dockerfile文件: <code>touch Dockerfile</code>  // 注意Dockerfile必须和Jar包在同一路径下</p>
-</li>
-<li><p>创建docker: <a href="https://blog.csdn.net/dhaiuda/article/details/82228186" target="_blank" rel="noopener">https://blog.csdn.net/dhaiuda/article/details/82228186</a></p>
-</li>
-</ol>
-
+            <h3 id="Topological-sort-拓扑排序"><a href="#Topological-sort-拓扑排序" class="headerlink" title="Topological sort 拓扑排序"></a>Topological sort 拓扑排序</h3>
         </div>
 
         
@@ -290,7 +222,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://www.alicialuo.com/2019/12/21/CloudService/">https://www.alicialuo.com/2019/12/21/CloudService/</a></span>
+                        <span><a href="https://www.alicialuo.com/2020/02/16/Leetcode-Graph/">https://www.alicialuo.com/2020/02/16/Leetcode-Graph/</a></span>
                     </p>
                 
                 
@@ -304,11 +236,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Web/"># Web</a>
+                        <a href="/tags/leetcode/"># leetcode</a>
                     
-                        <a href="/tags/Cloud/"># Cloud</a>
-                    
-                        <a href="/tags/Server/"># Server</a>
+                        <a href="/tags/graph/"># graph</a>
                     
                         
                 </span>
@@ -321,10 +251,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/01/17/Leetcode-Array/">Leetcode Array类问题</a>
+                <a class="prev" rel="prev" href="/2020/02/16/输入URL/">在浏览器中输入URL按下回车后发生了什么</a>
             
             
-            <a class="next" rel="next" href="/2019/10/20/MLSystem/">MXNet相关文章和资源</a>
+            <a class="next" rel="next" href="/2020/02/15/Leetcode-Math/">Leetcode Math 类问题</a>
             
         </section>
 

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>Leetcode Dynamic Programming 类问题 | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+
+<!-- <script zIndex="-2" src="js/canvas-nest.js"></script> -->
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Leetcode Dynamic Programming 类问题</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">February 7, 2020&nbsp;&nbsp;21:09:08</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Leetcode/">Leetcode</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>Usually, solving and fully understanding a dynamic programming problem is a 4 step process:</p>
+<p>Start with the recursive backtracking solution<br>Optimize by using a memoization table (top-down[2] dynamic programming)<br>Remove the need for recursion (bottom-up dynamic programming)<br>Apply final tricks to reduce the time / memory complexity<br>All solutions presented below produce the correct result, but they differ in run time and memory requirements.</p>
+<h3 id="55-Jump-Game-medium"><a href="#55-Jump-Game-medium" class="headerlink" title="55. Jump Game (medium)"></a>55. Jump Game (medium)</h3><p>Approach 1: Backtracking<br>Time complexity : O(2**n)<br>Space complexity: O(n). Recursion requires additional memory for the stack frames. </p>
+<p>Approach 2: Dynamic Programming Top-down &lt;-&gt; optimized backtracking</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Time complexity : O(n**2)</span><br><span class="line">Space complexity : O(2n)</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public boolean canJump(int[] nums) &#123;</span><br><span class="line">        if (nums == null || nums.length &lt;= 1) return true;</span><br><span class="line">        boolean[] dp = new boolean[nums.length];</span><br><span class="line">        dp[0] = true;</span><br><span class="line">        for (int i = 0; i &lt; nums.length - 1; i++) &#123;</span><br><span class="line">            if (dp[i] == true) &#123;</span><br><span class="line">                int j = Math.min(nums[i], nums.length - i - 1);</span><br><span class="line">                while (j &gt; 0) &#123;</span><br><span class="line">                    dp[i + j] = true;</span><br><span class="line">                    j--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return dp[nums.length - 1];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Approach 3: Greedy Algorithm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Time complexity : O(n)</span><br><span class="line">Space complexity : O(1)</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public boolean canJump(int[] nums) &#123;</span><br><span class="line">        if (nums == null || nums.length &lt;= 1) return true;</span><br><span class="line">        int lastPos = nums.length - 1;</span><br><span class="line">        for (int i = nums.length - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">            if (i + nums[i] &gt;= lastPos) lastPos = i;</span><br><span class="line">        &#125;</span><br><span class="line">        return lastPos == 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="62-Unique-Paths"><a href="#62-Unique-Paths" class="headerlink" title="62. Unique Paths"></a>62. Unique Paths</h3><p>Approach 1: Math combination</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">Time complexity : O(log(n))</span><br><span class="line">Space complexity : O(1)</span><br><span class="line">//  notice that int might overflow!!!!!!</span><br><span class="line">//  cannot divide directly as well, since it will round to integer: lose precision</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int uniquePaths(int m, int n) &#123;</span><br><span class="line">        if (m &lt; n) return uniquePaths(n, m);</span><br><span class="line">        long ret = 1;</span><br><span class="line">        m--; n--;</span><br><span class="line">        for (int i = m + n; i &gt; m; i--) &#123;</span><br><span class="line">            ret *= i;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = n; i &gt; 1; i--) &#123;</span><br><span class="line">            ret /= i;</span><br><span class="line">        &#125;</span><br><span class="line">        return (int) ret; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"># or python like this. no need to worry about overflow</span><br><span class="line">class Solution:</span><br><span class="line">    def uniquePaths(self, m: int, n: int) -&gt; int:</span><br><span class="line">        if m == 1 or n == 1: return 1;</span><br><span class="line">        base = m + n - 2</span><br><span class="line">        choose = min(m - 1, n - 1)</span><br><span class="line">        ret = 1</span><br><span class="line">        for i in range(1, choose + 1):</span><br><span class="line">            ret *= base</span><br><span class="line">            ret /= i</span><br><span class="line">            base -= 1</span><br><span class="line">        return int(ret)</span><br></pre></td></tr></table></figure>
+
+<p>Approach 2: Dynamic Programming</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Time complexity : O(m*n)</span><br><span class="line">Space complexity : O(m*n)</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int uniquePaths(int m, int n) &#123;</span><br><span class="line">        if (m == 0 || n == 0) return 0;</span><br><span class="line">        int[][] memo = new int[m][n];</span><br><span class="line">        for (int row = 0; row &lt; m; row++) &#123;</span><br><span class="line">            for (int col = 0; col &lt; n; col++) &#123;</span><br><span class="line">                if (col == 0 || row == 0) &#123;</span><br><span class="line">                    memo[row][col] = 1;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    memo[row][col] = memo[row - 1][col] + memo[row][col - 1];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return memo[m - 1][n - 1];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Time complexity : O(m*n)</span><br><span class="line">Space complexity : O(n)</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int uniquePaths(int m, int n) &#123;</span><br><span class="line">        if (m == 0 || n == 0) return 0;</span><br><span class="line">        int[] memo = new int[n];</span><br><span class="line">        for (int row = 0; row &lt; m; row++) &#123;</span><br><span class="line">            for (int col = 0; col &lt; n; col++) &#123;</span><br><span class="line">                if (row == 0) &#123;</span><br><span class="line">                    memo[col] = 1;</span><br><span class="line">                &#125; else if (col &gt; 0)&#123;</span><br><span class="line">                    memo[col] += memo[col - 1];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return memo[n - 1];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="322-Coin-Change-medium"><a href="#322-Coin-Change-medium" class="headerlink" title="322. Coin Change (medium)"></a>322. Coin Change (medium)</h3><p>Approach 0: Most efficient: Greedy Algorithm !!!!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Time complexity : O(s*n)</span><br><span class="line">Space complexity : O(1)</span><br><span class="line">class Solution &#123;</span><br><span class="line">    private int minValue = Integer.MAX_VALUE;</span><br><span class="line"></span><br><span class="line">    public int coinChange(int[] coins, int amount) &#123;</span><br><span class="line">        Arrays.sort(coins);  // make sure the order</span><br><span class="line">        coinChange(coins, amount, coins.length - 1, 0);</span><br><span class="line">        return minValue == Integer.MAX_VALUE ? -1 : minValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void coinChange(int[] coins, int amount, int currIndex, int count) &#123;</span><br><span class="line">        if (amount &lt; 0) return;</span><br><span class="line"></span><br><span class="line">        for (int i = amount / coins[currIndex]; i &gt;= 0; i--) &#123;</span><br><span class="line">            int change = amount - i * coins[currIndex];</span><br><span class="line"></span><br><span class="line">            if (change == 0) &#123;</span><br><span class="line">                minValue = Math.min(minValue, count + i);</span><br><span class="line">            &#125;</span><br><span class="line">            if (currIndex &gt; 0 &amp;&amp; count + i + 1 &lt; minValue) &#123;</span><br><span class="line">                coinChange(coins, change, currIndex - 1, count + i);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Approach 1: Dynamic programming - Bottom up</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Time complexity : O(s*n)</span><br><span class="line">Space complexity : O(n)</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int coinChange(int[] coins, int amount) &#123;</span><br><span class="line">        int max = amount + 1;</span><br><span class="line">        int[] dp = new int[amount + 1];</span><br><span class="line">        Arrays.fill(dp, max);</span><br><span class="line">        dp[0] = 0;</span><br><span class="line">        for (int i = 1; i &lt;= amount; i++) &#123;</span><br><span class="line">            for (int j = 0; j &lt; coins.length; j++) &#123;</span><br><span class="line">                if (coins[j] &lt;= i) dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return dp[amount] &gt; amount ? -1 : dp[amount];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public int coinChange(int[] coins, int amount) &#123;</span><br><span class="line">	int dp[] = new int[amount+1];</span><br><span class="line">	for(int i=1; i&lt;dp.length; i++) dp[i] = Integer.MAX_VALUE;</span><br><span class="line">	for(int i=1; i&lt;=amount; i++) </span><br><span class="line">		for(int c : coins) </span><br><span class="line">			if(i-c &gt;= 0 &amp;&amp; dp[i-c]!=Integer.MAX_VALUE)</span><br><span class="line">				dp[i] = Math.min(dp[i], dp[i-c]+1);</span><br><span class="line">	return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Approach 2: Dynamic programming - Top down (slower than the previous one)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Time complexity : O(s*n)</span><br><span class="line">Space complexity : O(n)</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int coinChange(int[] coins, int amount) &#123;</span><br><span class="line">        return coinChange(coins, amount, new int[amount]);</span><br><span class="line">    &#125;</span><br><span class="line">    private int coinChange(int[] coins, int rem, int[] count) &#123;</span><br><span class="line">        if (rem &lt; 0) return -1;  // no solution</span><br><span class="line">        if (rem == 0) return 0;  // zero solution</span><br><span class="line">        if (count[rem - 1] != 0) return count[rem - 1];  // if we have already calculated this, then return the value directly</span><br><span class="line">        int min = Integer.MAX_VALUE;</span><br><span class="line">        for (int coin: coins) &#123;</span><br><span class="line">            int res = coinChange(coins, rem - coin, count);</span><br><span class="line">            if (res &gt;= 0 &amp;&amp; res &lt; min) min = 1 + res;</span><br><span class="line">        &#125;</span><br><span class="line">        count[rem - 1] = (min == Integer.MAX_VALUE) ? -1 : min;</span><br><span class="line">        return count[rem - 1];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="300">
+<li>Longest Increasing Subsequence (medium)<br>Approach 1: Dynamic Programming<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Time complexity : O(n**2)</span><br><span class="line">Space complexity : O(n)</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int lengthOfLIS(int[] nums) &#123;</span><br><span class="line">        if (nums.length &lt;= 1) return nums.length;</span><br><span class="line">        int[] dp= new int[nums.length];</span><br><span class="line">        int ret = 1;</span><br><span class="line">        dp[0] = 1;</span><br><span class="line">        for (int i = 1; i &lt; nums.length; i++) &#123;</span><br><span class="line">            dp[i]  = 1;</span><br><span class="line">            for (int j = 0; j &lt; i; j++) &#123;</span><br><span class="line">                if (nums[j] &lt; nums[i]) &#123;</span><br><span class="line">                    dp[i] = Math.max(dp[i], dp[j] + 1);</span><br><span class="line">                    ret = Math.max(ret, dp[i]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>Approach 2: Dynamic Programming with Binary Search !!!! hard</p>
+<p><a href="https://en.wikipedia.org/wiki/Longest_increasing_subsequence#Efficient_algorithm" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Longest_increasing_subsequence#Efficient_algorithm</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Time complexity : O(nlogn)</span><br><span class="line">Space complexity : O(n)</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int lengthOfLIS(int[] nums) &#123;</span><br><span class="line">        if (nums.length &lt;= 1) return nums.length;</span><br><span class="line">        int[] dp= new int[nums.length];</span><br><span class="line">        // store the increasing subsequence formed by</span><br><span class="line">        // including the currently encountered element</span><br><span class="line">        int len = 0;</span><br><span class="line">        for (int num : nums) &#123;</span><br><span class="line">            int i = Arrays.binarySearch(dp, 0, len, num);</span><br><span class="line">            if (i &lt; 0) &#123;</span><br><span class="line">                i = -(i + 1);</span><br><span class="line">            &#125;</span><br><span class="line">            dp[i] = num;</span><br><span class="line">            if (i == len) len++;</span><br><span class="line">        &#125;</span><br><span class="line">        return len;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="63-Unique-Paths-II-medium"><a href="#63-Unique-Paths-II-medium" class="headerlink" title="63. Unique Paths II (medium)"></a>63. Unique Paths II (medium)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Time complexity : O(r*c)</span><br><span class="line">Space complexity : O(1)</span><br><span class="line">//  use the original array directly can save more space</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int uniquePathsWithObstacles(int[][] obstacleGrid) &#123;</span><br><span class="line">        int row = obstacleGrid.length;</span><br><span class="line">        int col = obstacleGrid[0].length;</span><br><span class="line">        if (row == 0 || col == 0 || obstacleGrid[0][0] == 1) return 0;</span><br><span class="line">        obstacleGrid[0][0]  = 1;</span><br><span class="line">        for (int i = 1; i &lt; col; i++) &#123;</span><br><span class="line">            obstacleGrid[0][i] = (obstacleGrid[0][i] == 0)? obstacleGrid[0][i - 1] : 0;</span><br><span class="line">        &#125;</span><br><span class="line">         for (int j = 1; j &lt; row; j++) &#123;</span><br><span class="line">            obstacleGrid[j][0] = (obstacleGrid[j][0] == 0)? obstacleGrid[j - 1][0] : 0;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int j = 1; j &lt; row; j++) &#123;</span><br><span class="line">            for (int i = 1; i &lt; col; i++) &#123;</span><br><span class="line">                if (obstacleGrid[j][i] == 1) &#123;</span><br><span class="line">                    obstacleGrid[j][i] = 0;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    obstacleGrid[j][i] = obstacleGrid[j - 1][i] + obstacleGrid[j][i - 1];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return obstacleGrid[row - 1][col - 1];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="64-Minimum-Path-Sum-medium"><a href="#64-Minimum-Path-Sum-medium" class="headerlink" title="64. Minimum Path Sum (medium)"></a>64. Minimum Path Sum (medium)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">similar to above</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int minPathSum(int[][] grid) &#123;</span><br><span class="line">        int R = grid.length;</span><br><span class="line">        int C = grid[0].length;</span><br><span class="line">        if (R == 0 || C == 0) return 0;</span><br><span class="line">        for (int i = 1; i &lt; C; i++) grid[0][i] += grid[0][i - 1];</span><br><span class="line">        for (int i = 1; i &lt; R; i++) grid[i][0] += grid[i - 1][0];</span><br><span class="line">        for (int i = 1; i &lt; R; i++) &#123;</span><br><span class="line">            for (int j = 1; j &lt; C; j++) &#123;</span><br><span class="line">                grid[i][j] += Math.min(grid[i - 1][j], grid[i][j - 1]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return grid[R - 1][C - 1];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="32-Longest-Valid-Parentheses-hard"><a href="#32-Longest-Valid-Parentheses-hard" class="headerlink" title="32. Longest Valid Parentheses (hard) !!!"></a>32. Longest Valid Parentheses (hard) !!!</h3><p>Approach 1: Brute Force<br>every combination of string-&gt; loop over and use stack to determine if this combination is valid</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Time complexity : O(n**3)</span><br><span class="line">Space complexity : O(1)</span><br></pre></td></tr></table></figure>
+
+<p>Approach 2: Using Dynamic Programming !!!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Time complexity : O(n)</span><br><span class="line">Space complexity : O(n)</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int longestValidParentheses(String s) &#123;</span><br><span class="line">        int[] dp = new int[s.length()];</span><br><span class="line">        int maxans = 0;</span><br><span class="line">        for (int i = 1; i &lt; s.length(); i++) &#123;</span><br><span class="line">            if (s.charAt(i) == &apos;)&apos; &amp;&amp; s.charAt(i - 1) ==&apos;(&apos;) &#123;</span><br><span class="line">                dp[i] = (i &gt;= 2? dp[i - 2] : 0) + 2;</span><br><span class="line">            &#125; else if (s.charAt(i) == &apos;)&apos;) &#123;</span><br><span class="line">                int posPrev = i - dp[i - 1]  - 1;</span><br><span class="line">                if ( posPrev&gt;= 0 &amp;&amp; s.charAt(posPrev) == &apos;(&apos;) &#123;</span><br><span class="line">                    dp[i] = (posPrev - 1 &gt;= 0 ? dp[posPrev - 1] : 0) + (i - posPrev + 1);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            maxans = Math.max(maxans, dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return maxans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Approach 3: Using Stack (TODO)</p>
+<p>Approach 4: Without extra space (TODO)</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://www.alicialuo.com/2020/02/07/Leetcode-DynamicProgramming/">https://www.alicialuo.com/2020/02/07/Leetcode-DynamicProgramming/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/leetcode/"># leetcode</a>
+                    
+                        <a href="/tags/dynamicprogramming/"># dynamicprogramming</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/02/07/Leetcode-Greedy/">Leetcode Greedy Algorithm类问题</a>
+            
+            
+            <a class="next" rel="next" href="/2020/02/04/实用入门级文章合集/">实用入门级文章合集</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+<!-- <script type="text/javascript" color="0,0,0" opacity='0.7' zIndex="-2" count="100" src="https://github.com/hustcc/canvas-nest.js/blob/master/dist/canvas-nest.js"></script> -->
+</body>
+</html>
