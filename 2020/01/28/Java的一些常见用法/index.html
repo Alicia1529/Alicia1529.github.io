@@ -330,6 +330,9 @@
 <p>6、delete(int startIndex,int endIndex)：删除起始位置（含）到结尾位置（不含）之间的字符串<br>System.out.println(“StringBuilder.delete:”+ strB.delete(2, 4));<br>//return “StringBuilder.delete:chSd11c”</p>
 <h3 id="Java-Exception"><a href="#Java-Exception" class="headerlink" title="Java Exception"></a>Java Exception</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">throw new Exception();</span><br></pre></td></tr></table></figure>
 
+<h3 id="Java-Tuple"><a href="#Java-Tuple" class="headerlink" title="Java Tuple"></a>Java Tuple</h3><h3 id="Java-Queue"><a href="#Java-Queue" class="headerlink" title="Java Queue"></a>Java Queue</h3><h4 id="All-Known-Implementing-Classes"><a href="#All-Known-Implementing-Classes" class="headerlink" title="All Known Implementing Classes:"></a>All Known Implementing Classes:</h4><p>AbstractQueue, ArrayBlockingQueue, ArrayDeque, ConcurrentLinkedDeque, ConcurrentLinkedQueue, DelayQueue, LinkedBlockingDeque, LinkedBlockingQueue, LinkedList, LinkedTransferQueue, PriorityBlockingQueue, PriorityQueue, SynchronousQueue</p>
+<h4 id="Summary-of-Queue-methods"><a href="#Summary-of-Queue-methods" class="headerlink" title="Summary of Queue methods"></a>Summary of Queue methods</h4><p>Throws  exception    Returns special value<br>Insert    add(e)        offer(e)<br>Remove    remove()    poll()<br>Examine    element()    peek()</p>
+<h3 id="Java-ArrayList-and-LinkedList"><a href="#Java-ArrayList-and-LinkedList" class="headerlink" title="Java ArrayList and LinkedList"></a>Java ArrayList and LinkedList</h3><p><a href="https://blog.csdn.net/zl_StepByStep/article/details/80055792" target="_blank" rel="noopener">ArrayList和LinkedList的原理、Java代码实现、性能比较</a><br><a href="https://www.cnblogs.com/xiaosisong/p/10910425.html" target="_blank" rel="noopener">Java集合：ArrayList 和LinkedList的区别</a></p>
 <h3 id="Java-String"><a href="#Java-String" class="headerlink" title="Java String"></a>Java String</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public String substring(int beginIndex)</span><br><span class="line"></span><br><span class="line">public String substring(int beginIndex, int endIndex)</span><br></pre></td></tr></table></figure>
 
 <h3 id="Java-Heap-Priority-Queue"><a href="#Java-Heap-Priority-Queue" class="headerlink" title="Java Heap: Priority Queue"></a>Java Heap: Priority Queue</h3><p>优先队列的作用是能保证每次取出的元素都是队列中权值最小的（Java的优先队列每次取最小元素，C++的优先队列每次取最大元素）</p>
@@ -346,6 +349,10 @@
 
 <p>两种实现的区别是，add、remove和element都比对应的offer、poll和peek多抛出一个异常。对于add方法，如果因为容量不足以增加新元素，会抛出IllegalStateException异常，而offer则会返回false。对于remove方法，如果队列是空的，则会抛出NoSuchElementException异常，而poll方法会返回null。对于element方法，如果队列是空的，则会抛出NoSuchElementException异常，而peek方法会返回null。</p>
 <h4 id="eg-703-Kth-Largest-Element-in-a-Stream"><a href="#eg-703-Kth-Largest-Element-in-a-Stream" class="headerlink" title="eg. 703. Kth Largest Element in a Stream"></a>eg. 703. Kth Largest Element in a Stream</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class KthLargest &#123;</span><br><span class="line">	private PriorityQueue&lt;Integer&gt; q;</span><br><span class="line"></span><br><span class="line">    public KthLargest(int k, int[] nums) &#123;</span><br><span class="line">        q = new PriorityQueue&lt;Integer&gt;(k);</span><br><span class="line">        for (int num: nums) add(num);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public int add(int val) &#123;</span><br><span class="line">        q.offer(val);</span><br><span class="line">		if (q.size() &gt; k)   q.poll(); </span><br><span class="line">		return q.peek();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Java - 数组拷贝的几种方式<br><a href="https://blog.csdn.net/u011669700/article/details/79323251" target="_blank" rel="noopener">https://blog.csdn.net/u011669700/article/details/79323251</a></p>
+<p>Java8 Comparator 排序方法<br><a href="https://www.jianshu.com/p/3f621e51f306" target="_blank" rel="noopener">https://www.jianshu.com/p/3f621e51f306</a><br><a href="https://www.cnblogs.com/liululee/p/10935244.html" target="_blank" rel="noopener">https://www.cnblogs.com/liululee/p/10935244.html</a></p>
+
         </div>
 
         
@@ -391,7 +398,7 @@
                 <a class="prev" rel="prev" href="/2020/01/29/LiteratureReview/">Capstone阅读的paper</a>
             
             
-            <a class="next" rel="next" href="/2020/01/28/Leetcode-String/">Leetcode String类问题</a>
+            <a class="next" rel="next" href="/2020/01/28/Leetcode-String/">Leetcode String 类问题</a>
             
         </section>
 

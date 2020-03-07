@@ -7,7 +7,7 @@
 
 
 
-<title>Leetcode Math 类问题 | Aliciaaa</title>
+<title>Distributed Systems course material excerpt | Aliciaaa</title>
 
 
 
@@ -176,7 +176,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Leetcode Math 类问题</h1>
+            <h1 class="post-title">Distributed Systems course material excerpt</h1>
             
                 <div class="post-meta">
                     
@@ -185,14 +185,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">February 15, 2020&nbsp;&nbsp;20:19:31</a>
+                        Date: <a href="#">February 18, 2020&nbsp;&nbsp;9:53:05</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Leetcode/">Leetcode</a>
+                                <a href="/categories/Distributed-Systems/">Distributed Systems</a>
                             
                             
                         </span>
@@ -208,12 +208,15 @@
         </header>
 
         <div class="post-content">
-            <h4 id="204-Count-Primes-how-to-optimize"><a href="#204-Count-Primes-how-to-optimize" class="headerlink" title="204 Count Primes !!!!! how to optimize"></a>204 Count Primes !!!!! how to optimize</h4><p>Approach 1: see hint #3</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Time complexity: O(N*1.5)</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int countPrimes(int n) &#123;  // O(N/2)</span><br><span class="line">       int count = 0;</span><br><span class="line">       for (int i = 1; i &lt; n; i += 2) &#123;</span><br><span class="line">          if (isPrime(i)) count++;</span><br><span class="line">       &#125;</span><br><span class="line">        if (n &gt; 2) count++;  // make up for 2</span><br><span class="line">       return count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private boolean isPrime(int num) &#123;  // (N**0.5)</span><br><span class="line">       if (num &lt;= 1) return false;</span><br><span class="line">       // Loop&apos;s ending condition is i * i &lt;= num instead of i &lt;= sqrt(num)</span><br><span class="line">       // to avoid repeatedly calling an expensive function sqrt().</span><br><span class="line">       for (int i = 2; i * i &lt;= num; i++) &#123;</span><br><span class="line">          if (num % i == 0) return false;</span><br><span class="line">       &#125;</span><br><span class="line">       return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Approach 2: see hint #4</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Time complexity: O(??)</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int countPrimes(int n) &#123;</span><br><span class="line">        boolean [] arr = new boolean[n];</span><br><span class="line">        int count = 0;</span><br><span class="line">        for (int i = 2; i &lt; n; i ++) &#123;</span><br><span class="line">            if (arr[i]) continue;</span><br><span class="line">            count++;</span><br><span class="line">            for (int j = 1; i * j &lt; n; j++) &#123;</span><br><span class="line">                arr[i * j] = true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// a little bit better version: optimize by skipping all even number</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public int countPrimes(int n) &#123;</span><br><span class="line">        boolean [] arr = new boolean[n];</span><br><span class="line">        int count = 0;</span><br><span class="line">        if (n &gt; 2) &#123;</span><br><span class="line">            count++;</span><br><span class="line">            for (int i = 1; i * 2 &lt; n; i++) &#123;</span><br><span class="line">                arr[i * 2] = true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int i = 3; i &lt; n; i += 2) &#123;</span><br><span class="line">            if (arr[i]) continue;</span><br><span class="line">            count++;</span><br><span class="line">            for (int j = 1; i * j &lt; n; j++) &#123;</span><br><span class="line">                arr[i * j] = true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+            <h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><h4 id="Characteristic-1-collection-of-autonomous-computing-elements"><a href="#Characteristic-1-collection-of-autonomous-computing-elements" class="headerlink" title="Characteristic 1: collection of autonomous computing elements"></a>Characteristic 1: collection of autonomous computing elements</h4><h4 id="Characteristic-2-single-coherent-system"><a href="#Characteristic-2-single-coherent-system" class="headerlink" title="Characteristic 2: single coherent system"></a>Characteristic 2: single coherent system</h4><h3 id="Middleware-and-distributed-systems"><a href="#Middleware-and-distributed-systems" class="headerlink" title="Middleware and distributed systems"></a>Middleware and distributed systems</h3><p>To assist the development of distributed applications, distributed systems are often organized to have a separate layer of software that is logically placed on top of the respective operating systems of the computers that are part of the system. This orga- nization is shown in Fig. 1, leading to what is known as middleware [12].</p>
+<p>In a sense, middleware is the same to a distributed system as what an operating system is to a computer: a manager of resources offering its applications to efficiently share and deploy those resources across a network. Next to resource management, it offers services that can also be found in most operating systems, including:<br>– Facilities for interapplication communication. – Security services.<br>– Accounting services.<br>– Masking of and recovery from failures.</p>
+<h3 id="Scalability-dimensions"><a href="#Scalability-dimensions" class="headerlink" title="Scalability dimensions"></a>Scalability dimensions</h3><p><em>Size scalability</em> A system can be scalable with respect to its size, meaning that we can easily add more users and resources to the system without any noticeable loss of performance.</p>
+<p><em>Geographical scalability</em> A geographically scalable system is one in which the users and resources may lie far apart, but the fact that communication delays may be significant is hardly noticed.</p>
+<p><em>Administrative scalability</em> An administratively scalable system is one that can still be easily managed even if it spans many independent administrative organizations.</p>
+<h3 id="ACID-properties"><a href="#ACID-properties" class="headerlink" title="ACID properties"></a>ACID properties</h3><p>– Atomic To the outside world, the transaction happens indivisibly </p>
+<p>– Consistent The transaction does not violate system invariants</p>
+<p>– Isolated Concurrent transactions do not interfere with each other</p>
+<p>– Durable Once a transaction commits, the changes are permanent</p>
 
         </div>
 
@@ -228,7 +231,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://www.alicialuo.com/2020/02/15/Leetcode-Math/">https://www.alicialuo.com/2020/02/15/Leetcode-Math/</a></span>
+                        <span><a href="https://www.alicialuo.com/2020/02/18/DistributedSystems/">https://www.alicialuo.com/2020/02/18/DistributedSystems/</a></span>
                     </p>
                 
                 
@@ -242,9 +245,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/leetcode/"># leetcode</a>
-                    
-                        <a href="/tags/math/"># math</a>
+                        <a href="/tags/Distributed-Systems/"># Distributed Systems</a>
                     
                         
                 </span>
@@ -257,10 +258,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/02/16/Leetcode-Graph/">Leetcode Tree & Graph 类问题</a>
+                <a class="prev" rel="prev" href="/2020/02/27/Leetcode-Tree/">Leetcode Tree 类问题</a>
             
             
-            <a class="next" rel="next" href="/2020/02/13/分布式系统资料/">Learning materials for distributed systems</a>
+            <a class="next" rel="next" href="/2020/02/16/输入URL/">在浏览器中输入URL按下回车后发生了什么</a>
             
         </section>
 
