@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>学习资源 | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">学习资源</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">April 8, 2020&nbsp;&nbsp;16:50:32</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/杂/">杂</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p><a href="https://www.bilibili.com/video/av96318320/" target="_blank" rel="noopener">《Python编程与实践》之 聊聊hash函数与id函数: Bilibili</a></p>
+<ol>
+<li><p><code>id</code> 取一个对象的内存地址 (CPython解释器)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">id(obj, /)</span><br><span class="line">    Return the identity of an object.</span><br><span class="line">    </span><br><span class="line">    This <span class="keyword">is</span> guaranteed to be unique among simultaneously existing objects.</span><br><span class="line">    (CPython uses the object<span class="string">'s memory address.)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&gt;&gt;&gt; a = 1</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; id(a)</span></span><br><span class="line"><span class="string">4314233488</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; a = 2</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; id(a)</span></span><br><span class="line"><span class="string">4314233520</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; a = a + 1</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; id(a)</span></span><br><span class="line"><span class="string">4314233552</span></span><br><span class="line"><span class="string"># 先创建新int对象，把数值放进去, 让a指向这个地址, 旧对象被回收, 新重新被指向</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; b = 1</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; id(b)</span></span><br><span class="line"><span class="string">4314233488</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; id(1)</span></span><br><span class="line"><span class="string">4314233488</span></span><br><span class="line"><span class="string"># 首先会检查会不会有在现有的地址储存了。因为这是immutable的，所以如果改变了，就重新获取地址赋值</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&gt;&gt;&gt; a = [1, 2]</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; id(a)</span></span><br><span class="line"><span class="string">4320942912</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; a.append(3)</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; id(a)</span></span><br><span class="line"><span class="string">4320942912</span></span><br><span class="line"><span class="string"># 可变元素，地址不会改变</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不可变类型可以<code>hash</code>，可变类型不可以<code>hash</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">hash(obj, /)</span><br><span class="line">    Return the hash value <span class="keyword">for</span> the given object.</span><br><span class="line">    </span><br><span class="line">    Two objects that compare equal must also have the same hash value, but the</span><br><span class="line">    reverse <span class="keyword">is</span> <span class="keyword">not</span> necessarily true.</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> python3 中 `id` 和 `hash` 是相关的，`hash` 会有一个 `seed`，每次进程重启的时候，会重制，以防冲突。 python 中对于相同对象，小数复用优先，大数重构新建对象优先。</span><br><span class="line">```python</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>id(<span class="string">"hi"</span>)</span><br><span class="line"><span class="number">4319559280</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c = <span class="string">"hi"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>id(c)</span><br><span class="line"><span class="number">4319559280</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><a href="https://www.bilibili.com/video/BV1jT4y1G7AN" target="_blank" rel="noopener">十分钟！彻底弄懂Python深拷贝与浅拷贝机制: Bilibili</a><br>[img]<a href="https://upload.cc/i1/2020/04/08/HOZ7jQ.jpg[/img]" target="_blank" rel="noopener">https://upload.cc/i1/2020/04/08/HOZ7jQ.jpg[/img]</a></p>
+<p><a href="https://github.com/geektutu/7days-golang" target="_blank" rel="noopener"> 7天用Go动手写/从零实现系列</a></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://www.alicialuo.com/2020/04/08/学习资源/">https://www.alicialuo.com/2020/04/08/学习资源/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2020/04/01/Leetcode-Sorting/">Leetcode Sorting 类问题</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+<!-- <script type="text/javascript" color="0,0,0" opacity='0.7' zIndex="-2" count="100" src="https://github.com/hustcc/canvas-nest.js/blob/master/dist/canvas-nest.js"></script> -->
+</body>
+</html>

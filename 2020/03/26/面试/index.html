@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>网上面经 | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">网上面经</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">March 26, 2020&nbsp;&nbsp;0:31:32</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Interview/">Interview</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p><a href="https://mp.weixin.qq.com/s/aWGck1jlZRJ2fbkTOS9DBw" target="_blank" rel="noopener">JVM 史上最最最完整深入解析</a></p>
+<ol>
+<li><p>程序的性能怎么评估？</p>
+</li>
+<li><p>你现在把程序放在那，让他自己跑，你需要确保哪几个方面？如何做到？讲一下</p>
+</li>
+<li><p>（我没答上来他想问的）于是，他又举例：内存占用角度？CPU角度？每S多少条数据？举例：每秒1000条数据和每秒10000条数据的时候，内存和CPU怎么对比？ 现在你导师找你做任务，告诉你机器的配置是多少，数据占了多少，CPU占了这么多条，你如何优化？后来答案不满意，他告诉我你对程序性能的理解，其实就是你对代码的理解。</p>
+</li>
+<li><p>数据存在云上，云是什么？你的数据是怎么存在云上的？在云上是什么样的数据结构？</p>
+</li>
+<li><p>用过C/C++吗？C掌握程度什么样的？我说本科学了C现在自学了Java。好，说三个Java和c的区别？</p>
+</li>
+</ol>
+<p>答：Java有垃圾回收机制，c没有；Java是面向对象的语言，c是面向过程的语言；Java无法对内存控制，而C/C++可以通过指针对内存进行人为的分配。</p>
+<ol start="6">
+<li>说一下为什么JAVA有内存回收机制，而C没有？</li>
+</ol>
+<p>答：（懵了）说创建一个对象都会放在新生代，然后怎么怎么回收，回收到老年代，最后就完成了一次垃圾回收。（面试官：好吧。后来告诉我说，就想听我说虚拟机三个字。）</p>
+<ol start="7">
+<li>对象是什么意思？/ 面向对象编程<br><a href="https://www.jianshu.com/p/3a81c69134c2" target="_blank" rel="noopener">https://www.jianshu.com/p/3a81c69134c2</a></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在面试中，面向对象的常见考察点是三个基本特征：封装、继承、多态。封装 封装，也就是把客观事物封装成抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对不可信的进行信息隐藏。继承 继承是指这样一种能力：它可以使用现有类的所有功能，并在无需重新编写原来类的情况下对这些功能进行扩展。通过继承创建的新类称为「子类」或「派生类」，被继承的类称为「基类」、「父类」或「超类」。 要实现继承，可以通过 继承和组合 来实现。多态性 多态性是允许你将父对象设置成为和一个或更多的他的子对象相等的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的特性以不同的方式运作。简单说就是一句话：允许将子类类型的指针赋值给父类类型的指针。 实现多态，有两种方式，覆盖和重载。两者的区别在于：覆盖在运行时决定，重载是在编译时决定。并且覆盖和重载的机制不同。例如在 Java 中，重载方法的签名必须不同于原先方法的，但对于覆盖签名必须相同。我对面向对象的理解：面向对象的编程方式使得每一个类都只做一件事。面向过程会让一个类越来越全能，就像一个管家一样做了所有的事。而面向对象像是雇佣了一群职员，每个人做一件小事，各司其职，最终合作共赢！</span><br><span class="line"></span><br><span class="line">作者：力扣（LeetCode）</span><br><span class="line">链接：https://www.zhihu.com/question/31021366/answer/761614647</span><br><span class="line">来源：知乎</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>聊了一会人生，说我可能不适合当程序员，问还有什么问题之类的。。。。</li>
+</ol>
+<p>腾讯第一次面试</p>
+<p>1.自我介绍！！！</p>
+<p>2.在这么多的项目中你最熟悉的是什么？</p>
+<p>3.能详细说明一下你是怎么通过设置请求头解决了缓存问题吗？<br>    追问：使用了标准http请求头之后还是会偶现数据没更新对吗？有没有考虑过可能是说因为你之前没有加过头，后面加了以后浏览器又把之前的头给缓存下来了呢？<br>    主要考察http缓存</p>
+<p>4.在这个项目中有没有用到登录这个功能？</p>
+<pre><code>追问：怎么实现登录呢？
+
+追问：让你做一个登录的页面，你会怎么做呢？（比如登录之后，我去请求购物车，为什么我能返回来的是自己的购物车，而不是别人的？）
+
+使用token认证机制</code></pre><p>5.假设界面显示价格为9.99元，现在我去拉取了后台的价格，现在数据为8.88元。当你把数据设置为8.88后再到页面显示成8.88元。在这个期间你了不了解vue帮你做了什么事情？</p>
+<pre><code>双向数据绑定+发布订阅者监听+虚拟dom（diff算法）+生命周期钩子（beforeupdate、update）</code></pre><p>6.用过哪些es6语法？</p>
+<pre><code>追问：数组里面新加的方法你有用过哪些？</code></pre><p>7.https(传输过程是安全的，但是怎么解决密钥本身是安全的呢？使用证书的机制解决这个问题)</p>
+<p>最后一道编程题：</p>
+<pre><code>三次重试：假设有一个函数名为job,调用job后会执行一些异步任务，并返回一个Promise,但job执行的异步任务任务有可能会失败
+
+请实现函数retry,把job作为retry函数的参数传入，当retry执行后会尝试调用job,如果job返回成功（即Promise fulfilled），则retry函数返回job函数的返回内容；
+
+如果job返回失败（即Promise rejected）,retry函数会再次尝试调用job函数。
+
+如果job连续三次均返回失败，retry则不再尝试调用，并返回其最后一次失败的内容。</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">job</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">                setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                    <span class="keyword">var</span> num = <span class="built_in">Math</span>.ceil(<span class="built_in">Math</span>.random() * <span class="number">20</span>); <span class="comment">//生成1-10的随机数</span></span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'随机数生成的值：'</span>, num)</span><br><span class="line">                    <span class="keyword">if</span> (num &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">                        <span class="built_in">console</span>.log(<span class="string">'符合条件，值为'</span> + num)</span><br><span class="line">                        resolve(num);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span> &#123;</span><br><span class="line">                        reject(<span class="string">'数字大于1了执行失败'</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, <span class="number">2000</span>);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">retry</span>(<span class="params">job, times, delay</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">                <span class="function"><span class="keyword">function</span> <span class="title">attempt</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                    job().then(<span class="function"><span class="params">num</span> =&gt;</span> &#123;</span><br><span class="line">                        resolve(num);</span><br><span class="line">                    &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">                        <span class="built_in">console</span>.log(<span class="string">'还有'</span>, times - <span class="number">1</span>, <span class="string">'次尝试'</span>);</span><br><span class="line">                        <span class="keyword">if</span> (<span class="number">0</span> == times - <span class="number">1</span>) &#123;</span><br><span class="line">                            reject(err);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            times--;</span><br><span class="line">                            setTimeout(attempt(), delay);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;</span><br><span class="line">                attempt();</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        retry(job, <span class="number">3</span>, <span class="number">1000</span>).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(result);</span><br><span class="line">        &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123; <span class="built_in">console</span>.log(err); &#125;);</span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">job</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">                setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                    <span class="keyword">var</span> num = <span class="built_in">Math</span>.ceil(<span class="built_in">Math</span>.random() * <span class="number">20</span>); <span class="comment">//生成1-10的随机数</span></span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'随机数生成的值：'</span>, num)</span><br><span class="line">                    <span class="keyword">if</span> (num &lt;= <span class="number">10</span>) &#123;</span><br><span class="line">                        <span class="built_in">console</span>.log(<span class="string">'符合条件，值为'</span> + num)</span><br><span class="line">                        resolve(num);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span> &#123;</span><br><span class="line">                        reject(<span class="string">'数字大于10了执行失败'</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, <span class="number">2000</span>);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">retry</span>(<span class="params">job, times</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; times; i++) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">await</span> job();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125; <span class="keyword">catch</span>(err)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(i == times<span class="number">-1</span>)&#123;</span><br><span class="line">                        <span class="keyword">return</span> err;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">finally</span> &#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'还有'</span>, times - i - <span class="number">1</span>, <span class="string">'次机会'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        retry(job, <span class="number">3</span>).then(<span class="function"><span class="params">num</span> =&gt;</span> &#123; <span class="built_in">console</span>.log(num) &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>腾讯第二次面试<br>1.考研？<br>2.fastClick原理</p>
+<p>3.点击穿透</p>
+<p>4.图片懒加载原理（节流是什么）</p>
+<p>5.介绍一下mvvm(从双向绑定原理开始讲)（怎么监听数组的变化？）</p>
+<p>6.使用闭包实现变量自加一</p>
+<p>7.setTimeout第二个参数为0时和匿名自执行函数区别</p>
+<p>8.微任务有哪些？</p>
+<p>9.你是怎么压缩图片的？</p>
+<p>10.你是怎么实现瓦片绘制的？为什么在ios下会出现200万像素绘制不了的情况？</p>
+<p>11.数组和链表的区别？</p>
+<p>12.cookied和session的区别</p>
+<p>13.nodejs中的require原理</p>
+<p>14.webpack中如何实现按需加载的</p>
+<p>腾讯第三次面试</p>
+<p>1.tcp三次握手</p>
+<p>2.网络攻击（xss、csrf）</p>
+<p>3.性能优化（懒加载、缓存、重排重绘）</p>
+<p>4.闭包</p>
+<p>5.cookie和localstorage区别</p>
+<p>6.http状态码</p>
+<p>7.在地址栏里输入一个url到这个页面呈现出来，会发生什么？<br>    DNS解析-tcp三次握手-http连接传输数据-服务端处理（返回304或200）-解析渲染dom<br>8.跨域方案<br>9.手机适配你会怎么做？（媒体查询、rem、vwvh）</p>
+<p>10.你未来的方向和目标</p>
+<p>11.最近都有再看什么书？（现代前端技术解析、js高级编程、html5和css3响应式）</p>
+<p>作者：JaggerW<br>链接：<a href="https://www.nowcoder.com/discuss/387378?type=post&amp;order=time&amp;pos=&amp;page=1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/387378?type=post&amp;order=time&amp;pos=&amp;page=1</a><br>来源：牛客网</p>
+<p>1.听说你最近做了一个web项目，讲一下。<br>2.遇到什么困难，怎么克服的<br>3.自我评价一下优点（竟然，，有这种hr问题）<br>4.有没有了解cpp后台开发会用到的开源组件（感觉腾讯对这种组件源码的阅读经历异常看重，好些同学也在腾讯面试中被怼过没阅读过源码的问题）<br>5.主要用什么语言，了解c++11嘛？说一下c++11的新特性<br>6.c++的最新标准<br>7.讲一下c++如何实现单例模式<br>8.讲一下智能指针<br>9.二叉搜索树与红黑树得区别<br>10.讲一下select，epoll<br>11.linux里面抓包用什么命令（答：不知道，，，所以也就没有往下问，，）-&gt; tcpdump，（另外建议netstat命令和共享内存管理命令也了解一下，好像被问的频率还挺高的）<br>12.大数据情景题：512M内存，4G大小的int型数据，硬盘只读不可写，求其中位数（腾讯好多都被问了这个原题，去年就有这个原题）<br>答：（显得自己很有思考的样子）请问数据类型有什么分布特征嘛？会有大量的重复数据嘛？数据会集中的某一个范围内嘛？好的，那我们可以给他分成若干个小范围，先确定中位数在那个范围上，在那个小范围进行搜索查找中位数。（网上有好多这种问题，回答的比较详细，可以看一下）<br>13.有什么想问的吗？（答：什么部门，主要工作内容，啊啊啊，是我特别想去的部门，特别开心（稍微舔一下））</p>
+<p>作者：啊a<br>链接：<a href="https://www.nowcoder.com/discuss/389792?type=post&amp;order=time&amp;pos=&amp;page=1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/389792?type=post&amp;order=time&amp;pos=&amp;page=1</a><br>来源：牛客网</p>
+<p>说一下c++语言特点</p>
+<p>重载和重写（前者是参数可改，后者参数一样）</p>
+<p>vector array区别</p>
+<p>tcp 三次握手，四次挥手</p>
+<p>计网七层协议</p>
+<p>tcp udp优缺点</p>
+<p>网址访问过程，dns查询迭代，递归查询</p>
+<p>http和https的区别，加密的工作原理（说反了，面试官给我讲了讲。。）</p>
+<p>进程，线程区别（面试官补充进程是最小的执行实体）</p>
+<p>进程通信，说了个消费者生产者模式</p>
+<p>shell脚本写过吗，然后问了具体命令，文件内修改字符命令，进程后台执行命令，还问了几个其他的命令，有的会，有的不会，面试官说，你基础命令会，高级的命令不会</p>
+<p>数据库用过吗，我说用过关系数据库，mysql有啥引擎，事务的四大特点，然后给了数据库表，两道sql题目，我基本都没答上来</p>
+<p>我数据库不会，就问你平时做项目咋做的，我说我做路径规划，然后就开始问算法</p>
+<p>描述二叉树的遍历方式，写了个非递归的前序遍历</p>
+<p>链表有环的问题</p>
+<p>字典树，不知道，然后说子串匹配，我说kmp算法，也没问具体的细节</p>
+<p>华为去年的软挑比赛讲了讲</p>
+<p>项目中的难点</p>
+<p>排序算法，时间复杂度，空间复杂度</p>
+<p>然后继续问项目，问的我头皮发麻，代码怎么存储，有没有考虑安全问题，git命令怎么merge，解决冲突，接口安全问题，接口文档怎么弄，服务器用的啥，然后还问了好多这个项目怎么做的，怎么协作的。。。问的这个项目是我干活的javaweb后台项目，基本写上去算是充数的。。。<br>还问了很多别的，聊了挺久。还问了实习我说三个月，说还能再长点吗</p>
+<p>作者：随缘求offer!<br>链接：<a href="https://www.nowcoder.com/discuss/385849?type=post&amp;order=time&amp;pos=&amp;page=1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/385849?type=post&amp;order=time&amp;pos=&amp;page=1</a><br>来源：牛客网</p>
+<p>阿里钉钉一面      40分钟<br>0.算法，二进制求和<br>1.int表示的范围<br>2.抽象和接口的区别<br>3.Object的方法<br>4.integer和int缓冲区的问题-127–128<br>5.jvm分区新生代，老年代<br>6.快速排序讲讲<br>7.平常怎么学习，学习的方式有哪些？<br>8.项目讲讲，难点<br>9.有啥想问我的？<br>实习生在阿里是否有人带，怎么带？<br>我还有什么需要改进的？项目的亮点多说一点，别紧张什么的</p>
+<p>阿里飞猪一面  迟到一小时    面试十分钟<br>堆是怎么实现的？(没了解这个，所以凉了)其实就是完全二叉树<br>堆应用的地方有哪些？<br>讲讲项目？<br>redis和数据库的一致性问题？<br>平常怎么学习，看过的书有哪些？<br>看过啥开源项目？<br>我问完了，你有什么想问我的     = = ！</p>
+<p>这俩次面试加起来没一个小时。</p>
+<p>然后参加美团笔试，傻了！好难！5个编程。<br>第二天参加三七互娱笔试就30个选择，原来是java游戏开发部门。</p>
+<p>过几天紧接着CVTE来电话了，聊了一会人生，一点基础没问，我还以为就是聊聊呢？最后问了<br>一句原来这是面试。尴尬了，早知道认真严肃点了。<br>主要是面试官声音太好听了（听声音就知道很漂亮的小姐姐）</p>
+<p>然后睡醒继续跟谁学笔试喽！5个单选5个填空2个编程（填空难点，编程力扣easy难度）。</p>
+<p>第二天腾讯电话一面。50分钟<br>面完了，腾讯面试的小姐姐真好，聊天非常的愉快！<br>自我介绍<br>项目聊了非常非常多，各种情况，各种功能！上线之后的各种突发情况！（可惜我项目没上线）<br>俩个文件，每个文件十亿个URL，找到重复的URL，设计方案！<br>数据库引擎的区别<br>java的优势<br>你还有哪些擅长的我还没问到 = =！<br>反问环节：go语言的优势，是否有回馈，哪个部门！</p>
+<p>作者：NJU_XJC<br>链接：<a href="https://www.nowcoder.com/discuss/191466?type=post&amp;order=time&amp;pos=&amp;page=1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/191466?type=post&amp;order=time&amp;pos=&amp;page=1</a><br>来源：牛客网</p>
+<p>阿里盒马<br>一面：<br>简历项目，对项目的设计和思考<br>string，stringbuilder，stringbuffer比较<br>二面：<br>简历项目，对项目的设计和思考<br>hashmap，hashtable<br>springaop<br>juc<br>java的几种引用<br>jvm垃圾回收，具体问了g1的细节（很细）<br>三面：<br>java集合类<br>spingioc，springaop中的cglib动态***<br>hashmap并发读写死循环问题<br>string+string编译<br>synchronize关键字<br>分布式环境做线程同步<br>落地项目<br>盒马的学长人很好，拉了一个群时不时认真地给我们讲解简历的修改和一些面试技巧，是我这次春招中，所有帮助内推的学长中最负责的一个。<br>盒马是做新零售的，我觉得发展前景非常好，阿里的平台也非常好。<br>适合想要奋斗的年轻人，在盒马一定能有所作为吧。</p>
+<p>腾讯云<br>腾讯面试主要以数据结构，网络和linux为主<br>一面：<br>内容当时没有记录，回忆不是很完整<br>项目相关（根据项目问基础，比如使用udp进行NAT穿透的原因）<br>redis缓存遭到黑客恶意攻击的一些处理方式（导致多次连接本地数据库）<br>二面：<br>树的后序遍历<br>100个苹果每次取1、2个，有多少种取法<br>TCP/UDP区别<br>linux命令<br>TCP滑动窗口<br>01背包</p>
+<p>作者：为什么不问问神奇海螺呢<br>链接：<a href="https://www.nowcoder.com/discuss/293813?type=2" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/293813?type=2</a><br>来源：牛客网</p>
+<p>视频面<br>一面<br>自我介绍<br>如何判断一个数是不是2的幂次？ 大数高精度，小范围数n&amp;(n-1) == 0? true : false;<br>代码实现 快速排序，堆排序<br>项目<br>acm<br>最后和面试官聊起了程序人生，愉快地结束面试<br>二面<br>自我介绍<br>[LeetCode] Partition List 划分链表原题<br>项目，聊到帧同步，状态同步的实现原理<br>map,set,vector 内部实现原理<br>在面试的时候和面试官起了点小矛盾。面试官：说说你在实习期间的项目负责什么，项目用了什么架构实现？回：签了保密协议不能说；面试官：你不说我怎么知道你做了什么？回：上面有很多MiniGame，你问这些不行么，为什么要问其他公司的在研项目？。 随后他也没问了<br>TCP/UDP，三次握手四次挥手<br>渲染管线<br>三面<br>自我介绍<br>面试官比较看重项目<br>帧同步，状态同步<br>逻辑表现分离，追帧<br>实习demo的架构<br>protobuffer，TCP/UDP<br>王者荣耀是用帧同步还是状态同步？<br>最后和面试官聊起了程序人生，再一次苟过<br>四面 总监+HR（HR旁听，一直是我和总监交流）<br>为什么要做游戏？除了游戏你是否会选择其他开发方向？  送命题<br>怎么理解游戏开发？<br>在ACM竞赛中担任怎么样的角色？<br>在MiniGame中担任怎么样的角色？<br>在你前两段的实习经历中，碰到最大的困难是什么？<br>平时如何学习？最近在学习什么新技术？最近在看什么书？<br>有没有写博客的习惯？<br>了解头条吗？<br>职业规划<br>总结：字节面试效率很高，如果通过基本上当天就预约下一轮面试，面试官普遍偏年轻化。面试问的问题也不会很奇怪</p>
+<p>网易雷火 游戏研发岗（根据实习情况再考虑转正，拒了）</p>
+<p>现场面<br>一面<br>自我介绍<br>扔了张卷子20题，让选10题。[操作系统，编译原理，选择题，看程序写输出，算法DP]<br>项目，对着简历上的关键词问了下概念<br>二面<br>自我介绍<br>面试官是个中年油腻大叔 ( •̀ ω •́ )，印象不是很好，胡渣，不理发<br>还在腾讯实习？<br>三维凸包 算法设计 。 完全没看过三维凸包的，愣了。然后他说多暴力都可以，提示下想到枚举2^n复杂度。<br>C#中装箱，拆箱<br>C#值类型，引用类型<br>hashmap和unorderedmap的区别？<br>unity3d的生命周期<br>C++11新特性?<br>渲染管线<br>面完感觉不是很好，面试官说应该还会有下一轮。中午在猪厂找学长一起吃了午饭（还是我鹅的饭香~真香 (￣▽￣)”<br>三面 总监<br>自我介绍<br>插值Lerp运用<br>兴趣爱好。跑马拉松，面试官很感兴趣<br>平时逛什么技术网站？<br>ACM教练是谁？<br>玩过什么网易的游戏或者产品？<br>什么时候能来实习？<br>职业规划<br>四面 HR<br>HR小姐姐全程挖坑，对双非同学极度不友好，学历歧视<br>二十几个人现场面留下三个，挺激动的<br>忘了HR面说了什么，后续想起来再补充<br>雷火是第一次HR面试，之前实习都是HR通知offer，从此以后HR面非常谨慎，也为后续拿下其他offer做了铺垫。<br>总结：网易卡学历鼻祖，认栽。最后让先去实习，拒绝了。自我反思：面试氛围很平淡，没亮点，HR挖坑就跳，应届生缺乏面试技巧。</p>
+<p>网易互娱 游戏研发岗（offer）</p>
+<p>现场面，过去手撕循环队列（注意满的情况，我用的链表实现）<br>一面 问的很基础很详细<br>自我介绍<br>解释循环队列代码实现原理<br>hash_map<br>C++11新特性<br>C++多态原理<br>static的作用<br>malloc/free和new/delete的区别<br>内存分哪五大区<br>指针和引用<br>死锁<br>线程和进程的区别<br>赛马问题<br>TCP/UDP<br>拥塞避免算法的具体过程<br>三次握手，四次挥手<br>帧同步，状态同步，逻辑表现分离<br>对游戏开发的理解<br>map,set<br>vector的扩容机制<br>排序算法<br>https和Http的区别<br>并发懂多少？<br>一面都答上来了，面试官也非常满意<br>二面 总监面<br>自我介绍<br>还在腾讯实习？<br>平时怎么学习？看哪些书<br>一维坐标轴，有n（n&lt;=1e5）个点，有速度和方向，问第一次相向碰撞的时间点<br>acm竞赛中担任怎么样的角色<br>如何理解游戏开发<br>渲染管线<br>以后你身边的同事都是研究生和博士生，你有什么想说的吗？如何看待这个问题？<br>职业规划<br>总结：互娱面试流程，现场面整体很舒服，无HR面，比某火好多太多。</p>
+<p>腾讯 游戏客户端开发（offer）</p>
+<p>一面<br>自我介绍<br>介绍快排的原理，复杂度。快排递归和非递归的实现方法<br>帧同步，状态同步<br>渲染管线<br>如何防止一个类被拷贝？<br>智能指针<br>渲染管线<br>基本上都答上，面试感觉还行<br>二面 总监面<br>自我介绍<br>项目，帧同步，状态同步，AABB包围盒<br>之前在腾讯实习负责什么？<br>ACM竞赛中碰到最大的难题是什么？<br>渲染管线<br>平时如何学习？看什么书？喜欢玩什么游戏？<br>面完比较开心，当场就知道通过了。官网秒变HR面，中午催了总监（回头想想我胆子真大。。），两分钟后收到HR面邮件，约的下午<br>三面 HR （40min）<br>为什么没留用？<br>有对象吗？<br>你是浙江人，为什么要来深圳？<br>在ACM竞赛中有什么总结感悟？<br>你觉得自己是 摸鱼型 还是 目标性型的人？ 送命题<br>如果你和同事起冲突如何解决？<br>平时会看什么书呀？为什么要看这些书?<br>如何看待加班？<br>你有什么优点和缺点？送命题<br>职业规划<br>目前有哪些offer？你会如何选择？为什么？<br>反问：什么时候发Offer?答：最快明天或者后天；    于是鸽了快四周！！ieg虽然oc晚，但薪资谈得却很早，舒舒服服过个国庆节！</p>
+<p>作者：MRWu_haha<br>链接：<a href="https://www.nowcoder.com/discuss/390339?type=post&amp;order=time&amp;pos=&amp;page=1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/390339?type=post&amp;order=time&amp;pos=&amp;page=1</a><br>来源：牛客网</p>
+<p>第一次面试很紧张，虽然准备了很多天，但是进入腾讯视频会议还是非常紧张。。。多态都没答好。。下面是面试的部分问题（有些真的忘了。。）<br>1，面向对象的三大特性（封装，继承，多态）<br>2，举个项目的例子介绍一下运行时多态<br>3，不能用位运算符计算两个数的或结果<br>4，设计一段程序，不能用sizeof，求计算机操作系统是32位还是64位<br>5，unity里面monobehavier的awake(),start()的区别<br>6，构造函数可不可以是虚函数<br>7，进程中堆和栈分别存放什么东西，对象的实例能不能在栈上面。<br>9，什么bug会导致栈溢出<br>10，为什么函数的传入参数要设置为引用，除了节省拷贝外还有什么作用<br>11，接下来就是项目的问题了。。<br>感觉问的真的是非常非常基础的内容了，居然数据结构和算法，操作系统都没有问。。</p>
+<p>作者：WonzAnn<br>链接：<a href="https://www.nowcoder.com/discuss/387955?type=post&amp;order=time&amp;pos=&amp;page=1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/387955?type=post&amp;order=time&amp;pos=&amp;page=1</a><br>来源：牛客网</p>
+<p>1.介绍堆和栈？</p>
+<p>2.函数压栈退栈过程？</p>
+<p>3.给一段代码 判断是否有误？（指针方面的 我知道肯定有问题 但是我看不出来）</p>
+<p>4.介绍vector list map unordered_map？</p>
+<p>5.虚函数 虚函数表？</p>
+<p>6.两个栈实现队列？</p>
+<p>7.怎么判断一个点在不在三角形内？ 用向量判断呢？</p>
+<p>8.判断一条射线和球是否相交？</p>
+<p>9.一道算法题 ？（最小生成树 但是我忘了具体怎么做了 靠印象说的）</p>
+<p>10.内存对齐？</p>
+<p>11.虚拟内存和物理内存？</p>
+<p>12.TCP UDP？</p>
+<p>阿里-蚂蚁金服一面<br>寻找十个最大的数<br>priority queue<br>quick selection</p>
+<p>反转链表的几种方式<br>遍历法（结构清晰易懂，时间复杂度低）<br>递归法（代码简洁，但时间复杂度高，尤其是在链表长度超过12000之后）<br>内置类法（代码简洁，使用内置LinkedList类）<br><a href="https://blog.csdn.net/geekmanong/article/details/51097196" target="_blank" rel="noopener">https://blog.csdn.net/geekmanong/article/details/51097196</a></p>
+<p>进程和线程的区别，什么时候适合用进程，什么时候用线程</p>
+<p>1、需要频繁创建销毁的优先使用线程；因为对进程来说创建和销毁一个进程代价是很大的。</p>
+<p>2、线程的切换速度快，所以在需要大量计算，切换频繁时用线程，还有耗时的操作使用线程可提高应用程序的响应</p>
+<p>3、因为对CPU系统的效率使用上线程更占优，所以可能要发展到多机分布的用进程，多核分布用线程；</p>
+<p>4、并行操作时使用线程，如C/S架构的服务器端并发线程响应用户的请求；</p>
+<p>5、需要更稳定安全时，适合选择进程；需要速度时，选择线程更好。</p>
+<p>项目里遇到最挑战的是什么:<br>讲清楚问题是什么，难在什么地方，你是怎么解决的，你为什么要这样解决，有没有什么数据和测试证明你有效解决了。<br>What？<br>How？<br>Why？</p>
+<p>tcp和udp的区别</p>
+<p>数据库里 两种隔离级别，悲观锁和乐观锁</p>
+<p>死锁的机制，如何避免，银行家算法怎么实现</p>
+<p>数据库如何建立索引</p>
+<p>在数据库里 如何查找 上过超过三门课的学生</p>
+<p><a href="https://blog.csdn.net/v_JULY_v/article/details/6279498" target="_blank" rel="noopener">十道海量数据处理面试题与十个方法大总结</a><br><a href="https://juejin.im/entry/5a27cb796fb9a045104a5e8c" target="_blank" rel="noopener">教你如何迅速秒杀掉99%的海量数据处理面试题</a></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://www.alicialuo.com/2020/03/26/面试/">https://www.alicialuo.com/2020/03/26/面试/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/interview/"># interview</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/04/01/Leetcode-Sorting/">Leetcode Sorting 类问题</a>
+            
+            
+            <a class="next" rel="next" href="/2020/03/13/Leetcode-滑窗问题/">Leetcode Sliding Window 类问题</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+<!-- <script type="text/javascript" color="0,0,0" opacity='0.7' zIndex="-2" count="100" src="https://github.com/hustcc/canvas-nest.js/blob/master/dist/canvas-nest.js"></script> -->
+</body>
+</html>

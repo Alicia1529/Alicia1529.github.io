@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>Leetcode Sorting 类问题 | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+
+<!-- <script zIndex="-2" src="js/canvas-nest.js"></script> -->
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Leetcode Sorting 类问题</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">April 1, 2020&nbsp;&nbsp;19:12:19</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Leetcode/">Leetcode</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="Some-Terminology"><a href="#Some-Terminology" class="headerlink" title="Some Terminology"></a>Some Terminology</h3><ol>
+<li><p>Stable sort<br>Duplicates from the unsorted collection appear in the same relative order in the sorted collection. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ei == ej <span class="keyword">and</span> i &lt; j <span class="keyword">in</span> the unsorted sequence,</span><br><span class="line">	then ei appears before ej <span class="keyword">in</span> the sorted sequence.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>In-place sort<br>The extra space required to store the data during the sort is independent of the size of the input<br>Swapping references instead of elements =&gt; in-place sort</p>
+</li>
+</ol>
+<p>The space complexity of such an algorithm is <em>O(1)</em></p>
+<h3 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h3><p>visualization: <a href="https://visualgo.net/sorting" target="_blank" rel="noopener">https://visualgo.net/sorting</a><br>leetcod: 75. Sort Colors</p>
+<h3 id="Bubble-sort"><a href="#Bubble-sort" class="headerlink" title="Bubble sort"></a>Bubble sort</h3><p><em>stable</em>, O(N**2)</p>
+<ol>
+<li>Traversal from the low end of the array</li>
+<li>Compare elements by pairs</li>
+<li>left element &gt; right element =&gt; swap elements</li>
+<li>Start again<br> Except largest element is now at the high end<pre><code>=&gt; Traversal from the low end to high end - 1</code></pre></li>
+</ol>
+<p>After k steps, traversal from the low end to high end - k</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># naive version</span></span><br><span class="line"><span class="comment"># every time the largest value will be move to the rightmost side</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(array)):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(len(array) - <span class="number">1</span>):</span><br><span class="line">        print(array)</span><br><span class="line">        <span class="keyword">if</span> array[j+<span class="number">1</span>] &lt; array[j]:</span><br><span class="line">            array[j+<span class="number">1</span>] , array[j] = array[j] , array[j+<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># a slightly better version</span></span><br><span class="line"><span class="comment"># as the right most right is already ordered</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(array)):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(len(array) - <span class="number">1</span> - i):</span><br><span class="line">        print(array)</span><br><span class="line">        <span class="keyword">if</span> array[j+<span class="number">1</span>] &lt; array[j]:</span><br><span class="line">            array[j+<span class="number">1</span>] , array[j] = array[j] , array[j+<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Selection-sort"><a href="#Selection-sort" class="headerlink" title="Selection sort"></a>Selection sort</h3><ol>
+<li><em>not stable</em></li>
+</ol>
+<p>eg:<br>5 8 5 2 9，我们知道第一遍选择第1个元素5会和2交换，那么原序列中两个5的相对前后顺序就被破坏了，所以选择排序是一个不稳定的排序算法。</p>
+<ol start="2">
+<li>num of swaps: O(N) -&gt; only swaps to bring elements to their final place</li>
+</ol>
+<p>Pseudocode<br>    while the size of the unsorted part is greater than 1<br>        find the position of the smallest element in the unsorted part<br>        move this smallest element into the last position of the sorted part<br>        decrement the size of the unsorted part by 1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># the first i elements are sorted</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectionSort</span><span class="params">(array)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(array)):</span><br><span class="line">        idx = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i,len(array)):</span><br><span class="line">            <span class="keyword">if</span> array[j] &lt; array[idx]:</span><br><span class="line">                idx = j</span><br><span class="line">        array[idx] , array[i] = array[i],array[idx]</span><br><span class="line">    <span class="keyword">return</span> array</span><br></pre></td></tr></table></figure>
+
+<h3 id="Insertion-sort"><a href="#Insertion-sort" class="headerlink" title="Insertion sort"></a>Insertion sort</h3><ol>
+<li>On average, insertion sort is inefficient:<br>Reason: it moves values just one position at a time</li>
+<li>Insertion sort is efficient if the input is “almost sorted”</li>
+</ol>
+<p>Pseudocode<br>    while the size of the unsorted part is greater than 0<br>    let the target element be the first element in the unsorted part<br>    find target’s insertion point in the sorted part<br>    make place at insertion point by shifting all larger elements<br>    insert the target in its final, sorted position</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertionSort</span><span class="params">(array)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">1</span>,len(array)):</span><br><span class="line">        currentV = array[index]</span><br><span class="line">        position = index</span><br><span class="line">        <span class="keyword">while</span> position &gt; <span class="number">0</span> <span class="keyword">and</span> currentV &lt; array[position - <span class="number">1</span>]:</span><br><span class="line">            array[position] = array[position - <span class="number">1</span>]</span><br><span class="line">            position -= <span class="number">1</span></span><br><span class="line">        array[position] = currentV</span><br><span class="line">    <span class="keyword">return</span> array</span><br></pre></td></tr></table></figure>
+
+<h3 id="Merge-Sort"><a href="#Merge-Sort" class="headerlink" title="Merge Sort"></a>Merge Sort</h3><p><em>stable sort</em></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_step</span><span class="params">(array1, array2)</span>:</span></span><br><span class="line">    left, right = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    arrayNew = []</span><br><span class="line">    <span class="keyword">while</span> (left &lt; len(array1) <span class="keyword">and</span> right &lt; len(array2)):</span><br><span class="line">        <span class="keyword">if</span> array1[left] &lt; array2[right]:</span><br><span class="line">            arrayNew.append(array1[left])</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            arrayNew.append(array2[right])</span><br><span class="line">            right += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> left &lt; len(array1):</span><br><span class="line">        arrayNew.extend(array1[left:])</span><br><span class="line">    <span class="keyword">if</span> right &lt; len(array2):</span><br><span class="line">        arrayNew.extend(array2[right:])</span><br><span class="line">    <span class="keyword">return</span> arrayNew</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">break_step</span><span class="params">(array)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(array) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> array</span><br><span class="line">    n = len(array) // <span class="number">2</span></span><br><span class="line">    leftArray = array[:n]</span><br><span class="line">    rightArray = array[n:]</span><br><span class="line">    leftArray = break_step(leftArray)</span><br><span class="line">    rightArray = break_step(rightArray)</span><br><span class="line">    <span class="keyword">return</span> merge_step(leftArray, rightArray)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Quick-Sort"><a href="#Quick-Sort" class="headerlink" title="Quick Sort"></a>Quick Sort</h3><ol>
+<li><p>Complexity O(nlogn): choose the median each time -&gt; median of three</p>
+</li>
+<li><p>Worst case: O(N**2), almost sorted array or a lot of equal values</p>
+</li>
+<li><p>for equal values: three sections, smaller than, bigger than, equal to</p>
+</li>
+<li><p>not efficient when the size is small, change to insertion sort</p>
+</li>
+<li><p>the picked pivot value will directly go to its destination.</p>
+</li>
+</ol>
+<p><a href="https://blog.csdn.net/qq_20011607/article/details/82357239" target="_blank" rel="noopener">Optimization for repeating values</a></p>
+<h4 id="Inplace"><a href="#Inplace" class="headerlink" title="Inplace"></a>Inplace</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inplace_quick_sort</span><span class="params">(S, a, b)</span>:</span></span><br><span class="line">    <span class="string">"""Sort the list from S[a] to S[b] inclusive using the quick-sort algorithm."""</span></span><br><span class="line">    <span class="keyword">if</span> a &gt;= b: <span class="keyword">return</span>                                      <span class="comment"># range is trivially sorted</span></span><br><span class="line">    pivot = S[b]                                           <span class="comment"># last element of range is pivot</span></span><br><span class="line">    left = a                                               <span class="comment"># will scan rightward</span></span><br><span class="line">    right = b<span class="number">-1</span>                                            <span class="comment"># will scan leftward</span></span><br><span class="line">    <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">        <span class="comment"># scan until reaching value equal or larger than pivot (or right marker)</span></span><br><span class="line">        <span class="keyword">while</span> left &lt;= right <span class="keyword">and</span> S[left] &lt; pivot:</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">        <span class="comment"># scan until reaching value equal or smaller than pivot (or left marker)</span></span><br><span class="line">        <span class="keyword">while</span> left &lt;= right <span class="keyword">and</span> pivot &lt; S[right]:</span><br><span class="line">            right -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> left &lt;= right:                                    <span class="comment"># scans did not strictly cross</span></span><br><span class="line">            S[left], S[right] = S[right], S[left]            <span class="comment"># swap values</span></span><br><span class="line">            left, right = left + <span class="number">1</span>, right - <span class="number">1</span>                <span class="comment"># shrink range</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># put pivot into its final place (currently marked by left index)</span></span><br><span class="line">    print(left, right)</span><br><span class="line">    S[left], S[b] = S[b], S[left]</span><br><span class="line">    <span class="comment"># make recursive calls</span></span><br><span class="line">    inplace_quick_sort(S, a, left - <span class="number">1</span>)</span><br><span class="line">    inplace_quick_sort(S, left + <span class="number">1</span>, b)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Optimize-in-terms-of-choosing-median-value"><a href="#Optimize-in-terms-of-choosing-median-value" class="headerlink" title="Optimize in terms of choosing median value"></a>Optimize in terms of choosing median value</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">medianOfThree</span><span class="params">(array, start, end)</span>:</span></span><br><span class="line">    <span class="string">''' Determines the median of three values in a portion of the array.</span></span><br><span class="line"><span class="string">        Considers three values in the portion: first, last and middle position.</span></span><br><span class="line"><span class="string">        This function sorts those three positions, then return the middle value.</span></span><br><span class="line"><span class="string">        @array: the list being sorted</span></span><br><span class="line"><span class="string">        @start: the index of first element in this portion</span></span><br><span class="line"><span class="string">        @end: the index of last element in this portion</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        return: middle value</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    mid = (end - start) // <span class="number">2</span> + start</span><br><span class="line">    <span class="keyword">if</span> (array[start] &gt; array[end]):</span><br><span class="line">        array[start], array[end] = array[end], array[start]</span><br><span class="line">    <span class="keyword">if</span> (array[mid] &gt; array[end]):</span><br><span class="line">        array[mid], array[end] = array[end], array[mid]</span><br><span class="line">    <span class="keyword">if</span> (array[start] &gt; array[mid]):</span><br><span class="line">        array[start], array[mid] = array[mid], array[start]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> array[mid]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partition</span><span class="params">(array, start, end, pivot_value)</span>:</span></span><br><span class="line">    <span class="string">''' partitions a portion of the array around a pivot value.</span></span><br><span class="line"><span class="string">        @array: the list being sorted</span></span><br><span class="line"><span class="string">        @start: the index of first element in this portion</span></span><br><span class="line"><span class="string">        @end :  the index of last element in this portion</span></span><br><span class="line"><span class="string">        @pivot_value: the pivot value for the partition</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        return: index of pivot_value after partition</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    i = start</span><br><span class="line">    j = end</span><br><span class="line">    <span class="keyword">while</span> (i &lt; j):</span><br><span class="line">        <span class="keyword">while</span> (array[i] &lt; pivot_value):</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> (array[j] &gt; pivot_value):</span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (i &lt; j):</span><br><span class="line">            <span class="keyword">if</span> (array[i] != array[j]):</span><br><span class="line">                array[i], array[j] = array[j], array[i]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                j -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> j</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(array, start, end)</span>:</span></span><br><span class="line">    <span class="string">''' Performs quick sort on a portion of the array.</span></span><br><span class="line"><span class="string">        Use start, end to perform recursion.</span></span><br><span class="line"><span class="string">        @array: the list being sorted</span></span><br><span class="line"><span class="string">        @start: the index of first element in this portion</span></span><br><span class="line"><span class="string">        @end :  the index of last element in this portion</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment"># To do</span></span><br><span class="line">    <span class="keyword">if</span> (start &lt; end):</span><br><span class="line">        pivot_value = medianOfThree(array, start, end)</span><br><span class="line">        pivot_index = partition(array, start, end, pivot_value)</span><br><span class="line">        quick_sort(array, start, pivot_index - <span class="number">1</span>)</span><br><span class="line">        quick_sort(array, pivot_index + <span class="number">1</span>, end)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Bucket-Counting-sort"><a href="#Bucket-Counting-sort" class="headerlink" title="Bucket/Counting sort"></a>Bucket/Counting sort</h3><ol>
+<li>suitable for limited range of numbers : m</li>
+<li>time complexity: O(M), time complexity(N)<br>Idea<br> Suppose the values are in the range 0..m-1<br> Start with m empty buckets numbered 0 to m-1<br> Scan the list<br> Every element of value s[i] goes in bucket s[i]<br> Output the buckets in order</li>
+</ol>
+<h3 id="Radix-sort"><a href="#Radix-sort" class="headerlink" title="Radix sort"></a>Radix sort</h3><ol>
+<li>Sorting, in general, can be done in  O( n log n ) time</li>
+</ol>
+<p>Idea<br>    Suppose the values are in the range 0..m-1<br>    Start with m empty buckets numbered 0 to m-1<br>    Scan the list<br>    Every element of value s[i] goes in bucket s[i]<br>    Output the buckets in order</p>
+<h3 id="Quick-Selection"><a href="#Quick-Selection" class="headerlink" title="Quick Selection"></a>Quick Selection</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_select</span><span class="params">(S, k)</span>:</span></span><br><span class="line">    <span class="string">""" Return the kth smallest element of array, for k from 1 to len(array).</span></span><br><span class="line"><span class="string">        @array: a python list, selecting kth smallest element from it.</span></span><br><span class="line"><span class="string">        @k:     kth smallest, ranging from 1 to len(array)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        return: value of kth smallest element within array</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> len(S) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> S[<span class="number">0</span>]</span><br><span class="line">    pivot = random.choice(S)             <span class="comment"># pick random pivot element from S</span></span><br><span class="line">    L = [x <span class="keyword">for</span> x <span class="keyword">in</span> S <span class="keyword">if</span> x &lt; pivot]      <span class="comment"># elements less than pivot</span></span><br><span class="line">    E = [x <span class="keyword">for</span> x <span class="keyword">in</span> S <span class="keyword">if</span> x == pivot]     <span class="comment"># elements equal to pivot</span></span><br><span class="line">    G = [x <span class="keyword">for</span> x <span class="keyword">in</span> S <span class="keyword">if</span> pivot &lt; x]      <span class="comment"># elements greater than pivot</span></span><br><span class="line">    <span class="keyword">if</span> k &lt;= len(L):</span><br><span class="line">        <span class="keyword">return</span> quick_select(L, k)          <span class="comment"># kth smallest lies in L</span></span><br><span class="line">    <span class="keyword">elif</span> k &lt;= len(L) + len(E):</span><br><span class="line">        <span class="keyword">return</span> pivot                       <span class="comment"># kth smallest equal to pivot</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        j = k - len(L) - len(E)            <span class="comment"># new selection parameter</span></span><br><span class="line">        <span class="keyword">return</span> quick_select(G, j)          <span class="comment"># kth smallest is jth in G</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Top-K-question"><a href="#Top-K-question" class="headerlink" title="Top K question:"></a>Top K question:</h3><ol>
+<li>quick selection</li>
+<li>heap sort</li>
+</ol>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://www.alicialuo.com/2020/04/01/Leetcode-Sorting/">https://www.alicialuo.com/2020/04/01/Leetcode-Sorting/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/leetcode/"># leetcode</a>
+                    
+                        <a href="/tags/sort/"># sort</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/04/08/查漏补缺快速回顾/">查漏补缺快速回顾or上手</a>
+            
+            
+            <a class="next" rel="next" href="/2020/03/26/面试/">网上面经</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+<!-- <script type="text/javascript" color="0,0,0" opacity='0.7' zIndex="-2" count="100" src="https://github.com/hustcc/canvas-nest.js/blob/master/dist/canvas-nest.js"></script> -->
+</body>
+</html>
