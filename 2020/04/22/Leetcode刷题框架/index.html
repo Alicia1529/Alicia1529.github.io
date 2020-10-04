@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>leetcode 按套路刷题 | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">leetcode 按套路刷题</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">April 22, 2020&nbsp;&nbsp;10:43:12</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/杂/">杂</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p><a href="https://github.com/labuladong/fucking-algorithm" target="_blank" rel="noopener">fucking-algorithm: 手把手撕LeetCode题目</a></p>
+<p>第零章、必读系列</p>
+<ul>
+<li>学习算法和刷题的框架思维 ✅</li>
+<li>学习数据结构和算法读什么书 ✅</li>
+<li>动态规划解题框架 ✅</li>
+<li>动态规划答疑篇</li>
+<li>回溯算法解题框架 ✅| N-Queen</li>
+<li>二分查找解题框架</li>
+<li>滑动窗口解题框架</li>
+<li>双指针技巧解题框架</li>
+<li>Linux的进程、线程、文件描述符是什么</li>
+<li>Git/SQL/正则表达式的在线练习平台<br>第一章、动态规划系列</li>
+<li>动态规划详解 ✅</li>
+<li>动态规划答疑篇</li>
+<li>动态规划设计：最长递增子序列 No.300 (m) ✅/ 二分查找</li>
+<li>编辑距离 No.72 (h) ✅</li>
+<li>经典动态规划问题：高楼扔鸡蛋 No. 887 (h) ✅</li>
+<li>经典动态规划问题：高楼扔鸡蛋（进阶）</li>
+<li>动态规划之子序列问题解题模板 ✅</li>
+<li>动态规划之博弈问题 ✅</li>
+<li>贪心算法之区间调度问题 ✅</li>
+<li>动态规划之KMP字符匹配算法 ✅</li>
+<li>团灭 LeetCode 股票买卖问题 ✅</li>
+<li>团灭 LeetCode 打家劫舍问题 ✅</li>
+<li>动态规划之四键键盘 ✅</li>
+<li>动态规划之正则表达 ✅</li>
+<li>最长公共子序列 ✅<br>第二章、数据结构系列</li>
+<li>学习算法和刷题的思路指南 ✅</li>
+<li>学习数据结构和算法读什么书</li>
+<li>二叉堆详解实现优先级队列 ✅</li>
+<li>LRU算法详解 ✅</li>
+<li>二叉搜索树操作集锦 ✅</li>
+<li>特殊数据结构：单调栈 ✅</li>
+<li>特殊数据结构：单调队列 ✅</li>
+<li>设计Twitter ✅</li>
+<li>递归反转链表的一部分</li>
+<li>队列实现栈|栈实现队列<br>第三章、算法思维系列</li>
+<li>算法学习之路</li>
+<li>回溯算法详解 ✅</li>
+<li>回溯算法团灭排列、组合、子集问题 ✅</li>
+<li>二分查找详解</li>
+<li>双指针技巧总结</li>
+<li>滑动窗口技巧</li>
+<li>twoSum问题的核心思想</li>
+<li>常用的位操作</li>
+<li>拆解复杂问题：实现计算器</li>
+<li>烧饼排序</li>
+<li>前缀和技巧</li>
+<li>字符串乘法</li>
+<li>FloodFill算法详解及应用</li>
+<li>区间调度之区间合并问题</li>
+<li>区间调度之区间交集问题</li>
+<li>信封嵌套问题</li>
+<li>几个反直觉的概率问题</li>
+<li>洗牌算法</li>
+<li>递归详解<br>第四章、高频面试系列</li>
+<li>如何实现LRU算法 ✅</li>
+<li>如何高效寻找素数 ✅</li>
+<li>如何计算编辑距离</li>
+<li>如何运用二分查找算法</li>
+<li>如何高效解决接雨水问题</li>
+<li>如何去除有序数组的重复元素</li>
+<li>如何寻找最长回文子串</li>
+<li>如何k个一组反转链表</li>
+<li>如何判定括号合法性</li>
+<li>如何寻找消失的元素</li>
+<li>如何寻找缺失和重复的元素</li>
+<li>如何判断回文链表</li>
+<li>如何在无限序列中随机抽取元素</li>
+<li>如何调度考生的座位</li>
+<li>Union-Find算法详解</li>
+<li>Union-Find算法应用</li>
+<li>一行代码就能解决的算法题 ✅</li>
+<li>二分查找高效判定子序列<br>第五章、计算机技术</li>
+<li>Linux的进程、线程、文件描述符是什么</li>
+<li>一文看懂 session 和 cookie</li>
+<li>关于 Linux shell 你必须知道的</li>
+<li>加密算法的前身今世</li>
+<li>Git/SQL/正则表达式的在线练习平台</li>
+</ul>
+<p>April 22 - Dynamic Programming</p>
+<ol start="674">
+<li>Longest Continuous Increasing Subsequence (easy - 3)</li>
+<li>Longest Increasing Subsequence (medium -3)</li>
+<li>Longest Palindrome (easy - 2)</li>
+<li>Longest Palindromic Substring (medium - dp solution)</li>
+</ol>
+<p>April 23<br><a href="https://github.com/labuladong/fucking-algorithm/blob/master/高频面试系列/一行代码解决的智力题.md" target="_blank" rel="noopener">一行代码就能解决的算法题</a><br><a href="https://github.com/labuladong/fucking-algorithm/blob/master/动态规划系列/动态规划之博弈问题.md" target="_blank" rel="noopener">动态规划之博弈问题</a></p>
+<p>April 24</p>
+<ol start="435">
+<li>Non-overlapping Intervals (medium)</li>
+<li>Minimum Number of Arrows to Burst Balloons (medium)<br><a href="https://github.com/labuladong/fucking-algorithm/blob/master/动态规划系列/贪心算法之区间调度问题.md" target="_blank" rel="noopener">贪心算法之区间调度问题</a></li>
+</ol>
+<p>April 25<br><a href="https://github.com/labuladong/fucking-algorithm/blob/master/动态规划系列/团灭股票问题.md" target="_blank" rel="noopener">团灭 LeetCode 股票买卖问题</a> 上半部分</p>
+<ol start="121">
+<li>Best Time to Buy and Sell Stock (easy-3) iterative &amp; dp</li>
+<li>Best Time to Buy and Sell Stock II (easy)</li>
+<li>Best Time to Buy and Sell Stock III (hard) - dp</li>
+</ol>
+<p>April 27<br><a href="https://github.com/labuladong/fucking-algorithm/blob/master/动态规划系列/团灭股票问题.md" target="_blank" rel="noopener">团灭 LeetCode 股票买卖问题</a> 下半部分</p>
+<ol start="123">
+<li><p>Best Time to Buy and Sell Stock III (hard) - no dp</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (prices.length &lt;= <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> s1 = -prices[<span class="number">0</span>]; <span class="comment">// buy</span></span><br><span class="line">        <span class="keyword">int</span> s2 = Integer.MIN_VALUE; <span class="comment">// sell</span></span><br><span class="line">        <span class="keyword">int</span> s3 = Integer.MIN_VALUE; <span class="comment">// buy</span></span><br><span class="line">        <span class="keyword">int</span> s4 = Integer.MIN_VALUE; <span class="comment">// sell</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> price: prices) &#123; </span><br><span class="line">            s1 = Math.max(s1, -price);</span><br><span class="line">            s2 = Math.max(s2, s1 + price);</span><br><span class="line">            s3 = Math.max(s3, s2 - price);</span><br><span class="line">            s4 = Math.max(s4, s3 + price);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s4;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Best Time to Buy and Sell Stock IV (hard) - dp solution</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// better solution</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * dp[i, j] represents the max profit up until prices[j] using at most i transactions. </span></span><br><span class="line"><span class="comment"> * dp[i, j] = max(dp[i, j-1], prices[j] - prices[jj] + dp[i-1, jj]) &#123; jj in range of [0, j-1] &#125;</span></span><br><span class="line"><span class="comment"> *          = max(dp[i, j-1], prices[j] + max(dp[i-1, jj] - prices[jj]))</span></span><br><span class="line"><span class="comment"> * dp[0, j] = 0; 0 transactions makes 0 profit</span></span><br><span class="line"><span class="comment"> * dp[i, 0] = 0; if there is only one price data point you can't make any transaction.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span>[] prices)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = prices.length;</span><br><span class="line">	<span class="keyword">if</span> (n &lt;= <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//if k &gt;= n/2, then you can make maximum number of transactions.</span></span><br><span class="line">	<span class="keyword">if</span> (k &gt;=  n/<span class="number">2</span>) &#123;</span><br><span class="line">		<span class="keyword">int</span> maxPro = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (prices[i] &gt; prices[i-<span class="number">1</span>])</span><br><span class="line">				maxPro += prices[i] - prices[i-<span class="number">1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> maxPro;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[k+<span class="number">1</span>][n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++) &#123;</span><br><span class="line">    	<span class="keyword">int</span> localMax = dp[i-<span class="number">1</span>][<span class="number">0</span>] - prices[<span class="number">0</span>];</span><br><span class="line">    	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">    		dp[i][j] = Math.max(dp[i][j-<span class="number">1</span>],  prices[j] + localMax);</span><br><span class="line">    		localMax = Math.max(localMax, dp[i-<span class="number">1</span>][j] - prices[j]);</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[k][n-<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>4.28<br>动态规划之KMP字符匹配算法</p>
+<ol start="28">
+<li>Implement strStr() (easy) brute-force + kmp</li>
+</ol>
+<p>4.29<br>团灭 LeetCode 打家劫舍问题</p>
+<ol start="198">
+<li>House Robber (easy) dp O(N)&amp;O(1)</li>
+<li>House Robber II (medium) dp</li>
+<li>House Robber III (medium) dp</li>
+</ol>
+<p>4.30<br>动态规划之四键键盘</p>
+<ol start="650">
+<li>2 Keys Keyboard (medium)</li>
+<li>4 Keys Keyboard (medium)</li>
+</ol>
+<p>5.1<br>最长公共子序列</p>
+<ol start="1143">
+<li>Longest Common Subsequence (medium)<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    HashMap&lt;String, Integer&gt; dp = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">helper</span><span class="params">(<span class="keyword">char</span>[] text1, <span class="keyword">char</span>[] text2, <span class="keyword">int</span> l1, <span class="keyword">int</span> l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (l1 &lt; <span class="number">0</span> || l2 &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        String key = l1 + <span class="string">" "</span> + l2;</span><br><span class="line">        <span class="keyword">if</span> (dp.containsKey(key)) <span class="keyword">return</span> dp.get(key);</span><br><span class="line">        <span class="keyword">int</span> value;</span><br><span class="line">        <span class="keyword">if</span> (text1[l1] == text2[l2]) &#123;</span><br><span class="line">            value = <span class="number">1</span> + helper(text1, text2, l1 - <span class="number">1</span>, l2 - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> left = helper(text1, text2, l1 - <span class="number">1</span>, l2);</span><br><span class="line">            <span class="keyword">int</span> right = helper(text1, text2, l1, l2 - <span class="number">1</span>);</span><br><span class="line">            value = Math.max(left, right);</span><br><span class="line">        &#125;</span><br><span class="line">        dp.put(key, value);</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(String text1, String text2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l1 = text1.length();</span><br><span class="line">        <span class="keyword">int</span> l2 = text2.length();</span><br><span class="line">        <span class="keyword">return</span> helper(text1.toCharArray(), text2.toCharArray(), l1 - <span class="number">1</span>, l2 - <span class="number">1</span>);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Runtime: 9 ms, faster than 89.22% of Java online submissions for Longest Common Subsequence.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(String text1, String text2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l1 = text1.length();</span><br><span class="line">        <span class="keyword">int</span> l2 = text2.length();</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[l1 + <span class="number">1</span>][l2 + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= l1; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= l2; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (text1.charAt(i - <span class="number">1</span>) == text2.charAt(j - <span class="number">1</span>)) &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    dp[i][j] = Math.max(dp[i - <span class="number">1</span>][j], dp[i][j - <span class="number">1</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[l1][l2];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>5.3</p>
+<ul>
+<li>学习算法和刷题的思路指南 ✅</li>
+<li>二叉堆详解实现优先级队列 ✅<br>Implement Binary Heap</li>
+</ul>
+<p>6.6</p>
+<ul>
+<li>如何实现LRU算法 ✅</li>
+<li>如何高效寻找素数 ✅</li>
+</ul>
+<ol start="146">
+<li>LRU Cache (m)</li>
+<li>Count Primes (e)</li>
+</ol>
+<p>6.7<br>二叉搜索树操作集锦 ✅</p>
+<ol start="98">
+<li>Validate Binary Search Tree (m)</li>
+<li>Same Tree (e)</li>
+<li>Delete Node in a BST (m)s</li>
+<li>Insert into a Binary Search Tree (m)</li>
+</ol>
+<p>6.8<br>需要多复习backtrack</p>
+<ol start="46">
+<li>Permutations (medium)</li>
+<li>Subsets (medium)</li>
+<li>Subsets II (medium) 判断条件还不是很熟悉</li>
+</ol>
+<p>6.11<br>A general approach to backtracking questions in Java (Subsets, Permutations, Combination Sum, Palindrome Partioning)<br><a href="https://leetcode.com/problems/permutations/discuss/18239/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partioning)" target="_blank" rel="noopener">https://leetcode.com/problems/permutations/discuss/18239/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partioning)</a><br>(subsets, subsets 2, permutations, permutations 2)</p>
+<ol start="47">
+<li>Permutations II (contains duplicates) : <a href="https://leetcode.com/problems/permutations-ii/" target="_blank" rel="noopener">https://leetcode.com/problems/permutations-ii/</a><br>类似permutations的解法和subsets II的判断条件，虽然判断条件还不是很熟</li>
+<li>Combinations （medium）也要多复习一下，尤其是index那里</li>
+</ol>
+<p>6.13</p>
+<ol start="39">
+<li>Combination Sum (medium) 经典题<br>如何判断一组数是否被重复添加需要注意。<br>第一次方法是用的recursion，判断有无重复用contains的方法复杂度太高， 应当用backtrack， for loop的方法40. Combination Sum II (medium) (can’t reuse same element)  经典题<br>判断一个元素是不是反复添加重复使用非常重要。不是很熟悉</li>
+</ol>
+<p>6.14 </p>
+<ol start="131">
+<li>Palindrome Partitioning (medium)<br>backtrack 问题，一是边界条件 什么时候要+1， 二是框架思维</li>
+</ol>
+<p>6.18</p>
+<ul>
+<li>特殊数据结构：单调栈 ✅</li>
+</ul>
+<ol start="496">
+<li>Next Greater Element I</li>
+</ol>
+<p>6.20</p>
+<ul>
+<li>特殊数据结构：单调栈 ✅</li>
+</ul>
+<ol start="503">
+<li>Next Greater Element II</li>
+</ol>
+<p>7.11</p>
+<ul>
+<li>特殊数据结构：单调队列 ✅</li>
+</ul>
+<ol start="239">
+<li>Sliding Window Maximum (h)</li>
+</ol>
+<p>7.12 </p>
+<ul>
+<li>设计Twitter ✅</li>
+<li><ol start="355">
+<li>Design Twitter</li>
+</ol>
+</li>
+</ul>
+<p>7.13</p>
+<ol start="21">
+<li>Merge Two Sorted Lists (e) ✅</li>
+</ol>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://www.alicialuo.com/2020/04/22/Leetcode刷题框架/">https://www.alicialuo.com/2020/04/22/Leetcode刷题框架/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/05/03/BinaryHeap/">Binary Heap Implementation</a>
+            
+            
+            <a class="next" rel="next" href="/2020/04/08/查漏补缺快速回顾/">查漏补缺快速回顾or上手</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+<!-- <script type="text/javascript" color="0,0,0" opacity='0.7' zIndex="-2" count="100" src="https://github.com/hustcc/canvas-nest.js/blob/master/dist/canvas-nest.js"></script> -->
+</body>
+</html>

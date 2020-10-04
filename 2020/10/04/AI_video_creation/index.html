@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>AI Video Creation | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+
+<!-- <script zIndex="-2" src="js/canvas-nest.js"></script> -->
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">AI Video Creation</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">October 4, 2020&nbsp;&nbsp;6:57:56</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Video-Generation/">Video Generation</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="技术文章"><a href="#技术文章" class="headerlink" title="技术文章"></a>技术文章</h2><h3 id="AI辅助短视频创作"><a href="#AI辅助短视频创作" class="headerlink" title="AI辅助短视频创作"></a><a href="https://zhuanlan.zhihu.com/p/107126291" target="_blank" rel="noopener">AI辅助短视频创作</a></h3><p>AI应用在视频的进展:</p>
+<ul>
+<li><p>大数据分析电影: 作者探索了多模态电影的特征表示，使用CNN（VGG16）从单个电影的图片帧中提取特征表示（Video Representation - fastVideo），使用词嵌入从文本中提取特征表示（ Text Representation - fastText），使用基于谱的特征进行音频表示，然后使用池操作聚合这些特征。对于元数据，使用随机林分类器。</p>
+</li>
+<li><p>视频理解<br>主要是场景检测、自动切割、景深等任务。</p>
+</li>
+<li><p>视频创作: 自动插帧 、输入文本，生成视频</p>
+</li>
+</ul>
+<h3 id="让AI“读懂”短视频，爱奇艺内容标签技术解析"><a href="#让AI“读懂”短视频，爱奇艺内容标签技术解析" class="headerlink" title="让AI“读懂”短视频，爱奇艺内容标签技术解析"></a><a href="https://blog.csdn.net/weixin_38753262/article/details/104322450?utm_medium=distribute.pc_relevant.none-task-blog-title-2&spm=1001.2101.3001.4242" target="_blank" rel="noopener">让AI“读懂”短视频，爱奇艺内容标签技术解析</a></h3><p>随着短视频的兴起，每天有大量的短视频被生产并上传到各大视频平台，面对海量的短视频，如何提升这些短视频的智能分发效率是各大短视频平台面临的重要课题。</p>
+<p>视频的标签技术是内容理解的一种重要手段，已经在业界被广泛应用于推荐系统的各个环节：用户画像、召回、排序等。标签一般分为“类型标签”和“内容标签”两大类别，类型标签是对短视频内容进行层次分类，分类体系是预先定义好的；而内容标签是根据不同的短视频内容生成的不同的关键词或短语，用来表征短视频的内容，它是一个开放的集合。本文将详细介绍爱奇艺在短视频场景中内容标签技术。</p>
+<h3 id="阿里巴巴-Media-AI视频智能生产实践"><a href="#阿里巴巴-Media-AI视频智能生产实践" class="headerlink" title="阿里巴巴: Media AI视频智能生产实践"></a><a href="https://mp.weixin.qq.com/s?__biz=MzU5Mjc0MTM4NA==&mid=2247487862&idx=1&sn=f2b303381efe16147ffbfb4816de47dd&chksm=fe1a4411c96dcd073f44886be682a0e467d99916e03f16b4ba19d8a408dca3e0c448d64e3355&xtrack=1&scene=90&subscene=93&sessionid=1600856632&clicktime=1600856641&enterid=1600856641&ascene=56&devicetype=android-28&version=27001334&nettype=WIFI&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=AS2s42Hj8rgXWwyJvrTRTyI%3D&pass_ticket=AoD32e%2F2zluNdHBDGN%2F378aFW4vmIdihUJ3dDZqa3HqMTMwUBKUyzNk9aG9CCrZ%2F&wx_header=1" target="_blank" rel="noopener">阿里巴巴: Media AI视频智能生产实践</a></h3><p>阿里巴巴文娱集团资深算法专家 胡尧 ，从视频领域的内容生产困境出发，分享了文娱Media AI平台的技术能力及应用实践，希望将自动化、规模化、实时化的视频生产能力，赋能B端运营提效，服务C端创作，助力文娱行业实现结构性的升级。<br>Media AI平台通过AI技术研发实现了以下五大功能：1. 动态素材的提取 2.模版视频生产3. 智能剪辑技术4. 智能素材加工5. 互动特效。<br>![]<a href="https://mmbiz.qpic.cn/mmbiz_jpg/vuRMFs6piaLZQqXzzG7DcaaEKkZ7HhgOEKaxdvNeTiaZbv8ZmgANl6aHPLrf89AZ3VW90h02SZPrPDBh68Yj5NRQ/640?wx_fmt=jpeg&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1()" target="_blank" rel="noopener">https://mmbiz.qpic.cn/mmbiz_jpg/vuRMFs6piaLZQqXzzG7DcaaEKkZ7HhgOEKaxdvNeTiaZbv8ZmgANl6aHPLrf89AZ3VW90h02SZPrPDBh68Yj5NRQ/640?wx_fmt=jpeg&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1()</a></p>
+<h2 id="商业产品"><a href="#商业产品" class="headerlink" title="商业产品"></a>商业产品</h2><p><a href="https://ai.aliyun.com/vi/produce" target="_blank" rel="noopener">阿里云: 视频智能生产</a></p>
+<ul>
+<li><p>视频智能生产: 将视频AI的多种能力与视频云基础服务打通，赋能视频生产环节，提高视频生产的效率和质量。</p>
+</li>
+<li><p>功能: 采编-&gt;上传-&gt;转码-&gt;存储-&gt;媒咨管理-&gt;分发-&gt;播放的一站式服务</p>
+</li>
+<li><p>服务场景: 直播、点播、媒体处理、视频AI、音视频通信的解决方案</p>
+</li>
+<li><p>流程: 视频服务基于直播流对视频进行AI处理，利用直转点技术，先碎片化进行实时多模态分析(音频分析、asr、视频分析.eg.传球、事件开始回溯、事件开始点)，对精彩集锦进行累计和快速调整，最终合理聚合产出优质集锦。</p>
+</li>
+</ul>
+<p><a href="https://mp.weixin.qq.com/s/PvLsCo8D2f0y785nHoKDOw" target="_blank" rel="noopener">腾讯云剪: 在云端高效智能地生产视频</a><br>在云端视频制作方面，腾讯云提供腾讯云剪这个智能高效在线视频创作工具。腾讯云剪具备在线视频剪辑的功能，还提供 AI 智能剪辑、AI 智能字幕等 AI 能力，帮助创作者提高剪辑的效率。<br><img src="https://mmbiz.qpic.cn/mmbiz_png/VY8SELNGe97VpxibRjIxlkFPjEvML2pOIfjSr7icKicfX4QCl08cR4v7Ecxnw9aUgFU3tWicGvZkQ64ibuwM9O80R4A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt></p>
+<p><a href="https://ai.baidu.com/tech/video/vca" target="_blank" rel="noopener">百度大脑: 视频内容分析</a><br>通过多维AI技术，对视频进行智能分析，输出视频内容的泛标签从而提高搜索准确度和用户推荐视频的曝光量</p>
+<p><a href="https://zhuanlan.zhihu.com/p/133704880" target="_blank" rel="noopener">百度研究院: AI新闻视频凭实力定义“剪辑大神”</a><br>用户输入图文内容后, 例如输入某条新闻事件的链接，平台将基于NLP模型进行语义理解, 并通过主体模型聚合相关新闻素材，以及从同一主题相关新闻里抽取更多的素材及其语义表征，充分保障素材内容的丰富度和相关性。</p>
+<p>紧接着，解说词语音生成和素材深度挖掘同步启动。一方面，平台基于多种语言模型对原文进行处理，自动生成一篇字数符合要求且适合视频呈现的解说词，并通过百度文字转音频服务(TTS)合成解说词语音，效果媲美播音员；与此同时, 平台会根据对原文的理解, 通过自有视频库和百度搜索引擎搜索，智能化聚合最新最适合呈现的内容，并基于人脸识别、物体识别、视频内容理解等计算机视觉服务进一步解析和理解，自动剪切和精选视频素材。</p>
+<p>上述两个步骤完成后，平台将基于解说词音轨时间轴和所聚合的媒体片段，进入音视频对齐剪辑过程。百度升级后的第二代时间轴对齐算法，其关键在于选取出文本中的兴趣点, 再将媒体片段与兴趣点进行相关度打分，将优质媒体片段优先放入时间轴，以此保证视频的整体观感和用户兴趣的持续激发。当时间轴生成完毕之后，数据转交给渲染器，从而生成一个完成的视频，整合过程耗时可以保证在9分钟以内，极其高效。</p>
+<p><a href="https://magic.shuwen.com/" target="_blank" rel="noopener">MAGIC短视频智能生产平台</a></p>
+<p>[Google: Video AI](<a href="https://cloud.google.com/video-intelligence" target="_blank" rel="noopener">https://cloud.google.com/video-intelligence</a><br>AutoML Video Intelligence has a graphical interface that makes it easy to train your own custom models to classify and track objects within videos, even if you have minimal machine learning experience. It’s ideal for projects that require custom labels that aren’t covered by the pre-trained Video Intelligence API.</p>
+<p><a href="https://www.magisto.com/how-it-works?prev_path=/&via=footer" target="_blank" rel="noopener">Magisto</a></p>
+<p><a href="https://www.vedia.ai/" target="_blank" rel="noopener">Vedia: A.I. Video Generation</a></p>
+<p>Automated Video Content<br>Our video automation platform for data journalism transforms your data into broadcast quality videos that can be monetized across desktop, mobile, OTT, CTV and DOOH. We do this by analyzing terabytes of data each day, identifying the most relevant signals, and generating thousands of targeted videos across multiple verticals each month.</p>
+<p>Vedia offers publishers and channel operators access to a new category of data driven video programming for sports, weather and finance. P</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://www.alicialuo.com/2020/10/04/AI_video_creation/">https://www.alicialuo.com/2020/10/04/AI_video_creation/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/AI/"># AI</a>
+                    
+                        <a href="/tags/videocreation/"># videocreation</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2020/06/08/Leetcode Permutation/">Leetcode Permutation</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+<!-- <script type="text/javascript" color="0,0,0" opacity='0.7' zIndex="-2" count="100" src="https://github.com/hustcc/canvas-nest.js/blob/master/dist/canvas-nest.js"></script> -->
+</body>
+</html>
