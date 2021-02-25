@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>Implementation of Python/C interface(Python/C混合编程接口调研) | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+
+<!-- <script zIndex="-2" src="js/canvas-nest.js"></script> -->
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Implementation of Python/C interface(Python/C混合编程接口调研)</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">February 25, 2021&nbsp;&nbsp;16:55:07</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/C/">C</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="Python解释器"><a href="#Python解释器" class="headerlink" title="Python解释器"></a>Python解释器</h3><ul>
+<li><a href="https://docs.python.org/zh-cn/3.8/library/index.html" target="_blank" rel="noopener">Python标准库</a></li>
+<li><a href="https://docs.python.org/3/tutorial/index.html" target="_blank" rel="noopener">The Python Tutorial</a>:<a href="https://docs.python.org/3/tutorial/interpreter.html" target="_blank" rel="noopener">Using the Python Interpreter</a></li>
+<li><a href="https://blog.csdn.net/qq_27623337/article/details/80898118" target="_blank" rel="noopener">pypy 原理和JIT</a></li>
+</ul>
+<h3 id="Python脚本嵌入到C-程序中-embedding"><a href="#Python脚本嵌入到C-程序中-embedding" class="headerlink" title="Python脚本嵌入到C++程序中(embedding):"></a>Python脚本嵌入到C++程序中(embedding):</h3><p>在C/C++代码调用Python是在C/C++ app中嵌入python解析器从而调用python代码</p>
+<h3 id="使用Python原生的c-api接口-调用python原生解释器"><a href="#使用Python原生的c-api接口-调用python原生解释器" class="headerlink" title="使用Python原生的c api接口: 调用python原生解释器"></a>使用Python原生的c api接口: 调用python原生解释器</h3><ul>
+<li><a href="https://docs.python.org/zh-tw/3.6/extending/index.html" target="_blank" rel="noopener">扩展和嵌入 Python 解释器</a></li>
+<li><a href="https://docs.python.org/zh-cn/3.6/c-api/index.html" target="_blank" rel="noopener">Python/C API 参考手册</a></li>
+<li><a href="https://www.zhihu.com/question/23003213" target="_blank" rel="noopener">如何实现 C/C++ 与 Python 的通信?</a></li>
+</ul>
+<p>c的实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#####################my_python.c###################</span><br><span class="line">#include &lt;Python.h&gt;</span><br><span class="line"></span><br><span class="line">int great_function_from_python(int a) &#123;</span><br><span class="line">    int res;</span><br><span class="line">    PyObject *pModule,*pFunc;</span><br><span class="line">    PyObject *pArgs, *pValue;</span><br><span class="line">    //导入当前路径</span><br><span class="line">    PyRun_SimpleString(&quot;import  sys&quot;);</span><br><span class="line">    PyRun_SimpleString(&quot;sys.path.append(&apos;./&apos;)&quot;);</span><br><span class="line">    PyRun_SimpleString(&quot;print(sys.path)&quot;); </span><br><span class="line">    /* import */</span><br><span class="line">    pModule = PyImport_Import(PyUnicode_FromString(&quot;great_module&quot;));</span><br><span class="line"></span><br><span class="line">    /* great_module.great_function */</span><br><span class="line">    pFunc = PyObject_GetAttrString(pModule, &quot;great_function&quot;); </span><br><span class="line">    </span><br><span class="line">    /* build args */</span><br><span class="line">    pArgs = PyTuple_New(1);</span><br><span class="line">    PyTuple_SetItem(pArgs,0, PyLong_FromLong(a));</span><br><span class="line">      </span><br><span class="line">    /* call */</span><br><span class="line">    pValue = PyObject_CallObject(pFunc, pArgs);</span><br><span class="line">    </span><br><span class="line">    res = PyLong_AsLong(pValue);</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line">int main(int argc, char *argv[]) &#123;</span><br><span class="line">    Py_Initialize();</span><br><span class="line">    printf(&quot;\n\n\n%d\n\n\n&quot;,great_function_from_python(2));</span><br><span class="line">    Py_Finalize();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// gcc my_python.c -o my_python -I/usr/include/python3.6m -I/usr/include/x86_64-linux-gnu/python3.6m -lpython3.6m</span><br><span class="line"></span><br><span class="line">#########################################################</span><br><span class="line"></span><br><span class="line">######################great_module.py######################</span><br><span class="line">def great_function(a):</span><br><span class="line">    return a + 1</span><br><span class="line"></span><br><span class="line">print(&quot;hello from great_module&quot;)</span><br><span class="line">#########################################################</span><br></pre></td></tr></table></figure>
+
+<p><strong>缺点</strong>:</p>
+<ul>
+<li>需要在C内调用python解释器。python代码中不能有三方库，因为c内初始化的python解释器无法运行第三方库</li>
+<li>开发过程非常繁琐，约等于用python c的底层重写了一遍python代码逻辑</li>
+</ul>
+<h3 id="C-中嵌入python程序——命令行模式"><a href="#C-中嵌入python程序——命令行模式" class="headerlink" title="C++中嵌入python程序——命令行模式"></a>C++中嵌入python程序——命令行模式</h3><p><a href="https://blog.csdn.net/yiyouxian/article/details/51992721" target="_blank" rel="noopener">C++中嵌入python程序——命令行模式</a></p>
+<h3 id="C-C-中嵌入python程序——使用Cython"><a href="#C-C-中嵌入python程序——使用Cython" class="headerlink" title="C/C++中嵌入python程序——使用Cython"></a>C/C++中嵌入python程序——使用Cython</h3><p><a href="https://www.zhihu.com/question/23003213" target="_blank" rel="noopener">https://www.zhihu.com/question/23003213</a> 文章的3 C/C++ 调用 Python（使用Cython）部分</p>
+<p><strong>缺点</strong>：<br>需要学习cython语法并重写，工程量比较大</p>
+<h3 id="C-中嵌入python程序——-使用pythran把python代码翻译成C"><a href="#C-中嵌入python程序——-使用pythran把python代码翻译成C" class="headerlink" title="C++中嵌入python程序—— 使用pythran把python代码翻译成C++"></a>C++中嵌入python程序—— 使用pythran把python代码翻译成C++</h3><p>Pythran官方：<a href="https://pythran.readthedocs.io/en/latest/MANUAL.html" target="_blank" rel="noopener">https://pythran.readthedocs.io/en/latest/MANUAL.html</a><br>如何实现 C/C++ 与 Python 的通信？下面对应回答: <a href="https://www.zhihu.com/question/23003213" target="_blank" rel="noopener">https://www.zhihu.com/question/23003213</a></p>
+<h3 id="重点问题：如何在C-中向python传递矩阵并且读取python返回的矩阵"><a href="#重点问题：如何在C-中向python传递矩阵并且读取python返回的矩阵" class="headerlink" title="重点问题：如何在C++中向python传递矩阵并且读取python返回的矩阵"></a>重点问题：如何在C++中向python传递矩阵并且读取python返回的矩阵</h3><p><a href="https://stackoverflow.com/questions/9922801/how-to-pass-an-array-from-c-to-python-function-and-retrieve-python-returned-ar" target="_blank" rel="noopener">how to pass an array from c++ to python function and retrieve python returned array to c++</a><br><a href="https://blog.csdn.net/u014365862/article/details/77891487" target="_blank" rel="noopener">How to pass an array from C++ to an embedded python</a></p>
+<h3 id="其它方法"><a href="#其它方法" class="headerlink" title="其它方法"></a>其它方法</h3><p>推荐的第三方工具<br>本指南仅介绍了作为此 CPython 版本的一部分提供的创建扩展的基本工具。 第三方工具，如 Cython [<a href="http://cython.org/]" target="_blank" rel="noopener">http://cython.org/]</a> 、 cffi [<a href="https://cffi.readthedocs.io]" target="_blank" rel="noopener">https://cffi.readthedocs.io]</a> 、 SWIG [<a href="http://www.swig.org]" target="_blank" rel="noopener">http://www.swig.org]</a> 和 Numba [<a href="https://numba.pydata.org/]" target="_blank" rel="noopener">https://numba.pydata.org/]</a> 提供了更简单和更复杂的方法来为 Python 创建 C 和 C ++ 扩展。</p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><h4 id="Python-自动翻译成-C-，彻底保证离线在线特征一致"><a href="#Python-自动翻译成-C-，彻底保证离线在线特征一致" class="headerlink" title="Python 自动翻译成 C++ ，彻底保证离线在线特征一致"></a><a href="http://km.oa.com/group/24938/articles/show/404426?kmref=search&from_page=1&no=1" target="_blank" rel="noopener">Python 自动翻译成 C++ ，彻底保证离线在线特征一致</a></h4><h4 id="如何实现-C-C-与-Python-的通信"><a href="#如何实现-C-C-与-Python-的通信" class="headerlink" title="如何实现 C/C++ 与 Python 的通信?"></a><a href="https://www.zhihu.com/question/23003213" target="_blank" rel="noopener">如何实现 C/C++ 与 Python 的通信?</a></h4><ul>
+<li><a href="https://stackoverflow.com/questions/48849047/replacing-pystring-fromstring-method-in-python-3" target="_blank" rel="noopener">Replacing PyString_FromString method in python 3</a><br>ps: 这篇文章的是针对python2的操作，里面的一些操作符在python3 api中已经更改了</li>
+</ul>
+<ol>
+<li>C/C++ 调用 Python （基础篇）— 仅讨论Python官方提供的实现方式</li>
+</ol>
+<h4 id="C-C-调用python接口入门-1-全是坑"><a href="#C-C-调用python接口入门-1-全是坑" class="headerlink" title="C/C++调用python接口入门(1-全是坑)"></a><a href="https://blog.csdn.net/Program_Kio/article/details/105543164?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf" target="_blank" rel="noopener">C/C++调用python接口入门(1-全是坑)</a></h4><h4 id="C-调用Python总结"><a href="#C-调用Python总结" class="headerlink" title="C++调用Python总结"></a><a href="https://blog.csdn.net/yangjf91/article/details/93062961" target="_blank" rel="noopener">C++调用Python总结</a></h4><ul>
+<li>主要是介绍了调用流程，关于list的处理技巧</li>
+</ul>
+<h4 id="C-调用-Python3-6中的各种坑"><a href="#C-调用-Python3-6中的各种坑" class="headerlink" title="C++ 调用 Python3.6中的各种坑"></a><a href="https://blog.csdn.net/lingtianyulong/article/details/81146495" target="_blank" rel="noopener">C++ 调用 Python3.6中的各种坑</a></h4><ul>
+<li>之前好多贴子都是关于python2的，python3很多接口改了以后，就不一样了。这个是python3的坑</li>
+</ul>
+<h4 id="c-调用python脚本遇到的那些坑"><a href="#c-调用python脚本遇到的那些坑" class="headerlink" title="c++调用python脚本遇到的那些坑"></a><a href="https://blog.csdn.net/JR_lu/article/details/54142677?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.add_param_isCf&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.add_param_isCf" target="_blank" rel="noopener">c++调用python脚本遇到的那些坑</a></h4><ul>
+<li>主要是有三方库的处理</li>
+</ul>
+<h4 id="c-c-调用python程序且含tensorflow第三方库"><a href="#c-c-调用python程序且含tensorflow第三方库" class="headerlink" title="c/c++调用python程序且含tensorflow第三方库"></a><a href="https://blog.csdn.net/qq_34662299/article/details/87559942" target="_blank" rel="noopener">c/c++调用python程序且含tensorflow第三方库</a></h4><h4 id="（四）c-c-、python混合编程——c-c-调用python第三方包numpy等"><a href="#（四）c-c-、python混合编程——c-c-调用python第三方包numpy等" class="headerlink" title="（四）c/c++、python混合编程——c/c++调用python第三方包numpy等"></a><a href="https://blog.csdn.net/hao5335156/article/details/79515480?utm_medium=distribute.pc_relevant.none-task-blog-title-1&spm=1001.2101.3001.4242" target="_blank" rel="noopener">（四）c/c++、python混合编程——c/c++调用python第三方包numpy等</a></h4><h4 id="C-调用python"><a href="#C-调用python" class="headerlink" title="C++调用python"></a><a href="https://blog.csdn.net/pipisorry/article/details/49532341" target="_blank" rel="noopener">C++调用python</a></h4><p>有一些较为详细的编译操作</p>
+<h4 id="Python嵌入C-C-Python核心编程"><a href="#Python嵌入C-C-Python核心编程" class="headerlink" title="Python嵌入C/C++ (Python核心编程)"></a><a href="https://www.cnblogs.com/lvpengms/archive/2010/02/03/1663071.html" target="_blank" rel="noopener">Python嵌入C/C++ (Python核心编程)</a></h4><p>详细步骤，高层次和低层次嵌入</p>
+<h4 id="C-调用Python函数使用指南"><a href="#C-调用Python函数使用指南" class="headerlink" title="C++调用Python函数使用指南"></a><a href="http://km.oa.com/group/22033/articles/show/289170?kmref=search&from_page=6&no=4" target="_blank" rel="noopener">C++调用Python函数使用指南</a></h4><p>流程和函数使用介绍</p>
+<hr>
+<h3 id="使用Ctypes模块完成Python和C调用过程中的的数据结构转换"><a href="#使用Ctypes模块完成Python和C调用过程中的的数据结构转换" class="headerlink" title="使用Ctypes模块完成Python和C调用过程中的的数据结构转换"></a>使用Ctypes模块完成Python和C调用过程中的的数据结构转换</h3><ul>
+<li><a href="https://docs.python.org/2/library/ctypes.html" target="_blank" rel="noopener">ctypes — A foreign function library for Python</a></li>
+<li>python访问C/C++的示例: <a href="https://www.jianshu.com/p/3fc763dbd0aa" target="_blank" rel="noopener">Python与C/C++调用之ctypes</a></li>
+<li>关于ctypes动态链接库的讲解:<a href="http://blog.timd.cn/python-ctypes/" target="_blank" rel="noopener">ctypes</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/20152309" target="_blank" rel="noopener">聊聊Python ctypes 模块</a><blockquote>
+<p>摘要：模块ctypes是Python内建的用于调用动态链接库函数的功能模块，一定程度上可以用于Python与其他语言的混合编程。由于编写动态链接库，使用C/C++是最常见的方式，故ctypes最常用于Python与C/C++混合编程之中。</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>1. ctypes 的原理以及优缺点</strong><br>从ctypes的文档中可以推断，在各个平台上均使用了对应平台动态加载动态链接库的方法，并通过一套类型映射的方式将Python与二进制动态链接库相连接。通过阅读ctypes本身的代码也可以印证这个推断（/Modules/_ctypes/_ctypes.c和/Modules/_ctypes/callproc.c）。在Windows平台下，最终调用的是Windows API中LoadLibrary函数和GetProcAddress函数，在Linux和Mac OS X平台下，最终调用的是Posix标准中的dlopen和dlsym函数。ctypes 实现了一系列的类型转换方法，Python的数据类型会包装或直接推算为C类型，作为函数的调用参数；函数的返回值也经过一系列的包装成为Python类型。也就是说，PyObject* &lt;-&gt; C types的转换是由ctypes内部完成的，这和SWIG是同一个原理。<br>从ctypes的实现原理不难看出：<br><strong>ctypes 有以下优点</strong>：</p>
+<ul>
+<li>Python内建，不需要单独安装</li>
+<li>可以直接调用二进制的动态链接库</li>
+<li>在Python一侧，不需要了解Python内部的工作方式</li>
+<li>在C/C++一侧，也不需要了解Python内部的工作方式</li>
+<li>对基本类型的相互映射有良好的支持</li>
+</ul>
+<p><strong>ctypes 有以下缺点</strong>：</p>
+<ul>
+<li>平台兼容性差</li>
+<li>不能够直接调用动态链接库中未经导出的函数或变量</li>
+<li>对C++的支持差<pre><code>就个人的经验来看，ctypes 适合于“中轻量级”的Python C/C++混合编程。特别是遇到第三方库提供动态链接库和调用文档，且没有编译器或编译器并不互相兼容的场合下，使用ctypes特别方便。值得注意的是，对于某种需求，在Python本身就可以实现的情况下（例如获取系统时间、读写文件等），应该优先使用Python自身的功能而不要使用操作系统提供的API接口，否则你的程序会丧失跨平台的特性。</code></pre></li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://www.alicialuo.com/2021/02/25/Python_C_API/">https://www.alicialuo.com/2021/02/25/Python_C_API/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/C/"># C</a>
+                    
+                        <a href="/tags/Python/"># Python</a>
+                    
+                        <a href="/tags/FFI/"># FFI</a>
+                    
+                        <a href="/tags/HybridProgramming/"># HybridProgramming</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/02/25/linux_dev_commands/">Linux development cheatsheet</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+<!-- <script type="text/javascript" color="0,0,0" opacity='0.7' zIndex="-2" count="100" src="https://github.com/hustcc/canvas-nest.js/blob/master/dist/canvas-nest.js"></script> -->
+</body>
+</html>

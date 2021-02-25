@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>Linux development cheatsheet | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+
+<!-- <script zIndex="-2" src="js/canvas-nest.js"></script> -->
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Linux development cheatsheet</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">February 25, 2021&nbsp;&nbsp;16:03:05</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Linux/">Linux</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="git操作"><a href="#git操作" class="headerlink" title="git操作"></a>git操作</h3><h4 id="一、查看远程分支"><a href="#一、查看远程分支" class="headerlink" title="一、查看远程分支"></a>一、查看远程分支</h4><p>使用如下git命令查看所有远程分支：</p>
+<figure class="highlight plain"><figcaption><span>branch -r```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```bash</span><br><span class="line"># 建立追踪关系，在现有分支与指定的远程分支之间</span><br><span class="line">$ git branch --set-upstream [branch] [remote-branch]</span><br></pre></td></tr></table></figure>
+
+<h4 id="二、拉取远程分支并创建本地分支"><a href="#二、拉取远程分支并创建本地分支" class="headerlink" title="二、拉取远程分支并创建本地分支"></a>二、拉取远程分支并创建本地分支</h4><p><strong>方法一</strong><br>使用如下命令：</p>
+<figure class="highlight plain"><figcaption><span>checkout -b 本地分支名x origin/远程分支名x```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">使用该方式会在本地新建分支x，并自动切换到该本地分支x。</span><br><span class="line"></span><br><span class="line">采用此种方法建立的本地分支会和远程分支建立映射关系。</span><br><span class="line"></span><br><span class="line">**方式二**</span><br><span class="line">使用如下命令：</span><br><span class="line"></span><br><span class="line">```git fetch origin 远程分支名x:本地分支名x</span><br></pre></td></tr></table></figure>
+
+<p>使用该方式会在本地新建分支x，但是不会自动切换到该本地分支x，需要手动checkout。</p>
+<p>采用此种方法建立的本地分支不会和远程分支建立映射关系。</p>
+<h4 id="三、常用操作"><a href="#三、常用操作" class="headerlink" title="三、常用操作"></a>三、常用操作</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick &lt;commit-id&gt; # pick a commit from another branch</span><br><span class="line">git rebase -i HEAD~&lt;N&gt; # modify local commits</span><br><span class="line">git pull --rebase &lt;origin/master&gt; # runs git rebase instead of git merge</span><br><span class="line">git stash # → 把当前的工作隐藏起来 等以后恢复现场后继续工作</span><br><span class="line">git stash pop # → 恢复工作现场（恢复隐藏的文件，同时删除stash列表中对应的内容）</span><br><span class="line">git show HEAD  # → 查看指定版本的修改（可省略HEAD，默认当前版本） 同上</span><br><span class="line">git show HEAD xxx  # → 查看指定版本xx文件的修改（可省略HEAD，默认当前版本）</span><br><span class="line">git reset --hard HEAD  # → 回滚到指定版本，同时清空工作目录的所有改动</span><br><span class="line">git reset --soft HEAD  # → 回滚到指定版本，同时保留工作目录和暂存区的内容，并把重置的位置所导致的新的文件差异放进暂存区</span><br><span class="line">git reset --hard origin/master  # → 将本地master与远程master同步</span><br><span class="line">git reflog # 查看所有commit记录(包括撤销/覆盖的)</span><br><span class="line">git commit --amend -m [message] # 使用一次新的commit，替代上一次提交(如果代码没有任何新变化，则用来改写上一次commit的提交信息)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Docker-命令"><a href="#Docker-命令" class="headerlink" title="Docker 命令"></a>Docker 命令</h3><ul>
+<li><p>根据dockerfile在当前目录创建镜像: <code>docker build . -t &lt;repo&gt;:&lt;tag&gt;</code></p>
+</li>
+<li><p>删除镜像or容器: <code>docker rm &lt;id&gt;</code></p>
+</li>
+<li><p>运行镜像: <code>docker run -it -v &lt;local dir&gt;:&lt;remote dir&gt; &lt;repo&gt;:&lt;tag&gt; /bin/bash</code></p>
+</li>
+<li><p>docker 删除缓存 <code>docker system prune --volumes</code></p>
+</li>
+<li><p>容器改名 <code>docker rename &lt;container_id&gt; &lt;new name&gt;</code></p>
+</li>
+<li><p>保存镜像 <code>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</code></p>
+</li>
+<li><p><a href="https://stackoverflow.com/questions/51851123/how-to-run-git-clone-in-docker-file" target="_blank" rel="noopener">How to run <code>git clone</code> in docker file?</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">RUN apk update &amp;&amp; apk upgrade &amp;&amp; \</span><br><span class="line">	apk add --no-cache bash git openssh</span><br><span class="line"></span><br><span class="line">ARG username</span><br><span class="line">ARG password</span><br><span class="line"></span><br><span class="line">RUN git clone https://$&#123;username&#125;:$&#123;password&#125;@github.com/username/repository.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="https://www.cnblogs.com/ExMan/p/13040263.html" target="_blank" rel="noopener">使用dockerfile克隆私有git仓库</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/hnmpf/article/details/80924494" target="_blank" rel="noopener">docker -v 挂载问题</a></p>
+</li>
+<li><p>docker中使用gdb调试: <a href="https://stackoverflow.com/questions/35860527/warning-error-disabling-address-space-randomization-operation-not-permitted" target="_blank" rel="noopener">warning: Error disabling address space randomization: Operation not permitted</a></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker pull &lt;remote repo&gt;</span><br><span class="line">docker ps -a # 查看所有的容器</span><br><span class="line">docker stop &lt;容器 ID&gt; # 停止容器</span><br><span class="line">docker restart &lt;容器 ID&gt; # 停止的容器可以通过 docker restart 重启</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 进入容器</span><br><span class="line">docker attach # 如果从这个容器退出，会导致容器的停止。</span><br><span class="line">docker exec # 推荐大家使用 docker exec 命令，因为此退出容器终端，不会导致容器的停止。</span><br></pre></td></tr></table></figure>
+
+<h3 id="CMake-调试操作"><a href="#CMake-调试操作" class="headerlink" title="CMake/调试操作"></a>CMake/调试操作</h3><p><a href="https://blog.csdn.net/lilitroy/article/details/73289149" target="_blank" rel="noopener">Ubuntu 环境下调试修改OpenCV3.2.0源码</a></p>
+<p><a href="https://www.cnblogs.com/ncuneugcj/p/9756324.html" target="_blank" rel="noopener">CMake 两种变量原理</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>创建build文件夹</span><br><span class="line">mkdir build &amp;&amp; cd build</span><br><span class="line"><span class="meta">#</span>生成预编译文件</span><br><span class="line">cmake -D CMAKE_BUILD_TYPE=Release/DEBUG -D CMAKE_INSTALL_PREFIX=/usr/local ..</span><br><span class="line"><span class="meta">#</span>make &amp; make install</span><br><span class="line">sudo cmake --build . --config Release --target install -- -j8</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 使用gdb进行调试</span><br><span class="line">g++ stitching_detailed.cpp -g -o stitching_gdb  # 生成待调试文件</span><br><span class="line">gdb stitching_gdb # 启动gdb</span><br><span class="line">break &lt;line num&gt; # 打断点</span><br><span class="line">break /path/src.cpp:num # 源码任意位置处打断点</span><br><span class="line">delete num # 删除断点</span><br><span class="line">r # 开始调试</span><br><span class="line">s # 进入子函数</span><br><span class="line">finish # 跳出子函数</span><br></pre></td></tr></table></figure>
+
+<h3 id="Bash操作"><a href="#Bash操作" class="headerlink" title="Bash操作"></a>Bash操作</h3><ul>
+<li>批量删除文件 <code>sudo find / -iname &quot;*opencv*&quot; | xargs rm -rf</code></li>
+<li><a href="https://blog.csdn.net/qq_40232872/article/details/79159753" target="_blank" rel="noopener">Linux中tar命令</a></li>
+</ul>
+<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><h4 id="mac将远程linux服务器目录挂载-mount-到本地"><a href="#mac将远程linux服务器目录挂载-mount-到本地" class="headerlink" title="mac将远程linux服务器目录挂载(mount)到本地"></a>mac将远程linux服务器目录挂载(mount)到本地</h4><p><a href="https://blog.csdn.net/myhes/article/details/106712863" target="_blank" rel="noopener">https://blog.csdn.net/myhes/article/details/106712863</a></p>
+<h4 id="CentOs上一些命令"><a href="#CentOs上一些命令" class="headerlink" title="CentOs上一些命令"></a>CentOs上一些命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 1、查询是否安装软件</span><br><span class="line">rqm -qa | grep &lt;软件名称&gt;</span><br><span class="line">如：rpm -qa | grep java</span><br><span class="line"></span><br><span class="line">// 2、卸载软件</span><br><span class="line">rpm -e &lt;软件名称&gt;</span><br><span class="line">如：rpm -e java</span><br><span class="line"></span><br><span class="line">// 3、强制卸载软件</span><br><span class="line">rpm -e --nodeps &lt;软件名称&gt;</span><br><span class="line">如：rpm -e --nodeps java</span><br></pre></td></tr></table></figure>
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://www.alicialuo.com/2021/02/25/linux_dev_commands/">https://www.alicialuo.com/2021/02/25/linux_dev_commands/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/cheatsheet/"># cheatsheet</a>
+                    
+                        <a href="/tags/linux/"># linux</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/02/25/Python_C_API/">Implementation of Python/C interface(Python/C混合编程接口调研)</a>
+            
+            
+            <a class="next" rel="next" href="/2021/02/24/python中os.system、os.popen、subprocess.popen的区别/">Python中os.system、os.popen、subprocess.popen的区别</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+<!-- <script type="text/javascript" color="0,0,0" opacity='0.7' zIndex="-2" count="100" src="https://github.com/hustcc/canvas-nest.js/blob/master/dist/canvas-nest.js"></script> -->
+</body>
+</html>
