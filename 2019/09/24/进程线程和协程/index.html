@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>进程、线程、协程的区别和联系 | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+
+<!-- <script zIndex="-2" src="js/canvas-nest.js"></script> -->
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">进程、线程、协程的区别和联系</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">September 24, 2019&nbsp;&nbsp;20:51:20</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Operating-System/">Operating System</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>标准定义：进程是一个具有一定独立功能的程序在一个数据集合上依次动态执行的过程。进程是一个正在执行程序的实例，包括程序计数器、寄存器和程序变量的当前值。</p>
+<p>简单来说进程就是一个程序的执行流程，内部保存程序运行所需的资源。</p>
+<p>在操作系统中可以有多个进程在运行，可对于CPU来说，同一时刻，一个CPU只能运行一个进程，但在某一时间段内，CPU将这一时间段拆分成更短的时间片，CPU不停的在各个进程间游走，这就给人一种并行的错觉，像CPU可以同时运行多个进程一样，这就是伪并行。</p>
+<h3 id="进程的创建"><a href="#进程的创建" class="headerlink" title="进程的创建"></a>进程的创建</h3><ul>
+<li><p><strong>系统初始化</strong>：当启动操作系统时，通常会创建很多进程，有些是同用户交互并替他们完成工作的前台进程，其它的都是后台进程，后台进程和特定用户没有关系，但也提供某些专门的功能，例如接收邮件等，这种功能的进程也称为守护进程。计划任务是个典型的守护进程，它每分钟运行一次来检查是否有工作需要它完成。如果有工作要做，它就会完成此工作，然后进入休眠状态，直到下一次检查时刻的到来。</p>
+</li>
+<li><p><strong>正在运行的程序执行了创建进程的系统调用</strong>：在一个进程中又创建了一个新的进程，这种情况很常见。</p>
+</li>
+<li><p><strong>用户请求创建一个新进程</strong>：这种情况相信每个人都见过，用电脑时双击某个应用图标，就会有至少一个进程被创建。</p>
+</li>
+<li><p><strong>一个批处理作业的初始化</strong>：这种情形不常见，仅在大型机的批处理系统中应用，用户在这种系统中提交批处理作业，在操作系统认为有资源可运行另一个作业时，它创建一个新的进程，并运行其输入队列中的下一个作业。</p>
+</li>
+</ul>
+<p>归根到底：在UNIX系统中，只有<strong>fork系统调用</strong>才可以创建新进程，使用方式如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">pid_t</span> id = fork();</span><br><span class="line">    <span class="keyword">if</span> (id &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        perror(<span class="string">"fork\n"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (id == <span class="number">0</span>) &#123;  <span class="comment">// 子进程</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"子进程\n"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;  <span class="comment">// 父进程</span></span><br><span class="line">       <span class="built_in">printf</span>(<span class="string">"父进程\n"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>进程创建之后，父子进程都有各自不同的地址空间，其中一个进程在其地址空间的修改对另一个进程不可见。子进程的初始化空间是父进程的一个副本，这里涉及两个不同地址空间，不可写的内存区是共享的，某些UNIX的实现使程序正文在两者间共享，因为它是不可修改的。</p>
+<p>还有一种写时复制共享技术，子进程共享父进程的所有内存，一旦两者之一想要修改部分内存，则这块内存被复制确保修改发生在当前进程的私有内存区域。</p>
+<h3 id="进程的终止"><a href="#进程的终止" class="headerlink" title="进程的终止"></a>进程的终止</h3><ul>
+<li><p><strong>正常退出（自愿）</strong>：进程完成了工作正常终止，UNIX中退出进程的系统调用是exit。</p>
+</li>
+<li><p><strong>出错退出（自愿）</strong>：进程发现了错误而退出。可以看如下代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (error) &#123; <span class="comment">// 有错误就退出程序</span></span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Func();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>严重错误（非自愿）</strong>：进程发生了严重的错误而不得不退出，通常是程序的错误导致，例如执行了一条非法指令，引用不存在的内存，或者除数是0等，出现这些错误时进程默认会退出。而有些时候如果用户想自行处理某种类型的错误，发生不同类型错误时进程会收到不同类型的信号，用户注册处理不同信号的函数即可。</p>
+</li>
+<li><p><strong>被其它进程杀死（非自愿）</strong>：其它进程执行kill系统调用通知操作系统杀死某个进程。</p>
+</li>
+</ul>
+<h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><p>1、需要频繁创建销毁的优先使用线程；因为对进程来说创建和销毁一个进程代价是很大的。</p>
+<p>2、线程的切换速度快，所以在需要大量计算，切换频繁时用线程，还有耗时的操作使用线程可提高应用程序的响应</p>
+<p>3、因为对CPU系统的效率使用上线程更占优，所以可能要发展到多机分布的用进程，多核分布用线程；</p>
+<p>4、并行操作时使用线程，如C/S架构的服务器端并发线程响应用户的请求；</p>
+<p>5、需要更稳定安全时，适合选择进程；需要速度时，选择线程更好。</p>
+<h2 id="一、进程与线程的关系："><a href="#一、进程与线程的关系：" class="headerlink" title="一、进程与线程的关系："></a>一、进程与线程的关系：</h2><ol>
+<li><p>进程（Process）是系统进行<strong>资源分配</strong>和<strong>调度</strong>的基本单位，线程（Thread）是<strong>CPU调度</strong>和<strong>分派</strong>的基本单位；</p>
+</li>
+<li><p>一个进程可以有多个线程，但至少有一个线程；而一个线程只能在一个进程的地址空间内活动。</p>
+</li>
+<li><p><strong>资源</strong>分配给进程，同一个进程的所有线程共享该进程所有资源。</p>
+</li>
+<li><p><strong>CPU</strong>分配给线程，即真正在处理器运行的是<strong>线程</strong>。</p>
+</li>
+<li><p>在进程切换时，涉及到整个当前进程CPU环境的保存环境的设置以及新被调度运行的CPU环境的设置，而线程切换只需保存和设置少量的寄存器的内容，并不涉及存储器管理方面的操作，可见，进程切换的开销远大于线程切换的开销</p>
+</li>
+<li><p>线程在执行过程中需要协作同步，不同进程的线程间要利用<strong>消息通信</strong>的办法实现同步。</p>
+</li>
+</ol>
+<h2 id="二、进程与线程的区别"><a href="#二、进程与线程的区别" class="headerlink" title="二、进程与线程的区别"></a>二、进程与线程的区别</h2><p>1、进程是资源分配的最小单位，线程是程序执行的最小单位（资源调度的最小单位）</p>
+<p>2、进程有自己的独立地址空间，每启动一个进程，系统就会为它分配地址空间，建立数据表来维护代码段、堆栈段和数据段，这种操作非常昂贵。<br>而线程是共享进程中的数据的，使用相同的地址空间，因此CPU切换一个线程的花费远比进程要小很多，同时创建一个线程的开销也比进程要小很多。</p>
+<p>3、线程之间的通信更方便，同一进程下的线程共享全局变量、静态变量等数据，而进程之间的通信需要以通信的方式（IPC)进行。不过如何处理好同步与互斥是编写多线程程序的难点。</p>
+<p>4、但是多进程程序更健壮，多线程程序只要有一个线程死掉，整个进程也死掉了，而一个进程死掉并不会对另外一个进程造成影响，因为进程有自己独立的地址空间。</p>
+<p>5.对主线程的修改可能会影响其他线程的行为，但是父进程的修改（除了删除以外）不会影响其他子进程。</p>
+<p>6.线程是一个上下文的执行指令，而进程则是与运算相关的一簇资源。</p>
+<p>7.同一个进程的线程之间可以直接通信，但是进程之间的交流需要借助中间代理来实现。</p>
+<p>8.创建新的线程很容易，但是创建新的进程需要对父进程做一次复制。</p>
+<p>9.一个线程可以操作同一进程的其他线程，但是进程只能操作其子进程。</p>
+<p>10.线程启动速度快，进程启动速度慢（但是两者运行速度没有可比性）。</p>
+<p>注：进程是最基本的资源拥有单位和调度单位。<br>进程间通信方式：（1）消息传递（2）共享存储（3）管道通信</p>
+<h2 id="三、进程与线程的资源："><a href="#三、进程与线程的资源：" class="headerlink" title="三、进程与线程的资源："></a>三、进程与线程的资源：</h2><h3 id="1、堆与栈"><a href="#1、堆与栈" class="headerlink" title="1、堆与栈"></a>1、堆与栈</h3><p>堆(stack)：是大家共有的空间，分全局堆和局部堆。全局堆就是所有没有分配的空间，局部堆就是用户分配的空间。堆在操作系统对进程初始化的时候分配，运行过程中也可以向系统要额外的堆，但是记得用完了要还给操作系统，要不然就是内存泄漏。</p>
+<p>栈(heap)：是个线程独有的，保存其运行状态和局部自动变量的。栈在线程开始的时候初始化，每个线程的栈互相独立，因此，栈是thread safe的。操作系统在切换线程的时候会自动的切换栈，就是切换　ＳＳ／ＥＳＰ寄存器。栈空间不需要在高级语言里面显式的分配和释放。</p>
+<h4 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h4><p>一、预备知识 — 程序的内存分配<br>一个由 c/C++ 编译的程序占用的内存分为以下几个部分： </p>
+<ol>
+<li><p>栈区（ stack ） —  由编译器自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。 </p>
+</li>
+<li><p>堆区（ heap ）  —  一般由程序员分配释放，若程序员不释放，程序结束时可能由 OS 回收。注意它与数据结构中的堆是两回事，分配方式倒是类似于链表。 </p>
+</li>
+<li><p>全局区（静态区）（ static ） — ，全局变量和静态变量的存储是放在一块的，初始化的全局变量和静态变量在一块区域，未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。  -  程序结束后由系统释放。 </p>
+</li>
+<li><p>文字常量区    — 常量字符串就是放在这里的。程序结束后由系统释放。 </p>
+</li>
+<li><p>程序代码区 — 存放函数体的二进制代码。 </p>
+</li>
+</ol>
+<p>二、例子程序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.cpp</span></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">0</span>;  全局初始化区 </span><br><span class="line"><span class="keyword">char</span> *p1;  全局未初始化区 </span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">int</span> b;  栈 </span><br><span class="line"><span class="keyword">char</span> s[] = <span class="string">"abc"</span>;  栈 </span><br><span class="line"><span class="keyword">char</span> *p2;  栈 </span><br><span class="line"><span class="keyword">char</span> *p3 = <span class="string">"123456"</span>; <span class="number">123456</span>/<span class="number">0</span> 在常量区， p3 在栈上。 </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> c =<span class="number">0</span> ； 全局（静态）初始化区 </span><br><span class="line">p1 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">10</span>);</span><br><span class="line">p2 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">20</span>);</span><br><span class="line">分配得来得 <span class="number">10</span> 和 <span class="number">20</span> 字节的区域就在堆区。 </span><br><span class="line"><span class="built_in">strcpy</span>(p1, <span class="string">"123456"</span>); <span class="number">123456</span>/<span class="number">0</span> 放在常量区，编译器可能会将它与 p3 所指向的 <span class="string">"123456"</span> 优化成一个地方。 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>二、堆和栈的理论知识<br>2.1 申请方式<br>stack:<br>由系统自动分配。 例如，声明在函数中一个局部变量  int b;  系统自动在栈中为 b 开辟空间<br>heap:<br>需要程序员自己申请，并指明大小，在 c 中 malloc 函数<br>如 p1 = (char *)malloc(10);<br>在 C++ 中用 new 运算符<br>如 p2 = (char *)malloc(10);<br>但是注意 p1 、 p2 本身是在栈中的。 </p>
+<p>2.2<br>申请后系统的响应<br>栈：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将报异常提示栈溢出。<br>堆： 首先应该知道操作系统有一个记录空闲内存地址的链表，当系统收到程序的申请时，会遍历该链表，寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲 结点链表中删除，并将该结点的空间分配给程序，另外，对于大多数系统，会在这块内存空间中的首地址处记录本次分配的大小，这样，代码中的 delete 语句才能正确的释放本内存空间。另外，由于找到的堆结点的大小不一定正好等于申请的大小，系统会自动的将多余的那部分重新放入空闲链表中。 </p>
+<p>2.3 申请大小的限制<br>栈：在 Windows 下 , 栈是向低地址扩展的数据结构，是一块连续的内存的区域。这句话的意思是栈顶的地址和栈的最大容量是系统预先规定好的，在 WINDOWS 下，栈的大小是 2M （也可能是 1M ，它是一个编译时就确定的常数），如果申请的空间超过栈的剩余空间时，将提示 overflow 。因此，能从栈获得的空间较小<br>。<br>堆：堆是向高地址扩展的数据结构，是不连续的内存区域。这是由于系统是用链表来存储的空闲内存地址的，自然是不连续的，而链表的遍历方向是由低地址向高地址。堆的大小受限于计算机系统中有效的虚拟内存。由此可见，堆获得的空间比较灵活，也比较大。 </p>
+<p>2.4 申请效率的比较：<br>栈由系统自动分配，速度较快。但程序员是无法控制的。<br>堆是由 new 分配的内存，一般速度比较慢，而且容易产生内存碎片 , 不过用起来最方便 .<br>另外，在 WINDOWS 下，最好的方式是用 VirtualAlloc 分配内存，他不是在堆，也不是在栈是直接在进程的地址空间中保留一快内存，虽然用起来最不方便。但是速度快，也最灵活。 </p>
+<p>2.5 堆和栈中的存储内容<br>栈：在函数调用时，第一个进栈的是主函数中后的下一条指令（函数调用语句的下一条可执行语句）的地址，然后是函数的各个参数，在大多数的 C 编译器中，参数是由右往左入栈的，然后是函数中的局部变量。注意静态变量是不入栈的。<br>当本次函数调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的地址，也就是主函数中的下一条指令，程序由该点继续运行。<br>堆：一般是在堆的头部用一个字节存放堆的大小。堆中的具体内容有程序员安排。 </p>
+<p>2.6 存取效率的比较 </p>
+<p>char s1[] = “aaaaaaaaaaaaaaa”;<br>char *s2 = “bbbbbbbbbbbbbbbbb”;<br>aaaaaaaaaaa 是在运行时刻赋值的；<br>而 bbbbbbbbbbb 是在编译时就确定的；<br>但是，在以后的存取中，在栈上的数组比指针所指向的字符串 ( 例如堆 ) 快。<br>比如：<br>void main()<br>{<br>char a = 1;<br>char c[] = “1234567890”;<br>char *p =”1234567890”;<br>a = c[1];<br>a = p[1];<br>return;<br>}<br>对应的汇编代码<br>10: a = c[1];<br>00401067 8A 4D F1 mov cl,byte ptr [ebp-0Fh]<br>0040106A 88 4D FC mov byte ptr [ebp-4],cl<br>11: a = p[1];<br>0040106D 8B 55 EC mov edx,dword ptr [ebp-14h]<br>00401070 8A 42 01 mov al,byte ptr [edx+1]<br>00401073 88 45 FC mov byte ptr [ebp-4],al<br>第一种在读取时直接就把字符串中的元素读到寄存器 cl 中，而第二种则要先把指针值读到 edx 中，在根据<br>edx 读取字符，显然慢了。 </p>
+<p>2.7 小结：<br>堆和栈的区别可以用如下的比喻来看出：<br>使用栈就象我们去饭馆里吃饭，只管点菜（发出申请）、付钱、和吃（使用），吃饱了就走，不必理会切菜、洗菜等准备工作和洗碗、刷锅等扫尾工作，他的好处是快捷，但是自由度小。<br>使用堆就象是自己动手做喜欢吃的菜肴，比较麻烦，但是比较符合自己的口味，而且自由度大。</p>
+<h3 id="2、其他"><a href="#2、其他" class="headerlink" title="2、其他"></a>2、其他</h3><p>线程共享的环境包括：进程代码段、进程的公有数据(利用这些共享的数据，线程很容易的实现相互之间的通讯)、进程打开的文件描述符、信号的处理器、进程的当前目录和进程用户ID与进程组ID。<br>进程拥有这许多共性的同时，还拥有自己的个性。有了这些个性，线程才能实现并发性。这些个性包括：</p>
+<h4 id="1-线程ID"><a href="#1-线程ID" class="headerlink" title="1.线程ID"></a>1.线程ID</h4><p>每个线程都有自己的线程ID，这个ID在本进程中是唯一的。进程用此来标识线程。</p>
+<h4 id="2-寄存器组的值"><a href="#2-寄存器组的值" class="headerlink" title="2.寄存器组的值"></a>2.寄存器组的值</h4><p>由于线程间是并发运行的，每个线程有自己不同的运行线索，当从一个线程切换到另一个线程上时，必须将原有的线程的寄存器集合的状态保存，以便<br>将来该线程在被重新切换到时能得以恢复。</p>
+<h4 id="3-线程的堆栈"><a href="#3-线程的堆栈" class="headerlink" title="3.线程的堆栈"></a>3.线程的堆栈</h4><p>堆栈是保证线程独立运行所必须的。线程函数可以调用函数，而被调用函数中又是可以层层嵌套的，所以线程必须拥有自己的函数堆栈，使得函数调用可以正常执行，不受其他线程的影<br>响。</p>
+<h4 id="4-错误返回码"><a href="#4-错误返回码" class="headerlink" title="4.错误返回码"></a>4.错误返回码</h4><p>由于同一个进程中有很多个线程在同时运行，可能某个线程进行系统调用后设置了errno值，而在该线程还没有处理这个错误，另外一个线程就在此时被调度器投入运行，这样错误值就有可能被修改。所以，不同的线程应该拥有自己的错误返回码变量。</p>
+<h4 id="5-线程的信号屏蔽码"><a href="#5-线程的信号屏蔽码" class="headerlink" title="5.线程的信号屏蔽码"></a>5.线程的信号屏蔽码</h4><p>由于每个线程所感兴趣的信号不同，所以线程的信号屏蔽码应该由线程自己管理。但所有的线程都共享同样的信号处理器。</p>
+<h4 id="6-线程的优先级"><a href="#6-线程的优先级" class="headerlink" title="6.线程的优先级"></a>6.线程的优先级</h4><p>由于线程需要像进程那样能够被调度，那么就必须要有可供调度使用的参数，这个参数就是线程的优先级。<br>参考：<a href="https://blog.csdn.net/shuilan0066/article/details/7683315" target="_blank" rel="noopener">https://blog.csdn.net/shuilan0066/article/details/7683315</a></p>
+<h3 id="3、进程与线程的同步"><a href="#3、进程与线程的同步" class="headerlink" title="3、进程与线程的同步"></a>3、进程与线程的同步</h3><p>进程：无名管道、有名管道、信号、共享内存、消息队列、信号量<br>进程：互斥量、读写锁、自旋锁、线程信号、条件变量</p>
+<p>1、需要频繁创建销毁的优先使用线程；因为对进程来说创建和销毁一个进程代价是很大的。</p>
+<p>2、线程的切换速度快，所以在需要大量计算，切换频繁时用线程，还有耗时的操作使用线程可提高应用程序的响应</p>
+<p>3、因为对CPU系统的效率使用上线程更占优，所以可能要发展到多机分布的用进程，多核分布用线程；</p>
+<p>4、并行操作时使用线程，如C/S架构的服务器端并发线程响应用户的请求；</p>
+<p>5、需要更稳定安全时，适合选择进程；需要速度时，选择线程更好。</p>
+<h2 id="四、GIL"><a href="#四、GIL" class="headerlink" title="四、GIL"></a>四、GIL</h2><p><a href="https://blog.csdn.net/qq_34802511/article/details/81227200" target="_blank" rel="noopener">Python并发之GIL的限制（重点）</a><br><a href="https://www.jianshu.com/p/9eb586b64bdb" target="_blank" rel="noopener">Python的全局解释器锁(GIL)</a></p>
+<p>在非python环境中，单核情况下，同时只能有一个任务执行。多核时可以支持多个线程同时执行。但是在python中，无论有多少核，同时只能执行一个线程。究其原因，这就是由于GIL的存在导致的。</p>
+<pre><code>GIL的全称是Global Interpreter Lock(全局解释器锁)，来源是python设计之初的考虑，为了数据安全所做的决定。某个线程想要执行，必须先拿到GIL，我们可以把GIL看作是“通行证”，并且在一个python进程中，GIL只有一个。拿不到通行证的线程，就不允许进入CPU执行。GIL只在cpython中才有，因为cpython调用的是c语言的原生线程，所以他不能直接操作cpu，只能利用GIL保证同一时间只能有一个线程拿到数据。而在pypy和jpython中是没有GIL的。
+
+Python多线程的工作过程：
+python在使用多线程的时候，调用的是c语言的原生线程。
+
+拿到公共数据
+申请gil
+python解释器调用os原生线程
+os操作cpu执行运算
+当该线程执行时间到后，无论运算是否已经执行完，gil都被要求释放
+进而由其他进程重复上面的过程
+等其他进程执行完后，又会切换到之前的线程（从他记录的上下文继续执行）
+整个过程是每个线程执行自己的运算，当执行时间到就进行切换（context switch）。
+python针对不同类型的代码执行效率也是不同的：
+1、CPU密集型代码(各种循环处理、计算等等)，在这种情况下，由于计算工作多，ticks计数很快就会达到阈值，然后触发GIL的释放与再竞争（多个线程来回切换当然是需要消耗资源的），所以python下的多线程对CPU密集型代码并不友好。
+2、IO密集型代码(文件处理、网络爬虫等涉及文件读写的操作)，多线程能够有效提升效率(单线程下有IO操作会进行IO等待，造成不必要的时间浪费，而开启多线程能在线程A等待时，自动切换到线程B，可以不浪费CPU的资源，从而能提升程序执行效率)。所以python的多线程对IO密集型代码比较友好。
+使用建议？
+python下想要充分利用多核CPU，就用多进程。因为每个进程有各自独立的GIL，互不干扰，这样就可以真正意义上的并行执行，在python中，多进程的执行效率优于多线程(仅仅针对多核CPU而言)。
+GIL在python中的版本差异：
+1、在python2.x里，GIL的释放逻辑是当前线程遇见IO操作或者ticks计数达到100时进行释放。（ticks可以看作是python自身的一个计数器，专门做用于GIL，每次释放后归零，这个计数可以通过sys.setcheckinterval 来调整）。而每次释放GIL锁，线程进行锁竞争、切换线程，会消耗资源。并且由于GIL锁存在，python里一个进程永远只能同时执行一个线程(拿到GIL的线程才能执行)，这就是为什么在多核CPU上，python的多线程效率并不高。
+2、在python3.x中，GIL不使用ticks计数，改为使用计时器（执行时间达到阈值后，当前线程释放GIL），这样对CPU密集型程序更加友好，但依然没有解决GIL导致的同一时间只能执行一个线程的问题，所以效率依然不尽如人意。</code></pre><h2 id="五、线程锁"><a href="#五、线程锁" class="headerlink" title="五、线程锁"></a>五、线程锁</h2><p>  由于线程之间是进行随机调度，并且每个线程可能只执行n条执行之后，当多个线程同时修改同一条数据时可能会出现脏数据，所以，出现了线程锁，即同一时刻允许一个线程执行操作。线程锁用于锁定资源，你可以定义多个锁, 像下面的代码, 当你需要独占某一资源时，任何一个锁都可以锁这个资源，就好比你用不同的锁都可以把相同的一个门锁住是一个道理。</p>
+<p>  由于线程之间是进行随机调度，如果有多个线程同时操作一个对象，如果没有很好地保护该对象，会造成程序结果的不可预期，我们也称此为“线程不安全”。实测：在python2.7、mac os下，运行以下代码可能会产生脏数据。但是在python3中就不一定会出现下面的问题。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">  import threading </span><br><span class="line">  import time </span><br><span class="line">  def run(n):</span><br><span class="line">    global num </span><br><span class="line">    num += 1 </span><br><span class="line">    </span><br><span class="line">  num = 0 </span><br><span class="line">  t_obj = [] </span><br><span class="line">  for i in range(20000): </span><br><span class="line">    t = threading.Thread(target=run, args=(&quot;t-%s&quot; % i,)) </span><br><span class="line">    t.start() </span><br><span class="line">    t_obj.append(t) </span><br><span class="line"></span><br><span class="line">    for t in t_obj: </span><br><span class="line">      t.join() </span><br><span class="line">    </span><br><span class="line">    print&quot;num:&quot;, num &quot;&quot;&quot; 产生脏数据后的运行结果： num: 19999 &quot;&quot;&quot;</span><br><span class="line">   ```     </span><br><span class="line">        </span><br><span class="line">## 六、互斥锁（mutex）</span><br><span class="line">        </span><br><span class="line">为了方式上面情况的发生，就出现了互斥锁(Lock)</span><br></pre></td></tr></table></figure></p>
+<p>  import threading<br>  import time </p>
+<p>  def run(n):<br>    lock.acquire() #获取锁<br>    global num<br>    num += 1<br>    lock.release() #释放锁 </p>
+<p>  lock = threading.Lock() #实例化一个锁对象<br>  num = 0<br>  t_obj = []<br>  for i in range(20000):<br>    t = threading.Thread(target=run, args=(“t-%s” % i,))<br>    t.start()<br>    t_obj.append(t) </p>
+<p>  for t in t_obj:<br>    t.join() </p>
+<p>  print”num:”, num</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">## 七、递归锁</span><br><span class="line"></span><br><span class="line">RLcok类的用法和Lock类一模一样，但它支持嵌套，，在多个锁没有释放的时候一般会使用使用RLcok类。</span><br></pre></td></tr></table></figure>
+
+<p>import threading<br>import time gl_num = 0<br>lock = threading.RLock()<br>def Func():<br>  lock.acquire()<br>  global gl_num<br>  gl_num +=1<br>  time.sleep(1)<br>  print gl_num<br>  lock.release() </p>
+<p>for i in range(10):<br>  t = threading.Thread(target=Func) t.start()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">## 八、信号量（BoundedSemaphore类）</span><br><span class="line"></span><br><span class="line">互斥锁同时只允许一个线程更改数据，而Semaphore是同时允许一定数量的线程更改数据 ，比如厕所有3个坑，那最多只允许3个人上厕所，后面的人只能等里面有人出来了才能再进去。</span><br></pre></td></tr></table></figure>
+
+<p>import threading<br>import time<br>def run(n):<br>  semaphore.acquire() #加锁<br>  time.sleep(1)<br>  print(“run the thread:%s\n” % n)<br>  semaphore.release() #释放 </p>
+<p>num = 0<br>semaphore = threading.BoundedSemaphore(5) # 最多允许5个线程同时运行</p>
+<p>for i in range(22):<br>  t = threading.Thread(target=run, args=(“t-%s” % i,))<br>  t.start()<br>  while threading.active_count() != 1:<br>    pass# print threading.active_count()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">## 九、事件（Event类）</span><br><span class="line"></span><br><span class="line">python线程的事件用于主线程控制其他线程的执行，事件是一个简单的线程同步对象，其主要提供以下几个方法：</span><br><span class="line"></span><br><span class="line">方法 注释</span><br></pre></td></tr></table></figure>
+
+<p>clear 将flag设置为“False”<br>set 将flag设置为“True”<br>is_set 判断是否设置了flag<br>wait 会一直监听flag，如果没有检测到flag就一直处于阻塞状态<br>事件处理的机制：全局定义了一个“Flag”，当flag值为“False”，那么event.wait()就会阻塞，当flag值为“True”，那么event.wait()便不再阻塞。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">利用Event类模拟红绿灯</span><br><span class="line">import threading </span><br><span class="line">import time </span><br><span class="line">event = threading.Event() </span><br><span class="line">def lighter(): </span><br><span class="line">  count = 0 </span><br><span class="line">  event.set() #初始值为绿灯</span><br><span class="line">  while True: </span><br><span class="line">    if 5 &lt; count &lt;=10 : </span><br><span class="line">      event.clear() # 红灯，清除标志位 </span><br><span class="line">      print(&quot;\33[41;1mred light is on...\033[0m&quot;) </span><br><span class="line">    elif count &gt; 10: </span><br><span class="line">      event.set() # 绿灯，设置标志位 </span><br><span class="line">      count = 0</span><br><span class="line">    else: </span><br><span class="line">      print(&quot;\33[42;1mgreen light is on...\033[0m&quot;) </span><br><span class="line">    </span><br><span class="line">    time.sleep(1) </span><br><span class="line">    count += 1</span><br><span class="line">    </span><br><span class="line"> def car(name):</span><br><span class="line">  while True: </span><br><span class="line">    if event.is_set(): #判断是否设置了标志位 </span><br><span class="line">      print(&quot;[%s] running...&quot;%name) </span><br><span class="line">      time.sleep(1) </span><br><span class="line">    else: </span><br><span class="line">      print(&quot;[%s] sees red light,waiting...&quot;%name) </span><br><span class="line">      event.wait() </span><br><span class="line">      print(&quot;[%s] green light is on,start going...&quot;%name) </span><br><span class="line">      light = threading.Thread(target=lighter,) </span><br><span class="line">      light.start() car = threading.Thread(target=car,args=(&quot;MINI&quot;,)) </span><br><span class="line">      car.start()</span><br></pre></td></tr></table></figure>
+
+<h2 id="十、条件（Condition类）-amp-定时器（Timer类）"><a href="#十、条件（Condition类）-amp-定时器（Timer类）" class="headerlink" title="十、条件（Condition类）&amp; 定时器（Timer类）"></a>十、条件（Condition类）&amp; 定时器（Timer类）</h2><p>使得线程等待，只有满足某条件时，才释放n个线程</p>
+<p>定时器，指定n秒后执行某操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from threading </span><br><span class="line">import Timer </span><br><span class="line">def hello(): </span><br><span class="line">    print(&quot;hello, world&quot;) </span><br><span class="line">    t = Timer(1, hello) </span><br><span class="line">    t.start() # after 1 seconds, &quot;hello, world&quot; will be printed</span><br></pre></td></tr></table></figure>
+
+<p>3 多进程<br>在linux中，每个进程都是由父进程提供的。每启动一个子进程就从父进程克隆一份数据，但是进程之间的数据本身是不能共享的。</p>
+<p>from multiprocessing import Process import time deff(name): time.sleep(2) print(‘hello’, name) if name == ‘main’: p = Process(target=f, args=(‘bob’,)) p.start() p.join() from multiprocessing import Process import os definfo(title): print(title) print(‘module name:’, name) print(‘parent process:’, os.getppid()) #获取父进程id print(‘process id:’, os.getpid()) #获取自己的进程id print(“\n\n”) deff(name): info(‘\033[31;1mfunction f\033[0m’) print(‘hello’, name) if name == ‘main’: info(‘\033[32;1mmain process line\033[0m’) p = Process(target=f, args=(‘bob’,)) p.start() p.join()3.1 进程间通信<br>由于进程之间数据是不共享的，所以不会出现多线程GIL带来的问题。多进程之间的通信通过Queue()或Pipe()来实现</p>
+<p>3.1.1 Queue()<br>使用方法跟threading里的queue差不多</p>
+<p>from multiprocessing import Process, Queue deff(q): q.put([42, None, ‘hello’]) if name == ‘main’: q = Queue() p = Process(target=f, args=(q,)) p.start() print(q.get()) # prints “[42, None, ‘hello’]” p.join()3.1.2 Pipe()<br>Pipe的本质是进程之间的数据传递，而不是数据共享，这和socket有点像。pipe()返回两个连接对象分别表示管道的两端，每端都有send()和recv()方法。如果两个进程试图在同一时间的同一端进行读取和写入那么，这可能会损坏管道中的数据。</p>
+<p>from multiprocessing import Process, Pipe deff(conn): conn.send([42, None, ‘hello’]) conn.close() if name == ‘main’: parent_conn, child_conn = Pipe() p = Process(target=f, args=(child_conn,)) p.start() print(parent_conn.recv()) # prints “[42, None, ‘hello’]” p.join()3.2 Manager<br>通过Manager可实现进程间数据的共享。Manager()返回的manager对象会通过一个服务进程，来使其他进程通过代理的方式操作python对象。manager对象支持 list, dict, Namespace, Lock, RLock, Semaphore, BoundedSemaphore, Condition, Event, Barrier, Queue, Value ,Array.</p>
+<p>from multiprocessing import Process, Manager deff(d, l): d[1] = ‘1’ d[‘2’] = 2 d[0.25] = None l.append(1) print(l) if name == ‘main’: with Manager() as manager: d = manager.dict() l = manager.list(range(5)) p_list = [] for i in range(10): p = Process(target=f, args=(d, l)) p.start() p_list.append(p) for res in p_list: res.join() print(d) print(l)3.3 进程锁（进程同步）<br>数据输出的时候保证不同进程的输出内容在同一块屏幕正常显示，防止数据乱序的情况。<br>Without using the lock output from the different processes is liable to get all mixed up.</p>
+<p>from multiprocessing import Process, Lock deff(l, i): l.acquire() try: print(‘hello world’, i) finally: l.release() if name == ‘main’: lock = Lock() for num in range(10): Process(target=f, args=(lock, num)).start()3.4 进程池<br>由于进程启动的开销比较大，使用多进程的时候会导致大量内存空间被消耗。为了防止这种情况发生可以使用进程池，（由于启动线程的开销比较小，所以不需要线程池这种概念，多线程只会频繁得切换cpu导致系统变慢，并不会占用过多的内存空间）</p>
+<p>  进程池中常用方法：<br>  apply() 同步执行（串行）<br>  apply_async() 异步执行（并行）<br>  terminate() 立刻关闭进程池<br>  join() 主进程等待所有子进程执行完毕。必须在close或terminate()之后。<br>  close() 等待所有进程结束后，才关闭进程池。<br>from multiprocessing import Process,Pool import time defFoo(i): time.sleep(2) return i+100defBar(arg): print(,arg) pool = Pool(5) #允许进程池同时放入5个进程for i in range(10): pool.apply_async(func=Foo, args=(i,),callback=Bar) #func子进程执行完后，才会执行callback，否则callback不执行（而且callback是由父进程来执行了）#pool.apply(func=Foo, args=(i,)) print(‘end’) pool.close() pool.join() #主进程等待所有子进程执行完毕。必须在close()或terminate()之后。<br>进程池内部维护一个进程序列，当使用时，去进程池中获取一个进程，如果进程池序列中没有可供使用的进程，那么程序就会等待，直到进程池中有可用进程为止。在上面的程序中产生了10个进程，但是只能有5同时被放入进程池，剩下的都被暂时挂起，并不占用内存空间，等前面的五个进程执行完后，再执行剩下5个进程。</p>
+<h2 id="十一、协程"><a href="#十一、协程" class="headerlink" title="十一、协程"></a>十一、协程</h2><h4 id="什么是协程？"><a href="#什么是协程？" class="headerlink" title="什么是协程？"></a>什么是协程？</h4><p>协程是一种用户态的轻量级线程，协程的调度完全由用户控制。协程拥有自己的<strong>寄存器上下文*</strong>和<strong>栈(stack)</strong>。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈，直接操作栈则基本没有内核切换的开销，可以不加锁的访问全局变量，所以上下文的切换非常快。</p>
+<h4 id="协程多与线程进行比较？"><a href="#协程多与线程进行比较？" class="headerlink" title="协程多与线程进行比较？"></a>协程多与线程进行比较？</h4><p>一个线程可以拥有多个协程，一个进程也可以单独拥有多个协程，这样python中则能使用多核CPU。</p>
+<p>线程进程都是同步机制，而协程则是异步</p>
+<p>协程能保留上一次调用时的状态，每次过程重入时，就相当于进入上一次调用的状态</p>
+<p>sources:<br><a href="https://www.jianshu.com/p/2dc01727be45" target="_blank" rel="noopener">https://www.jianshu.com/p/2dc01727be45</a><br><a href="https://www.jianshu.com/p/a4f5c1c041ae" target="_blank" rel="noopener">https://www.jianshu.com/p/a4f5c1c041ae</a></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://www.alicialuo.com/2019/09/24/进程线程和协程/">https://www.alicialuo.com/2019/09/24/进程线程和协程/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/OS/"># OS</a>
+                    
+                        <a href="/tags/进程/"># 进程</a>
+                    
+                        <a href="/tags/线程/"># 线程</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2019/09/24/详细解析HTTP与HTTPS的区别/">详细解析 HTTP 与 HTTPS 的区别</a>
+            
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+<!-- <script type="text/javascript" color="0,0,0" opacity='0.7' zIndex="-2" count="100" src="https://github.com/hustcc/canvas-nest.js/blob/master/dist/canvas-nest.js"></script> -->
+</body>
+</html>
