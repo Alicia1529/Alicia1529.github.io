@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en,zh-CN,default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>Deployment of Deep Learning model in FFmpeg | Aliciaaa</title>
+
+
+
+    <link rel="icon" href="/favicon_a.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/memo">Memo</a>
+                
+                    <a class="menu-item" href="/archives">Archives</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Alicia&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/memo">Memo</a>
+                
+                    <a class="menu-item" href="/archives">Archives</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/resume">Resume</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+
+<!-- <script zIndex="-2" src="js/canvas-nest.js"></script> -->
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Deployment of Deep Learning model in FFmpeg</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Alicia Luo</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">February 28, 2021&nbsp;&nbsp;0:16:08</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/FFmpeg/">FFmpeg</a>
+                            
+                            
+                        </span>
+                    
+                    <span class="post-view">         
+                        <span id="busuanzi_container_page_pv">
+                            Views: <a id="busuanzi_value_page_pv"></a>
+                        </span> 
+                    </span>
+
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="ffmpeg-filter和C-模型集成"><a href="#ffmpeg-filter和C-模型集成" class="headerlink" title="ffmpeg filter和C++模型集成"></a>ffmpeg filter和C++模型集成</h3><ul>
+<li>ffmpeg 内创建过滤器<br>定义filter的基本参数，包括调用时的输入参数</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> structXXXContext &#123;</span><br><span class="line">    <span class="keyword">const</span> AVClass *<span class="class"><span class="keyword">class</span>;</span></span><br><span class="line">  <span class="comment">// define necessary parameters.</span></span><br><span class="line">&#125;  XXXContext;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>define user input</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> AVOption xxx_options[]= &#123;</span><br><span class="line">    &#123;<span class="string">"xxx_path"</span>,       <span class="string">"set file path of xxx"</span>,         OFFSET(xxx_path),      AV_OPT_TYPE_STRING, &#123;.str=<span class="literal">NULL</span>&#125;,  <span class="number">0</span>, <span class="number">0</span>, FLAGS&#125;,</span><br><span class="line">    &#123; <span class="literal">NULL</span> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>初始化参数: 加载模型，数据，一些需要图片格式转换时会用到的结构</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> av_cold <span class="keyword">int</span> <span class="title">init</span><span class="params">(AVFilterContext *ctx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    XXXContext *s = ctx-&gt;priv;</span><br><span class="line">    <span class="comment">// Load the Deep Learning models and data</span></span><br><span class="line">    <span class="keyword">int</span> ret;</span><br><span class="line">    ret = load_model(s-&gt;model_path, &amp;(s-&gt;model));</span><br><span class="line">    <span class="keyword">if</span> (ret == ERROR) &#123;</span><br><span class="line">        av_log(s, AV_LOG_ERROR, <span class="string">"Fail to load model.\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> AVERROR(EEXIST);&#125;</span><br><span class="line">    <span class="comment">// Allocate memory to store positions</span></span><br><span class="line">    s-&gt;positions = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="number">4</span>);</span><br><span class="line">    <span class="comment">// Allocate an AVFrame structure.</span></span><br><span class="line">    s-&gt;pFrameRGB = av_frame_alloc(); </span><br><span class="line">    <span class="comment">// skip...</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">config_input</span><span class="params">(AVFilterLink *inlink)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    XXXContext *s = inlink-&gt;dst-&gt;priv;</span><br><span class="line">    <span class="comment">// initialize parameters in the context according to information from inlink</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>主处理函数，每一帧调用一次</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">filter_frame</span><span class="params">(AVFilterLink *inlink, AVFrame *in)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// apply deep learning models to the image from `inlink`</span></span><br><span class="line">  <span class="comment">// modify the decoded image in place as `out`</span></span><br><span class="line">  <span class="comment">// returned the modified image.</span></span><br><span class="line">  <span class="keyword">return</span> ff_filter_frame(outlink, out);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="FFmpeg和深度学习结合的发展"><a href="#FFmpeg和深度学习结合的发展" class="headerlink" title="FFmpeg和深度学习结合的发展"></a>FFmpeg和深度学习结合的发展</h3><h4 id="FFmpeg图像处理深度应用-https-zhuanlan-zhihu-com-p-106192748"><a href="#FFmpeg图像处理深度应用-https-zhuanlan-zhihu-com-p-106192748" class="headerlink" title="FFmpeg图像处理深度应用: https://zhuanlan.zhihu.com/p/106192748"></a>FFmpeg图像处理深度应用: <a href="https://zhuanlan.zhihu.com/p/106192748" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/106192748</a></h4><p><img src="https://pic1.zhimg.com/80/v2-ceb19fc04945b978ca38702a430f1d6c_1440w.jpg" alt="Alt text"></p>
+<p>需要提及一下，如果直接用FFmpeg内置的DNN，性能很差，甚至会慢到0.001的倍速，它指使用了CPU资源，且没做任何优化，基本上用作算法的验证，不能作为线上实际使用的后端。在FFmpeg的AI框架下，目前还支持了SDR转HDR、去雨点去雾处理以及智能插帧（还在开发中）。</p>
+<h4 id="Build-a-Deep-Learning-Video-Analytics-Framework-SIGGRAPH-2019-Technical-Sessions-https-www-slideshare-net-IntelSoftware-build-a-deep-learning-video-analytics-framework-siggraph-2019-technical-sessions"><a href="#Build-a-Deep-Learning-Video-Analytics-Framework-SIGGRAPH-2019-Technical-Sessions-https-www-slideshare-net-IntelSoftware-build-a-deep-learning-video-analytics-framework-siggraph-2019-technical-sessions" class="headerlink" title="Build a Deep Learning Video Analytics Framework | SIGGRAPH 2019 Technical Sessions: https://www.slideshare.net/IntelSoftware/build-a-deep-learning-video-analytics-framework-siggraph-2019-technical-sessions"></a>Build a Deep Learning Video Analytics Framework | SIGGRAPH 2019 Technical Sessions: <a href="https://www.slideshare.net/IntelSoftware/build-a-deep-learning-video-analytics-framework-siggraph-2019-technical-sessions" target="_blank" rel="noopener">https://www.slideshare.net/IntelSoftware/build-a-deep-learning-video-analytics-framework-siggraph-2019-technical-sessions</a></h4><h4 id="用FFmpeg搭建基于CNN的视频方案-ffmpeg-与-openVINO集成-https-zhuanlan-zhihu-com-p-122998139"><a href="#用FFmpeg搭建基于CNN的视频方案-ffmpeg-与-openVINO集成-https-zhuanlan-zhihu-com-p-122998139" class="headerlink" title="用FFmpeg搭建基于CNN的视频方案(ffmpeg 与 openVINO集成): https://zhuanlan.zhihu.com/p/122998139"></a>用FFmpeg搭建基于CNN的视频方案(ffmpeg 与 openVINO集成): <a href="https://zhuanlan.zhihu.com/p/122998139" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/122998139</a></h4><p><img src="https://pic3.zhimg.com/80/v2-3a84d4a8b198da21e8841a5e5af43a16_1440w.jpg" alt="Alt text"><br><img src="https://pic2.zhimg.com/80/v2-ce84a6220d1f8b38d6e944148a8d1205_1440w.jpg" alt="Alt text"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Alicia Luo</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://www.alicialuo.com/2021/02/28/FFmpeg_DLModels/">https://www.alicialuo.com/2021/02/28/FFmpeg_DLModels/</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/C/"># C++</a>
+                    
+                        <a href="/tags/deployment/"># deployment</a>
+                    
+                        <a href="/tags/AI/"># AI</a>
+                    
+                        <a href="/tags/FFmpeg/"># FFmpeg</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/02/28/DL_cpp_deployment/">Deployment of Deep Learning model in C++</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<footer id="footer" class="footer">
+    <div class="copyright">
+        <p style="height:20px;margin:0">© Alicia Luo | 👀<span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span> </p>
+        <p style="height:10px;font-size:80%;margin:0">Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></p>
+    </div>
+</footer>
+
+    </div>
+
+<script type="text/javascript" color="0,0,0" opacity="0.7" zindex="-2" count="100" src="/js/canvas-nest.js"></script>
+<!-- <script type="text/javascript" color="0,0,0" opacity='0.7' zIndex="-2" count="100" src="https://github.com/hustcc/canvas-nest.js/blob/master/dist/canvas-nest.js"></script> -->
+</body>
+</html>

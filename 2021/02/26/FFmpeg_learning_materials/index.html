@@ -212,10 +212,55 @@
         </header>
 
         <div class="post-content">
-            <p>FFmpeg的音频处理详解：<a href="https://blog.csdn.net/fireroll/article/details/83032025" target="_blank" rel="noopener">https://blog.csdn.net/fireroll/article/details/83032025</a></p>
-<p>ffmpeg常用音频处理：<a href="https://blog.csdn.net/sinat_14826983/article/details/82975561" target="_blank" rel="noopener">https://blog.csdn.net/sinat_14826983/article/details/82975561</a></p>
-<p>(二) ffmpeg filter学习–混音实现 amix的代码和混音流程图:<a href="https://blog.csdn.net/xionglifei2014/article/details/98491620?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param" target="_blank" rel="noopener">https://blog.csdn.net/xionglifei2014/article/details/98491620?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param</a></p>
-<h3 id="FFmpeg-常见命令"><a href="#FFmpeg-常见命令" class="headerlink" title="FFmpeg 常见命令"></a>FFmpeg 常见命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -layouts 查看音频的布局情况</span><br><span class="line"></span><br><span class="line">ffprobe input.mkv</span><br><span class="line"></span><br><span class="line">ffprobe -show_frames input.mkv</span><br></pre></td></tr></table></figure>
+            <h3 id="FFmpeg-介绍"><a href="#FFmpeg-介绍" class="headerlink" title="FFmpeg 介绍"></a>FFmpeg 介绍</h3><p>FFmpeg is a free and open-source project consisting of a vast software suite of libraries and programs for handling video, audio, and other multimedia files and streams. At its core is the FFmpeg program itself, designed for command-line-based processing of video and audio files, and widely used for format transcoding, basic editing (trimming and concatenation), video scaling, video post-production effects, and standards compliance (SMPTE, ITU).</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>使用FFMPEG作为内核视频播放器：Mplayer，ffplay，射手播放器，暴风影音，KMPlayer，QQ影音…<br>使用FFMPEG作为内核的Directshow Filter：ffdshow，lav filters…<br>使用FFMPEG作为内核的转码工具：ffmpeg，格式工厂…<br>查看影片诸如时长、码率帧数等信息<br>对视频进行转码 video.mp4 video.avi<br>修改视频尺寸，分辨率，压缩<br>抽帧</p>
+<h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><ul>
+<li><p>容器(Container)<br>容器就是一种文件格式，比如flv，mkv等。包含下面5种流以及文件头信息。</p>
+</li>
+<li><p>流(Stream)<br>是一种视频数据信息的传输方式，5种流：音频，视频，字幕，附件，数据。</p>
+</li>
+<li><p>复用/解复用(mux/demux)<br>把不同的流按照某种容器的规则放入容器，这种行为叫做复用（mux）<br>把不同的流从某种容器中解析出来，这种行为叫做解复用(demux)</p>
+</li>
+<li><p>帧(Frame)<br>帧代表一幅静止的图像，分为I帧，P帧，B帧。</p>
+</li>
+<li><p>编解码器(Codec)<br>是对视频进行压缩或者解压缩，CODEC = COde（编码）+ DECode（解码）</p>
+</li>
+</ul>
+<h3 id="ffmpeg的组成"><a href="#ffmpeg的组成" class="headerlink" title="ffmpeg的组成"></a>ffmpeg的组成</h3><p>FFmpeg框架的基本组成包含AVFormat、AVCodec、AVFilter、AVDevice、AVUtil等模块库。<br><img src="https://pic1.zhimg.com/v2-043d4b8d67fea6e8ef0da249de1eb5f5_1440w.jpg?source=172ae18b" alt="Alt text"></p>
+<p>(source: <a href="https://zhuanlan.zhihu.com/p/37516093" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/37516093</a>)</p>
+<p>1）FFmpeg的封装模块AVFormat<br>AVFormat实现了多媒体领域绝大数媒体封装格式，包括封装和解封装，如MP4、FLV、KV、 TS等文件封装格式，RTMP、RTSP、MMS、HLS等网络协议封装格式。FFmepg是否支持某种媒体封装格式取决于编译时是否包含了该格式的封装库。</p>
+<p>Libavformat (lavf) is a library for dealing with various media container formats. Its main two purposes are demuxing - i.e. splitting a media file into component streams, and the reverse process of muxing - writing supplied data in a specified container format. It also has an @ref lavf_io “I/O module” which supports a number of protocols for accessing the data (e.g. file, tcp, http and others).</p>
+<p>2）FFmpeg的编解码模块AVCodec<br>AVCodec包括大多数常用的编解码格式，既支持编码也支持解码。除了支持MPEG4、AAC、MJPEG等自带的媒体格式也支持H.264（x264编码器）、H.265（X265编码器）、MP3（libMP3lame编码器）。</p>
+<p>GOP内的帧分为三种：I帧、B帧和P帧，就是图中的I、B、P。其中I帧包含完整的图像信息并进行帧内压缩，而B、P帧只包含图像的一部分，图像的其他部分通过和其他图像运算得出。（P帧参考I帧和之前的P帧，B帧参考之前和之后的I、P帧。）<br>精准空降？不存在的！——视频编码的一些小知识</p>
+<p>3）FFmepg的滤镜模块AVFilter<br>AVFilter库提供了一个通用的音频、视频、字幕等滤镜处理框架。在AVFilter中，滤镜框架可以有多个输入和多个输出。</p>
+<p>4）FFmpeg的视频图像转换计算模块swscale<br>swscale模块提供了高级别的图像转换API，它能够对图像进行缩放和像素格式转换。</p>
+<p>5）FFmpeg的音频转换计算模块swresample<br>swresample提供了音频重采样API，支持音频采样、音频通道布局、布局调整。</p>
+<h3 id="视频处理流程"><a href="#视频处理流程" class="headerlink" title="视频处理流程"></a>视频处理流程</h3><p>ffmpeg调用流程图<br><img src="https://upload-images.jianshu.io/upload_images/11591878-810021da4c347e09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1067" alt="Alt text"></p>
+<p>(source: <a href="https://www.jianshu.com/p/3c8c4a892f3c" target="_blank" rel="noopener">https://www.jianshu.com/p/3c8c4a892f3c</a>)</p>
+<h3 id="常用滤镜"><a href="#常用滤镜" class="headerlink" title="常用滤镜"></a>常用滤镜</h3><p>常用的滤镜中重点的是：scale、trim、overlay、yadif、rotate、movie<br>比如常用的scale 可以用来做缩放，trim可以做比较精确的帧级的剪切，overlay可以来实现视频混流，画中画或多画面等叠加处理，rotate来做旋转，movie可以加载第三方的视频等等，yadif可以在摄像机上做隔行扫描，在PC端的播放器可以做去交错。另外，还有delogo、crop、colorkey、chromakey、zoompan； delogo可以用来模糊化某一区域，crop用于图像区域剪切，colorkey和chromakey是用于抠图的，chromakey以YUV输入为主，colorkey以RGB输入为主，zoompan可以将图像放大。</p>
+<h3 id="单个过滤器-AVFilter"><a href="#单个过滤器-AVFilter" class="headerlink" title="单个过滤器: AVFilter"></a>单个过滤器: AVFilter</h3><p>滤镜名<br>滤镜参数：当我们在使用某一类滤镜时，需要知道对应的参数大小，如位置，宽高等。<br>内置变量：在使用滤镜时，可以用到它的很多内置变量，如帧率，PTS等，这些变量可以在命令行中使用，在调用API时也会用到。<br>压缩前、解压后的YUV/RGB/PCM数据：对数据进行滤镜处理时使用的都是原始数据，也就是未压缩的数据。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">AVFilter</span> &#123;</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *description;</span><br><span class="line">    <span class="keyword">const</span> AVFilterPad *inputs;</span><br><span class="line">    <span class="keyword">const</span> AVFilterPad *outputs;</span><br><span class="line">    <span class="keyword">const</span> AVClass *priv_class;</span><br><span class="line">    <span class="keyword">int</span> flags;</span><br><span class="line">    <span class="keyword">int</span> (*preinit)(AVFilterContext *ctx);</span><br><span class="line">    <span class="keyword">int</span> (*init)(AVFilterContext *ctx);</span><br><span class="line">    <span class="keyword">int</span> (*init_dict)(AVFilterContext *ctx, AVDictionary **options);</span><br><span class="line">    <span class="keyword">void</span> (*uninit)(AVFilterContext *ctx);</span><br><span class="line">    <span class="keyword">int</span> (*query_formats)(AVFilterContext *);</span><br><span class="line">    <span class="keyword">int</span> priv_size;      </span><br><span class="line">    <span class="keyword">int</span> flags_internal; </span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">AVFilter</span> *<span class="title">next</span>;</span></span><br><span class="line">    <span class="keyword">int</span> (*process_command)(AVFilterContext *, <span class="keyword">const</span> <span class="keyword">char</span> *cmd, <span class="keyword">const</span> <span class="keyword">char</span> *arg, <span class="keyword">char</span> *res, <span class="keyword">int</span> res_len, <span class="keyword">int</span> flags);</span><br><span class="line">    <span class="keyword">int</span> (*init_opaque)(AVFilterContext *ctx, <span class="keyword">void</span> *opaque);</span><br><span class="line">    <span class="keyword">int</span> (*activate)(AVFilterContext *ctx);</span><br><span class="line">&#125; AVFilter;</span><br></pre></td></tr></table></figure>
+
+<h3 id="过滤器图谱"><a href="#过滤器图谱" class="headerlink" title="过滤器图谱"></a>过滤器图谱</h3><p>内部结构<br><img src="https://img2018.cnblogs.com/blog/421096/201812/421096-20181204223756753-1114531886.png" alt="Alt text"></p>
+<p>调用流程图<br>示意图<br><img src="https://img2018.cnblogs.com/blog/421096/201812/421096-20181204223757791-1107112009.png" alt="Alt text"></p>
+<p>(source: <a href="https://www.cnblogs.com/TaigaCon/p/10067871.html" target="_blank" rel="noopener">https://www.cnblogs.com/TaigaCon/p/10067871.html</a>)</p>
+<p>Filter的线性属性：滤镜是一个线性的属性，是一步接着一步的往下走的，当然也可以有多线程的，但是多线程的实现不是特别好，一般的实现都是通过单线程来线性处理的。<br>线性处理图解线性处理图解<br><img src="https://mmbiz.qpic.cn/mmbiz_png/CZeKj44ymYaJoZC5alFOmeyMwusdcCIJzRz5xZnmIfia69BwhjrdbSwsBILrpPBTxj2tnbLqYic6eQ7DkMgO9TuA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="Alt text"></p>
+<p>原始数据处理原始数据处理<br>滤镜的处理都是基于原始数据来进行的，比如视频图像的每一帧，当然也包括音频。如上图所示，每一帧可以有前后的多个层，一般情况下是两层，当有多层时，如Frame1是三层，则可以先处理前两层，处理之后合并成一层，再跟另一层一起去做处理。当处理完Frame1后送到编码器进行编码，再依次处理Frame2、Frame3、Frame4，处理完后均送到编码器进行压缩编码为另一个格式，比如H.264。<br><img src="https://mmbiz.qpic.cn/mmbiz_png/CZeKj44ymYaJoZC5alFOmeyMwusdcCIJauB4CiaIsSqzDyr2yicXiaqpIVhKgrmpB0kcoF2nmNc2dC9aktGHHEq8Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="Alt text"><br>(source: <a href="https://mp.weixin.qq.com/s/-oINjNhfYKtZUqljqd79Ww" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/-oINjNhfYKtZUqljqd79Ww</a>)</p>
+<h3 id="多输入滤波同步方式（framesync）"><a href="#多输入滤波同步方式（framesync）" class="headerlink" title="多输入滤波同步方式（framesync）"></a>多输入滤波同步方式（framesync）</h3><p><img src="https://img2018.cnblogs.com/blog/421096/201812/421096-20181229044129723-1248213237.png" alt="Alt text"></p>
+<h3 id="理解FFmpeg滤波器和滤波函数"><a href="#理解FFmpeg滤波器和滤波函数" class="headerlink" title="理解FFmpeg滤波器和滤波函数:"></a>理解FFmpeg滤波器和滤波函数:</h3><p>推荐阅读文章 <a href="https://www.cnblogs.com/TaigaCon/p/10171464.html" target="_blank" rel="noopener">FFmpeg定制滤波器</a> 了解FFmpeg内滤波器两个重要的结构体AVFilter、AVFilterPad和一系列的初始化以及调用流程</p>
+<h4 id="Filter的处理方式有两种，分别对应两种不同的滤波函数接口："><a href="#Filter的处理方式有两种，分别对应两种不同的滤波函数接口：" class="headerlink" title="Filter的处理方式有两种，分别对应两种不同的滤波函数接口："></a>Filter的处理方式有两种，分别对应两种不同的滤波函数接口：</h4><ul>
+<li>单输入：一个输入准备好就可以开始处理。单输入Filter应该实现 filter_frame()函数，在filter_frame()中调用ff_filter_frame()将frame推到下一个filter。<ul>
+<li>示例: 如split, crop。</li>
+<li>使用: filter_frame的输入参数中包括滤波实例的inlink以及从inlink上提取的frame，一般来说filter_frame会对该frame进行滤波处理，然后调用ff_filter_frame向outlink输出滤波后的帧。</li>
+</ul>
+</li>
+<li>多输入: 一个输入准备好还不能决定输出，要先缓存，等到足够的输入才处理。多输入filter应该实现activate()函数，前几次activate()时缓存frame，最后一次才调用ff_filter_frame()。<ul>
+<li>示例: overlay。</li>
+<li>使用:获取前面的滤波器实例输出的帧。具体操作就是调用ff_inlink_consume_frame来从inlink获取前面滤波器实例输出的帧。<br>如果所需要的帧未准备好，则需要通知相应的滤波器实例，表明当前滤波器需要帧。具体操作就是调用ff_inlink_request_frame来设置inlink上的frame_wanted_out，该变量就是用于表明inlink的目标滤波器实例，即当前滤波器实例需要前一个滤波器实例输出帧。<br>如果所需要的帧已准备好，就可以执行滤波操作。<br>向后面的滤波器实例输出滤波完成的帧。具体操作就是调用ff_filter_frame来向outlink输出帧。<br>V2.0版本及之前的代码采用单输入模式，读取单帧输入结果，在处理完成之后直接输出修改后的画面帧，因此滤波函数使用的是filter_frame.<br>v3.0版本因为在抽帧的时候需要参考相邻帧的识别结果，所以需要对画面帧进行缓存，使用的滤波函数接口为activate.</li>
+</ul>
+</li>
+</ul>
+
         </div>
 
         
@@ -255,6 +300,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/02/28/DL_cpp_deployment/">Deployment of Deep Learning model in C++</a>
             
             
             <a class="next" rel="next" href="/2021/02/25/Python_C_API/">Implementation of Python/C interface(Python/C混合编程接口调研)</a>
