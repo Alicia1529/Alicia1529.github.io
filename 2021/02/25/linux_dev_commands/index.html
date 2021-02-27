@@ -7,7 +7,7 @@
 
 
 
-<title>Linux development cheatsheet | Aliciaaa</title>
+<title>Linux development cheatsheet (Updating) | Aliciaaa</title>
 
 
 
@@ -47,7 +47,9 @@
             <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
             <div class="menu navbar-right">
                 
-                    <a class="menu-item" href="/archives">Posts</a>
+                    <a class="menu-item" href="/memo">Memo</a>
+                
+                    <a class="menu-item" href="/archives">Archives</a>
                 
                     <a class="menu-item" href="/category">Categories</a>
                 
@@ -75,7 +77,9 @@
             </div>
             <div class="menu" id="mobile-menu">
                 
-                    <a class="menu-item" href="/archives">Posts</a>
+                    <a class="menu-item" href="/memo">Memo</a>
+                
+                    <a class="menu-item" href="/archives">Archives</a>
                 
                     <a class="menu-item" href="/category">Categories</a>
                 
@@ -176,7 +180,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Linux development cheatsheet</h1>
+            <h1 class="post-title">Linux development cheatsheet (Updating)</h1>
             
                 <div class="post-meta">
                     
@@ -208,16 +212,29 @@
         </header>
 
         <div class="post-content">
-            <h3 id="git操作"><a href="#git操作" class="headerlink" title="git操作"></a>git操作</h3><h4 id="一、查看远程分支"><a href="#一、查看远程分支" class="headerlink" title="一、查看远程分支"></a>一、查看远程分支</h4><p>使用如下git命令查看所有远程分支：</p>
-<figure class="highlight plain"><figcaption><span>branch -r```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```bash</span><br><span class="line"># 建立追踪关系，在现有分支与指定的远程分支之间</span><br><span class="line">$ git branch --set-upstream [branch] [remote-branch]</span><br></pre></td></tr></table></figure>
+            <h3 id="git操作"><a href="#git操作" class="headerlink" title="git操作"></a>git操作</h3><h4 id="一、查看远程分支"><a href="#一、查看远程分支" class="headerlink" title="一、查看远程分支"></a>一、查看远程分支</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用如下git命令查看所有远程分支：</span></span><br><span class="line">git branch -r</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立追踪关系，在现有分支与指定的远程分支之间</span></span><br><span class="line">$ git branch --<span class="built_in">set</span>-upstream [branch] [remote-branch]</span><br></pre></td></tr></table></figure>
 
 <h4 id="二、拉取远程分支并创建本地分支"><a href="#二、拉取远程分支并创建本地分支" class="headerlink" title="二、拉取远程分支并创建本地分支"></a>二、拉取远程分支并创建本地分支</h4><p><strong>方法一</strong><br>使用如下命令：</p>
-<figure class="highlight plain"><figcaption><span>checkout -b 本地分支名x origin/远程分支名x```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">使用该方式会在本地新建分支x，并自动切换到该本地分支x。</span><br><span class="line"></span><br><span class="line">采用此种方法建立的本地分支会和远程分支建立映射关系。</span><br><span class="line"></span><br><span class="line">**方式二**</span><br><span class="line">使用如下命令：</span><br><span class="line"></span><br><span class="line">```git fetch origin 远程分支名x:本地分支名x</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b 本地分支名x origin/远程分支名x</span><br></pre></td></tr></table></figure>
+
+<p>使用该方式会在本地新建分支x，并自动切换到该本地分支x。</p>
+<p>采用此种方法建立的本地分支会和远程分支建立映射关系。</p>
+<p><strong>方式二</strong><br>使用如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin 远程分支名x:本地分支名x</span><br></pre></td></tr></table></figure>
 
 <p>使用该方式会在本地新建分支x，但是不会自动切换到该本地分支x，需要手动checkout。</p>
 <p>采用此种方法建立的本地分支不会和远程分支建立映射关系。</p>
 <h4 id="三、常用操作"><a href="#三、常用操作" class="headerlink" title="三、常用操作"></a>三、常用操作</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick &lt;commit-id&gt; # pick a commit from another branch</span><br><span class="line">git rebase -i HEAD~&lt;N&gt; # modify local commits</span><br><span class="line">git pull --rebase &lt;origin/master&gt; # runs git rebase instead of git merge</span><br><span class="line">git stash # → 把当前的工作隐藏起来 等以后恢复现场后继续工作</span><br><span class="line">git stash pop # → 恢复工作现场（恢复隐藏的文件，同时删除stash列表中对应的内容）</span><br><span class="line">git show HEAD  # → 查看指定版本的修改（可省略HEAD，默认当前版本） 同上</span><br><span class="line">git show HEAD xxx  # → 查看指定版本xx文件的修改（可省略HEAD，默认当前版本）</span><br><span class="line">git reset --hard HEAD  # → 回滚到指定版本，同时清空工作目录的所有改动</span><br><span class="line">git reset --soft HEAD  # → 回滚到指定版本，同时保留工作目录和暂存区的内容，并把重置的位置所导致的新的文件差异放进暂存区</span><br><span class="line">git reset --hard origin/master  # → 将本地master与远程master同步</span><br><span class="line">git reflog # 查看所有commit记录(包括撤销/覆盖的)</span><br><span class="line">git commit --amend -m [message] # 使用一次新的commit，替代上一次提交(如果代码没有任何新变化，则用来改写上一次commit的提交信息)</span><br></pre></td></tr></table></figure>
 
+<h4 id="四、补充内容"><a href="#四、补充内容" class="headerlink" title="四、补充内容"></a>四、补充内容</h4><p>git pull 强制覆盖本地代码：</p>
+<ol>
+<li><code>git fetch --all</code> # 从远程下载最新的，而不尝试合并或rebase任何东西。</li>
+<li><code>git reset --hard origin/&lt;branch_name&gt;</code> # 将主分支重置为您刚刚获取的内容。 –hard选项更改工作树中的所有文件以匹配origin/master中的文件</li>
+</ol>
+<p>Git cheat sheet: <a href="https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf" target="_blank" rel="noopener">https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf</a></p>
+<p><a href="https://blog.csdn.net/qq_32452623/article/details/79449534" target="_blank" rel="noopener">git cherry-pick <commit id></commit></a></p>
+<p><a href="https://www.cnblogs.com/ludashi/p/8116434.html" target="_blank" rel="noopener">Git知识总览(四) git分支管理之rebase 以及 cherry-pick相关操作</a></p>
+<p><a href="https://www.cnblogs.com/ludashi/p/8213550.html" target="_blank" rel="noopener">Git知识总览(五) Git中的merge、rebase、cherry-pick以及交互式rebase</a></p>
 <h3 id="Docker-命令"><a href="#Docker-命令" class="headerlink" title="Docker 命令"></a>Docker 命令</h3><ul>
 <li><p>根据dockerfile在当前目录创建镜像: <code>docker build . -t &lt;repo&gt;:&lt;tag&gt;</code></p>
 </li>
@@ -243,12 +260,19 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker pull &lt;remote repo&gt;</span><br><span class="line">docker ps -a # 查看所有的容器</span><br><span class="line">docker stop &lt;容器 ID&gt; # 停止容器</span><br><span class="line">docker restart &lt;容器 ID&gt; # 停止的容器可以通过 docker restart 重启</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 进入容器</span><br><span class="line">docker attach # 如果从这个容器退出，会导致容器的停止。</span><br><span class="line">docker exec # 推荐大家使用 docker exec 命令，因为此退出容器终端，不会导致容器的停止。</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker pull &lt;remote repo&gt;</span><br><span class="line">docker ps -a # 查看所有的容器</span><br><span class="line">docker stop &lt;容器 ID&gt; # 停止容器</span><br><span class="line">docker restart &lt;容器 ID&gt; # 停止的容器可以通过 docker restart 重启</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入容器</span></span><br><span class="line">docker attach # 如果从这个容器退出，会导致容器的停止。</span><br><span class="line">docker exec # 推荐大家使用 docker exec 命令，因为此退出容器终端，不会导致容器的停止。</span><br></pre></td></tr></table></figure>
 
-<h3 id="CMake-调试操作"><a href="#CMake-调试操作" class="headerlink" title="CMake/调试操作"></a>CMake/调试操作</h3><p><a href="https://blog.csdn.net/lilitroy/article/details/73289149" target="_blank" rel="noopener">Ubuntu 环境下调试修改OpenCV3.2.0源码</a></p>
+<h3 id="CMake-调试操作-gdb-pdb"><a href="#CMake-调试操作-gdb-pdb" class="headerlink" title="CMake/调试操作(gdb/pdb)"></a>CMake/调试操作(gdb/pdb)</h3><p><a href="https://blog.csdn.net/lilitroy/article/details/73289149" target="_blank" rel="noopener">Ubuntu 环境下调试修改OpenCV3.2.0源码</a></p>
 <p><a href="https://www.cnblogs.com/ncuneugcj/p/9756324.html" target="_blank" rel="noopener">CMake 两种变量原理</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>创建build文件夹</span><br><span class="line">mkdir build &amp;&amp; cd build</span><br><span class="line"><span class="meta">#</span>生成预编译文件</span><br><span class="line">cmake -D CMAKE_BUILD_TYPE=Release/DEBUG -D CMAKE_INSTALL_PREFIX=/usr/local ..</span><br><span class="line"><span class="meta">#</span>make &amp; make install</span><br><span class="line">sudo cmake --build . --config Release --target install -- -j8</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 使用gdb进行调试</span><br><span class="line">g++ stitching_detailed.cpp -g -o stitching_gdb  # 生成待调试文件</span><br><span class="line">gdb stitching_gdb # 启动gdb</span><br><span class="line">break &lt;line num&gt; # 打断点</span><br><span class="line">break /path/src.cpp:num # 源码任意位置处打断点</span><br><span class="line">delete num # 删除断点</span><br><span class="line">r # 开始调试</span><br><span class="line">s # 进入子函数</span><br><span class="line">finish # 跳出子函数</span><br></pre></td></tr></table></figure>
-
+<ul>
+<li><p>gdb 调试c++程序</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">创建build文件夹</span></span><br><span class="line">mkdir build &amp;&amp; cd build</span><br><span class="line"><span class="meta">#</span><span class="bash">生成预编译文件</span></span><br><span class="line">cmake -D CMAKE_BUILD_TYPE=Release/DEBUG -D CMAKE_INSTALL_PREFIX=/usr/local ..</span><br><span class="line"><span class="meta">#</span><span class="bash">make &amp; make install</span></span><br><span class="line">sudo cmake --build . --config Release --target install -- -j8</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用gdb进行调试</span></span><br><span class="line">g++ stitching_detailed.cpp -g -o stitching_gdb  # 生成待调试文件</span><br><span class="line">gdb stitching_gdb # 启动gdb</span><br><span class="line">break &lt;line num&gt; # 打断点</span><br><span class="line">break /path/src.cpp:num # 源码任意位置处打断点</span><br><span class="line">delete num # 删除断点</span><br><span class="line">r # 开始调试</span><br><span class="line">s # 进入子函数</span><br><span class="line">finish # 跳出子函数</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>gdb: linux下调试动态链接库 <a href="https://blog.csdn.net/fireroll/article/details/107780929" target="_blank" rel="noopener">https://blog.csdn.net/fireroll/article/details/107780929</a></p>
+</li>
+<li><p>pdb: 调试python程序 基本用法 <a href="https://www.jianshu.com/p/fb5f791fcb18" target="_blank" rel="noopener">https://www.jianshu.com/p/fb5f791fcb18</a></p>
+</li>
+</ul>
 <h3 id="Bash操作"><a href="#Bash操作" class="headerlink" title="Bash操作"></a>Bash操作</h3><ul>
 <li>批量删除文件 <code>sudo find / -iname &quot;*opencv*&quot; | xargs rm -rf</code></li>
 <li><a href="https://blog.csdn.net/qq_40232872/article/details/79159753" target="_blank" rel="noopener">Linux中tar命令</a></li>
@@ -300,7 +324,7 @@
                 <a class="prev" rel="prev" href="/2021/02/25/Python_C_API/">Implementation of Python/C interface(Python/C混合编程接口调研)</a>
             
             
-            <a class="next" rel="next" href="/2021/02/24/python中os.system、os.popen、subprocess.popen的区别/">Python中os.system、os.popen、subprocess.popen的区别</a>
+            <a class="next" rel="next" href="/2021/02/24/python_system_call/">Python中os.system,os.popen,subprocess.popen的区别</a>
             
         </section>
 

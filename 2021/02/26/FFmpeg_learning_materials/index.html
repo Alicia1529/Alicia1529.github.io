@@ -7,7 +7,7 @@
 
 
 
-<title>Git操作 | Aliciaaa</title>
+<title>FFmpeg learning materials and notes | Aliciaaa</title>
 
 
 
@@ -47,7 +47,9 @@
             <div class="navbar-header header-logo"><a href="/">Alicia&#39;s Blog</a></div>
             <div class="menu navbar-right">
                 
-                    <a class="menu-item" href="/archives">Posts</a>
+                    <a class="menu-item" href="/memo">Memo</a>
+                
+                    <a class="menu-item" href="/archives">Archives</a>
                 
                     <a class="menu-item" href="/category">Categories</a>
                 
@@ -75,7 +77,9 @@
             </div>
             <div class="menu" id="mobile-menu">
                 
-                    <a class="menu-item" href="/archives">Posts</a>
+                    <a class="menu-item" href="/memo">Memo</a>
+                
+                    <a class="menu-item" href="/archives">Archives</a>
                 
                     <a class="menu-item" href="/category">Categories</a>
                 
@@ -108,11 +112,75 @@
             <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+
+<!-- <script zIndex="-2" src="js/canvas-nest.js"></script> -->
+    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Git操作</h1>
+            <h1 class="post-title">FFmpeg learning materials and notes</h1>
             
                 <div class="post-meta">
                     
@@ -121,14 +189,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">October 15, 2019&nbsp;&nbsp;9:26:09</a>
+                        Date: <a href="#">February 26, 2021&nbsp;&nbsp;15:23:48</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Linux/">Linux</a>
+                                <a href="/categories/FFmpeg/">FFmpeg</a>
                             
                             
                         </span>
@@ -144,16 +212,10 @@
         </header>
 
         <div class="post-content">
-            <p>git pull 强制覆盖本地代码：</p>
-<ol>
-<li>git fetch –all # 从远程下载最新的，而不尝试合并或rebase任何东西。</li>
-<li>git reset –hard origin/<branch_name> # 将主分支重置为您刚刚获取的内容。 –hard选项更改工作树中的所有文件以匹配origin/master中的文件</branch_name></li>
-</ol>
-<p>Git cheat sheet: <a href="https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf" target="_blank" rel="noopener">https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf</a></p>
-<p><a href="https://blog.csdn.net/qq_32452623/article/details/79449534" target="_blank" rel="noopener">git cherry-pick <commit id></commit></a></p>
-<p><a href="https://www.cnblogs.com/ludashi/p/8116434.html" target="_blank" rel="noopener">Git知识总览(四) git分支管理之rebase 以及 cherry-pick相关操作</a></p>
-<p><a href="https://www.cnblogs.com/ludashi/p/8213550.html" target="_blank" rel="noopener">Git知识总览(五) Git中的merge、rebase、cherry-pick以及交互式rebase</a></p>
-
+            <p>FFmpeg的音频处理详解：<a href="https://blog.csdn.net/fireroll/article/details/83032025" target="_blank" rel="noopener">https://blog.csdn.net/fireroll/article/details/83032025</a></p>
+<p>ffmpeg常用音频处理：<a href="https://blog.csdn.net/sinat_14826983/article/details/82975561" target="_blank" rel="noopener">https://blog.csdn.net/sinat_14826983/article/details/82975561</a></p>
+<p>(二) ffmpeg filter学习–混音实现 amix的代码和混音流程图:<a href="https://blog.csdn.net/xionglifei2014/article/details/98491620?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param" target="_blank" rel="noopener">https://blog.csdn.net/xionglifei2014/article/details/98491620?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param</a></p>
+<h3 id="FFmpeg-常见命令"><a href="#FFmpeg-常见命令" class="headerlink" title="FFmpeg 常见命令"></a>FFmpeg 常见命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -layouts 查看音频的布局情况</span><br><span class="line"></span><br><span class="line">ffprobe input.mkv</span><br><span class="line"></span><br><span class="line">ffprobe -show_frames input.mkv</span><br></pre></td></tr></table></figure>
         </div>
 
         
@@ -167,7 +229,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://www.alicialuo.com/2019/10/15/Git操作/">https://www.alicialuo.com/2019/10/15/Git操作/</a></span>
+                        <span><a href="https://www.alicialuo.com/2021/02/26/FFmpeg_learning_materials/">https://www.alicialuo.com/2021/02/26/FFmpeg_learning_materials/</a></span>
                     </p>
                 
                 
@@ -181,7 +243,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/git/"># git</a>
+                        <a href="/tags/FFmpeg/"># FFmpeg</a>
                     
                         
                 </span>
@@ -194,10 +256,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2019/10/19/Python并行计算基本概念/">Python并行计算基本概念.md</a>
             
-            
-            <a class="next" rel="next" href="/2019/09/24/Cookie&Session/">Cookie&Session</a>
+            <a class="next" rel="next" href="/2021/02/25/Python_C_API/">Implementation of Python/C interface(Python/C混合编程接口调研)</a>
             
         </section>
 
